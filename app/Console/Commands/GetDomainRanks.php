@@ -17,14 +17,15 @@ class GetDomainRanks extends Command
 
     public function handle()
     {
+        $this->info("\nMemory usage at the beginning: " . memory_get_usage(true) . " bytes of 134217728 allowed\n");
         $this->info('Defining variables..');
+        //-------------------------------------------------
         //Variables
         //-------------------------------------------------
         $files = [];
         $data = [];
         $data2 = [];
         $output = [];
-        $domain_rank_diffs = [];
         $update = $this->choice('Update today\'s data before proceeding?: ', ['Yes', 'No']);
         if($update == "Yes"){
             $this->call('domain:update');
@@ -36,6 +37,8 @@ class GetDomainRanks extends Command
         }
         $log_directory = "./domains";
         //-------------------------------------------------
+        //Loading files from domains directory
+        //-------------------------------------------------
         $this->info('Loading data files..');
         foreach(glob($log_directory.'/*') as $file) {
             array_push($files, $file);
@@ -44,10 +47,11 @@ class GetDomainRanks extends Command
         $this->info('Setting analysis checkpoints..');
         $first_point = min($files);
         $last_point = max($files);
-
+        //-------------------------------------------------
         //Get data from .csv to $data
         //-------------------------------------------------
         $this->info('Loading data..');
+        $this->info("\nMemory usage before loading data: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
 
         $file = fopen($first_point, 'r');
         for ($i = 1; $i <= $domains; $i++) {
@@ -65,29 +69,30 @@ class GetDomainRanks extends Command
         fclose($file);
         $this->info('Fetched '.count($data2).' domains from file '.$last_point);
         //-------------------------------------------------
-
+        //Forming the output array
+        //-------------------------------------------------
+        $this->info("\nMemory usage after loading data: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
         $this->info('Processing..');
 
         for($i = 0; $i < $domains; $i++){
             $temp_domain = $data[$i][1];
             $rank_before = $data[$i][0];
             $rank_after = $this->searchForDomain($temp_domain, $data2, $domains);
-            $domain_rank_diffs[$i][1] = $temp_domain;
 
             if(is_numeric($rank_after) && is_numeric($rank_before)){
-                $domain_rank_diffs[$i][0] = $rank_before - $rank_after;
+                $domain_rank_diff = $rank_before - $rank_after;
             }
             else{
-                $domain_rank_diffs[$i][0] = "---";
+                $domain_rank_diff = "---";
             }
 
             $output_object = [];
 
-            array_push($output_object, $temp_domain, $rank_before, $rank_after, $domain_rank_diffs[$i][0]);
+            array_push($output_object, $temp_domain, $rank_before, $rank_after, $domain_rank_diff);
             array_push($output, $output_object);
             unset($output_object);
         }
-
+        //-------------------------------------------------
         $print_mode = $this->choice('Print results to: ', ['Console', 'CSV']);
 
         if($print_mode == 'Console'){
@@ -99,8 +104,23 @@ class GetDomainRanks extends Command
         else{
             $this->error('Something went wrong with print mode choice');
         }
+        //-------------------------------------------------
+        //Unsetting variables to free memory
+        //-------------------------------------------------
+        $this->info("\nMemory usage at the end: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
 
+        unset($data);
+        unset($data2);
+        unset($output);
+
+        $this->info("Memory usage at the end and unsetting variables: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
+        //-------------------------------------------------
+
+        //-------------------------------------------------
+        //Ending operations
+        //-------------------------------------------------
         $this->info('Success!');
+        //-------------------------------------------------
 
 
 //******************************************************************************************************
