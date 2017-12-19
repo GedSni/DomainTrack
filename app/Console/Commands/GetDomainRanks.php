@@ -17,7 +17,6 @@ class GetDomainRanks extends Command
 
     public function handle()
     {
-        $this->info("\nMemory usage at the beginning: " . memory_get_usage(true) . " bytes of 134217728 allowed\n");
         $this->info('Defining variables..');
         //-------------------------------------------------
         //Variables
@@ -25,8 +24,8 @@ class GetDomainRanks extends Command
         $files = [];
         $data = [];
         $data2 = [];
-        $output = [];
-        $update = $this->choice('Update today\'s data before proceeding?: ', ['Yes', 'No']);
+        $update = $this->choice('Update today\'s data before proceeding?: ', ['No', 'Yes']);
+        $print_mode = $this->choice('Print results to: ', ['Console', 'CSV']);
         if($update == "Yes"){
             $this->call('domain:update');
         }
@@ -35,6 +34,8 @@ class GetDomainRanks extends Command
             $this->warn('Command was concluded before taking action because user input was not correct');
             return null;
         }
+        $domains_left = $domains;
+        $domain_interval = 25000;
         $log_directory = "./domains";
         //-------------------------------------------------
         //Loading files from domains directory
@@ -51,71 +52,59 @@ class GetDomainRanks extends Command
         //Get data from .csv to $data
         //-------------------------------------------------
         $this->info('Loading data..');
-        $this->info("\nMemory usage before loading data: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
 
-        $file = fopen($first_point, 'r');
+        $file1 = fopen($first_point, 'r');
+        $file2 = fopen($last_point, 'r');
+
+        $this->prepareCsvFile($first_point, $last_point);
+
         for ($i = 1; $i <= $domains; $i++) {
-            $line = fgetcsv($file);
-            array_push($data, $line);
+            $line2 = fgetcsv($file2);
+            array_push($data2, $line2);
         }
-        fclose($file);
-        $this->info('Fetched '.count($data).' domains from file '.$first_point);
-
-        $file = fopen($last_point, 'r');
+        $time_pre = microtime(true);
+        $this->info("Processing (might take a while)..\n");
         for ($i = 1; $i <= $domains; $i++) {
-            $line = fgetcsv($file);
-            array_push($data2, $line);
-        }
-        fclose($file);
-        $this->info('Fetched '.count($data2).' domains from file '.$last_point);
-        //-------------------------------------------------
-        //Forming the output array
-        //-------------------------------------------------
-        $this->info("\nMemory usage after loading data: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
-        $this->info('Processing..');
+            $time_in_pre = microtime(true);
+            $line1 = fgetcsv($file1);
+            array_push($data, $line1);
 
-        for($i = 0; $i < $domains; $i++){
-            $temp_domain = $data[$i][1];
-            $rank_before = $data[$i][0];
-            $rank_after = $this->searchForDomain($temp_domain, $data2, $domains);
+            if($i % $domain_interval == 0 && $domains_left > $domain_interval){
+                $domains_left -= $domain_interval;
+                $output = $this->formOutput($data, $data2, $domain_interval, $domains);
+                $this->printData($print_mode, $output);
 
-            if(is_numeric($rank_after) && is_numeric($rank_before)){
-                $domain_rank_diff = $rank_before - $rank_after;
+
+                $this->info($domains_left. ' domains left to process');
+                $this->warn("Memory usage: " . memory_get_usage(false) . " bytes of 134217728 allowed");
+                $time_in_post = microtime(true);
+                $exec_time = $time_in_post - $time_in_pre;
+                $this->info($exec_time. "s time spent\n");
+
+                unset($output);
+                unset($data);
+                $data = [];
             }
-            else{
-                $domain_rank_diff = "---";
-            }
-
-            $output_object = [];
-
-            array_push($output_object, $temp_domain, $rank_before, $rank_after, $domain_rank_diff);
-            array_push($output, $output_object);
-            unset($output_object);
         }
         //-------------------------------------------------
-        $print_mode = $this->choice('Print results to: ', ['Console', 'CSV']);
-
-        if($print_mode == 'Console'){
-            $this->printToConsole($output);
-        }
-        elseif($print_mode == 'CSV'){
-            $this->printToCsv($output, $first_point, $last_point);
-        }
-        else{
-            $this->error('Something went wrong with print mode choice');
-        }
+        //Last data
         //-------------------------------------------------
-        //Unsetting variables to free memory
+        $output = $this->formOutput($data, $data2, $domains_left, $domains);
+        $this->printData($print_mode, $output);
         //-------------------------------------------------
-        $this->info("\nMemory usage at the end: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
-
+        //Stats
+        //-------------------------------------------------
+        $time_post = microtime(true);
+        $exec_time = $time_post - $time_pre;
+        $this->info($exec_time. 's time spent overall');
+        //-------------------------------------------------
+        //Closing files and unsetting variables to free memory
+        //-------------------------------------------------
+        unset($output);
         unset($data);
         unset($data2);
-        unset($output);
-
-        $this->info("Memory usage at the end and unsetting variables: " . memory_get_usage(false) . " bytes of 134217728 allowed\n");
-        //-------------------------------------------------
-
+        fclose($file1);
+        fclose($file2);
         //-------------------------------------------------
         //Ending operations
         //-------------------------------------------------
@@ -195,19 +184,33 @@ class GetDomainRanks extends Command
     }
 
     private function printToConsole($output) {
-        $index = 1;
-        $mask = "|%5.5s |%-25.30s | %10s|%10s |%10s |\n";
-        printf($mask, '#', 'Domain', 'Before', 'After', 'Shift');
+        $mask = "|%-25.30s | %10s|%10s |%10s |\n";
+        printf($mask,'Domain', 'Before', 'After', 'Shift');
         foreach($output as $line)
-            printf($mask, $index++, $line[0], $line[1], $line[2], $line[3]);
+            printf($mask, $line[0], $line[1], $line[2], $line[3]);
     }
 
-    private function printToCsv($output, $first_point, $last_point) {
+    private function printToCsv($output) {
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment; filename="domainList.csv"');
 
-        $whiteSpace = [];
+        $file = fopen("domainList.csv","a");
 
+        foreach ($output as $line)
+        {
+            fputcsv($file, $line);
+        }
+
+        fclose($file);
+    }
+
+    private function prepareCsvFile($first_point, $last_point){
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="domainList.csv"');
+
+
+        $whiteSpace = [];
         $header = array
         (
             "DOMAIN","RANK BEFORE","RANK AFTER","RANK SHIFT"
@@ -223,12 +226,48 @@ class GetDomainRanks extends Command
         fputcsv($file, $whiteSpace);
         fputcsv($file, $header);
         fputcsv($file, $whiteSpace);
-        foreach ($output as $line)
-        {
-            fputcsv($file, $line);
-        }
 
         fclose($file);
+
     }
+
+    private function formOutput($data, $data2, $domain_interval, $domains){
+        $output = [];
+
+        for($j = 0; $j < $domain_interval; $j++){
+            $temp_domain = $data[$j][1];
+            $rank_before = $data[$j][0];
+            $rank_after = $this->searchForDomain($temp_domain, $data2, $domains);
+
+            if(is_numeric($rank_after) && is_numeric($rank_before)){
+                $domain_rank_diff = $rank_before - $rank_after;
+            }
+            else{
+                $domain_rank_diff = "---";
+            }
+
+            $output_object = [];
+
+            array_push($output_object, $temp_domain, $rank_before, $rank_after, $domain_rank_diff);
+            array_push($output, $output_object);
+            unset($output_object);
+        }
+
+        return $output;
+    }
+
+    private function printData($print_mode, $output){
+        if($print_mode == 'Console'){
+            $this->printToConsole($output);
+        }
+        elseif($print_mode == 'CSV'){
+            $this->printToCsv($output);
+        }
+        else{
+            $this->error('Something went wrong with print mode choice');
+        }
+    }
+
+
 
 }
