@@ -31,10 +31,14 @@ class GetDailyData extends Command
         file_put_contents("./domains/Tmpfile.zip", file_get_contents($baseUrl3));
 
         $this->info('Extracting..');
-        system('unzip Tmpfile.zip');
+        system('unzip -d ./domains  ./domains/Tmpfile.zip');
 
         $this->info('Renaming..');
-        rename("./top-1m.csv", "./".$date.".csv" );
+        rename("./domains/top-1m.csv", "./domains/".$date.".csv" );
+
+        $this->info('Deleting temporary files..');
+        unlink('./domains/Tmpfile.zip');
+
         $this->info('Success!');
 
     }
