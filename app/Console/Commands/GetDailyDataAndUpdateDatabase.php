@@ -3,20 +3,19 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Domain;
 
-class GetDailyData extends Command
+class GetDailyDataAndUpdateDatabase extends Command
 {
+    protected $signature = 'domain:update_db';
 
-    protected $signature = 'domain:update';
-
-    protected $description = 'Domain rank data download of current day';
+    protected $description = 'Domain rank data download of current day and update database';
 
 
     public function __construct()
     {
         parent::__construct();
     }
-
 
     public function handle()
     {
@@ -40,6 +39,12 @@ class GetDailyData extends Command
 
         $this->info('Deleting temporary files..');
         unlink('./domains/Tmpfile.zip');
+
+        $domains = Domain::count();
+
+        $this->call('domain:add_ranks', [
+            'domains' => $domains
+        ]);
 
         $this->info('Success!');
         //-------------------------------------------------
