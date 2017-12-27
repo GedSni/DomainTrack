@@ -46,7 +46,6 @@ class RanksToDatabase extends Command
         foreach(glob($log_directory.'/*') as $file) {
             array_push($files, $file);
         }
-
         //-------------------------------------------------
         //Get data from .csv files
         //-------------------------------------------------
@@ -60,29 +59,33 @@ class RanksToDatabase extends Command
                 array_push($data, $line);
             }
 
-            for ($i = 0; $i < $domains; $i++){
-                //IDETI I DUOMENU BAZE
-                //print_r($date. "  " . $data[$i][0]. " " . $data[$i][1]. "\n");
+            $domain_data = DB::table('domains')
+                ->select(DB::raw('domains.id as id, domains.name as name'))
+                ->orderBy('id', 'asc')
+                ->get();
 
-                $id = DB::table('domains')
-                    ->select('id')
-                    ->where('name', '=',  $data[$i][1])
-                    ->get();
+            for ($i = 0; $i < count($domain_data); $i++){
+                $success = false;
+                for ($k = 0; $k < $domains; $k++) {
+                    if( $domain_data[$i]->name == $data[$k][1]) {
+                        Rank::updateOrCreate(
+                            [
+                                'date'=>$date,
+                                'value' => $data[$k][0],
+                                'domain_id' => $domain_data[$i]->id
+                            ]);
 
-                $ids = explode(" ", $id);
-                $string_el = (string)$ids[0];
-                preg_match_all('!\d+!',$string_el, $matches);
-
-                if(isset($matches[0][0])){
+                        $success = true;
+                        break;
+                    }
+                }
+                if(!$success){
                     Rank::updateOrCreate(
                         [
                             'date'=>$date,
-                            'value' => $data[$i][0],
-                            'domain_id' => $matches[0][0]
+                            'value' => 'N/A',
+                            'domain_id' => $domain_data[$i]->id
                         ]);
-                }
-                else{
-                    $this->warn($i. " row was not set because domain for this ID doesnt exist");
                 }
             }
             unset($data);
@@ -90,6 +93,7 @@ class RanksToDatabase extends Command
             fclose($file_handle);
             $this->warn("Memory usage: " . memory_get_usage(false) . " bytes of 134217728 allowed");
         }
+
         //-------------------------------------------------
         //Stats
         //-------------------------------------------------

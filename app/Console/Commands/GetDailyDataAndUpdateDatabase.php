@@ -17,6 +17,8 @@ class GetDailyDataAndUpdateDatabase extends Command
         parent::__construct();
     }
 
+
+    //Not working properly
     public function handle()
     {
         //-------------------------------------------------

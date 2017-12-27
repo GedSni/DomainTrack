@@ -47,7 +47,7 @@ class DomainsToDatabase extends Command
         //-------------------------------------------------
         $this->info('Loading data..');
 
-        $file_handle = fopen($files[0], 'r');
+        $file_handle = fopen($files[count($files)-1], 'r');
         for ($i = 0; $i < $domains; $i++) {
             $line = fgetcsv($file_handle);
             array_push($data, $line);

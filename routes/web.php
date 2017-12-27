@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'DomainController@index');
+
+Route::get('/{id}', 'DomainController@show')->name('singleDomain');
+
+
+
