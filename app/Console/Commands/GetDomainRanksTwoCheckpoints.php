@@ -114,17 +114,13 @@ class GetDomainRanksTwoCheckpoints extends Command
     private function searchForDomainRank($domain, $rank_before, $array, $domains) {
 
         //Saraso pirmoje puseje
-        if($rank_before < $domains / 2)
-        {
-            for($i = 0; $i < $domains; $i++){
+        if ($rank_before < $domains / 2) {
+            for ($i = 0; $i < $domains; $i++) {
                 if ($array[$i][1] == $domain) {
                     return $array[$i][0];
                 }
             }
-        }
-        //Saraso antroje puseje
-        elseif($rank_before > $domains / 2)
-        {
+        } elseif($rank_before > $domains / 2) { //Saraso antroje puseje
             for($i = $domains-1; $i > 0; $i--){
                 if ($array[$i][1] == $domain) {
                     return $array[$i][0];
@@ -132,8 +128,11 @@ class GetDomainRanksTwoCheckpoints extends Command
             }
         }
 
-        $null_object = "---";
-        return $null_object;
+        for ($i = 0; $i < $domains; $i++) {
+            if ($array[$i][1] == $domain) {
+                return $array[$i][0];
+            }
+        }
     }
 
     private function domainInput() {
@@ -208,13 +207,13 @@ class GetDomainRanksTwoCheckpoints extends Command
 
             $temp_domain = $data[$j][1];
             $rank_before = $data[$j][0];
-            $rank_after = $this->searchForDomainRank($temp_domain, $rank_before, $data2, $domains); // $domain_interval vietoje $domains
+            $rank_after = $this->searchForDomainRank($temp_domain, $rank_before, $data2, $domains);
 
             if(is_numeric($rank_after) && is_numeric($rank_before)){
                 $domain_rank_diff = $rank_before - $rank_after;
             }
             else{
-                $domain_rank_diff = "---";
+                $domain_rank_diff = null;
             }
 
             $output_object = [];

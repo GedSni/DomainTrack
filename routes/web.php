@@ -13,7 +13,4 @@
 
 Route::get('/', 'DomainController@index');
 
-Route::get('/{id}', 'DomainController@show')->name('singleDomain');
-
-
-
+Route::post('/', 'DomainController@index');

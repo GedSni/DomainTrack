@@ -16,13 +16,14 @@ class CreateRanksTable extends Migration
         Schema::create('Ranks', function (Blueprint $table) {
             $table->increments('id');
             $table->date('date');
-            $table->integer('value')->unsigned();
+            $table->integer('value')->unsigned()->nullable();
             $table->integer('domain_id')->unsigned();
-            $table->timestamps();
 
             $table->foreign('domain_id')
                 ->references('id')->on('domains')
                 ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unique(['date', 'domain_id']);
         });
     }
 

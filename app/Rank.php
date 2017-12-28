@@ -14,4 +14,6 @@ class Rank extends Model
     public function domain(){
         return $this->belongsTo('App\Domain');
     }
+
+    public $timestamps = false;
 }
