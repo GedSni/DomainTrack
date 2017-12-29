@@ -1,5 +1,7 @@
 domainList.csv
 /domains
+/domains_weekly
+/domains_monthly
 /node_modules
 /public/hot
 /public/storage

@@ -15,18 +15,17 @@
     <body>
         <div class="content">
             <div class="container" style="margin-top: 50px">
-                <p>Data from {{$date}} to {{$today}} was taken into consideration</p>
                 <div style="display: inline-block; float: left; margin-right: 10px;">
-                    <p>Name filter</p>
+                    <p>Name filter:</p>
                     <input class="form-control" type="text" id="searchInput" onkeyup="searchDomains()" placeholder="Search for domains..">
                 </div>
-                <p>Date filter</p>
+                <p>Time filter:</p>
                 <form action="{{ action('DomainController@index') }}" method="POST" class="form" role="form">
-                    <select class="form-control" name="date" id="date" style="width:auto;" onchange="this.form.submit()">
-                        @foreach($date_data as $date)
-                            <option value={{$date->date}}>{{$date->date}}</option>
-                        @endforeach
-                            <option selected  disabled hidden>Choose a date</option>
+                    <select class="form-control" name="timePeriod" id="timePeriod" style="width:auto;" onchange="this.form.submit()">
+                        <option value='Day'>Day</option>
+                        <option value='Week'>Week</option>
+                        <option value='Month'>Month</option>
+                        <option selected  disabled hidden>Choose a value</option>
                     </select>
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 </form>
@@ -46,8 +45,19 @@
                             <td>{{$i+1}}</td>
                             <td>{{$data[$i]->id}}</td>
                             <td>{{$data[$i]->name}}</td>
-                            <td>{{$data[$i]->value_after}}</td>
-                            <td>{{$data[$i]->value_before - $data[$i]->value_after}}</td>
+                            @if ($timePeriod == "Day")
+                                <td>{{$data[$i]->day_rank}}</td>
+                                <td>{{$data[$i]->day_diff}}</td>
+                            @elseif ($timePeriod == "Week")
+                                <td>{{$data[$i]->week_rank}}</td>
+                                <td>{{$data[$i]->week_diff}}</td>
+                            @elseif ($timePeriod == "Month")
+                                <td>{{$data[$i]->month_rank}}</td>
+                                <td>{{$data[$i]->month_diff}}</td>
+                            @else
+                                <td>{{$data[$i]->day_rank}}</td>
+                                <td>{{$data[$i]->day_diff}}</td>
+                            @endif
                         </tr>
                     @endfor
                     </tbody>
