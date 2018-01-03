@@ -4,19 +4,15 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 
-class GetDailyData extends Command
+class ManualDataUpdate extends Command
 {
-
     protected $signature = 'domain:update';
-
     protected $description = 'Domain rank data download of current day';
-
 
     public function __construct()
     {
         parent::__construct();
     }
-
 
     public function handle()
     {
@@ -46,3 +42,4 @@ class GetDailyData extends Command
 
     }
 }
+

@@ -3,43 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class DomainController extends Controller
 {
     public function index()
     {
-        $timePeriod = request()->get('timePeriod');
 
-        switch($timePeriod) {
-            case "Day":
-                $data = DB::table('domains')
-                    ->select(DB::raw('id, name, day_rank, day_diff'))
-                    ->orderBy('day_diff', 'desc')
-                    ->get();
-                break;
-            case "Week":
-                $data = DB::table('domains')
-                    ->select(DB::raw('id, name, week_rank, week_diff'))
-                    ->orderBy('week_diff', 'desc')
-                    ->get();
-                break;
-            case "Month":
-                $data = DB::table('domains')
-                    ->select(DB::raw('id, name, month_rank, month_diff'))
-                    ->orderBy('month_diff', 'desc')
-                    ->get();
-                break;
-            default:
-                $data = DB::table('domains')
-                    ->select(DB::raw('id, name, day_rank, day_diff'))
-                    ->orderBy('day_diff', 'desc')
-                    ->get();
-                break;
-        }
-
+        $dataDay = DB::table('domains')
+            ->select(DB::raw('id, name, day_rank, day_diff, day_update_date'))
+            ->orderBy('day_diff', 'desc')
+            ->take(20)
+            ->get();
+        $dataWeek = DB::table('domains')
+            ->select(DB::raw('id, name, week_rank, week_diff, week_update_date'))
+            ->orderBy('week_diff', 'desc')
+            ->take(20)
+            ->get();
+        $dataMonth = DB::table('domains')
+            ->select(DB::raw('id, name, month_rank, month_diff, month_update_date'))
+            ->orderBy('month_diff', 'desc')
+            ->take(20)
+            ->get();
         return view('home')
-            ->with('data', $data)
-            ->with('timePeriod', $timePeriod);
+            ->with('dataDay', $dataDay)
+            ->with('dataWeek', $dataWeek)
+            ->with('dataMonth', $dataMonth);
     }
-
 }

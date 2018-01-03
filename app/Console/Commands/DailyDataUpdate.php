@@ -5,8 +5,10 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Domain;
+use App\Rank;
+use DateTime;
 
-class GetData extends Command
+class DailyDataUpdate extends Command
 {
     protected $signature = 'domain:data {domains?}';
     protected $description = 'Data to database';
@@ -20,43 +22,31 @@ class GetData extends Command
     {
         $this->info('Defining variables');
         $time_pre = microtime(true);
-        $date = date("Y-m-d");
         $files = [];
         $day = date('D');
         $month = date('d');
+        $log_directory = "./domains";
         $domains = $this->argument('domains');
         if (!isset($domains)) {
             $domains = 100000;
         } else {
             $this->info("Domains variable was taken from command arguments");
         }
-        $url = 'http://s3.amazonaws.com/alexa-static/top-1m.csv.zip';
-        $log_directory = "./domains";
-
-        $this->info('Downloading..');
-        file_put_contents("./domains/Tmpfile.zip", file_get_contents($url));
-
-        $this->info('Extracting..');
-        system('unzip -d ./domains  ./domains/Tmpfile.zip');
-
-        $this->info('Renaming..');
-        rename("./domains/top-1m.csv", "./domains/".$date.".csv" );
-
-        $this->info('Deleting temporary files..');
-        unlink('./domains/Tmpfile.zip');
-
+        //$this->call('domain:update');
         $this->info('Loading data files..');
         foreach (glob($log_directory . '/*') as $file) {
             array_push($files, $file);
         }
         $this->info('Processing..');
-        $file_handle = fopen($files[count($files)-1], 'r');
+        $fileHandle = fopen($files[count($files)-1], 'r');
+        $fileDate = new DateTime(substr($files[count($files)-1], -14, 10));
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
-            $line = fgetcsv($file_handle);
+            $line = fgetcsv($fileHandle);
             $newDayRank = $line[0];
             $oldDomain = DB::table('domains')
-                ->select('id', 'name', 'day_rank', 'week_rank', 'month_rank')
+                ->select('id', 'name', 'day_rank', 'week_rank', 'month_rank', 'day_update_date', 'week_update_date',
+                    'month_update_date')
                 ->where('domains.name', '=', $line[1])
                 ->get();
             if (!isset($oldDomain[0])) {
@@ -66,24 +56,27 @@ class GetData extends Command
                     ]
                 );
                 $oldDomain = DB::table('domains')
-                    ->select('id', 'name', 'day_rank', 'week_rank', 'month_rank')
+                    ->select('id', 'name', 'day_rank', 'week_rank', 'month_rank', 'day_update_date', 'week_update_date',
+                        'month_update_date')
                     ->where('domains.name', '=', $line[1])
                     ->get();
             }
-            $newDayDiff = $oldDomain[0]->day_rank - $newDayRank;
-            Domain::updateOrCreate(
-                [
-                    'name' => $oldDomain[0]->name,
-                    'id' => $oldDomain[0]->id,
+            if ($fileDate->format('Y-m-d') != $oldDomain[0]->day_update_date) {
+                $newDayDiff = $oldDomain[0]->day_rank - $newDayRank;
+                Domain::updateOrCreate(
+                    [
+                        'name' => $oldDomain[0]->name,
+                        'id' => $oldDomain[0]->id,
 
-                ],
-                [
-                    'day_rank' => $newDayRank,
-                    'day_diff' => $newDayDiff,
-                    'day_update_date' => $date
-                ]
-            );
-            if ($day == 'Mon') {
+                    ],
+                    [
+                        'day_rank' => $newDayRank,
+                        'day_diff' => $newDayDiff,
+                        'day_update_date' => $fileDate
+                    ]
+                );
+            }
+            if ($day == 'Thu' && $fileDate->format('Y-m-d') != $oldDomain[0]->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $oldDomain[0]->week_rank - $newWeekRank;
                 Domain::updateOrCreate(
@@ -94,11 +87,11 @@ class GetData extends Command
                     [
                         'week_rank' => $newWeekRank,
                         'week_diff' => $newWeekDiff,
-                        'week_update_date' => $date
+                        'week_update_date' => $fileDate
                     ]
                 );
             }
-            if ($month == 01) {
+            if ($month == 14 && $fileDate->format('Y-m-d') != $oldDomain[0]->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $oldDomain[0]->month_rank - $newMonthRank;
                 Domain::updateOrCreate(
@@ -109,13 +102,19 @@ class GetData extends Command
                     [
                         'month_rank' => $newMonthRank,
                         'month_diff' => $newMonthDiff,
-                        'month_update_date' => $date
+                        'month_update_date' => $fileDate
+                    ]
+                );
+                Rank::updateOrCreate(
+                    [
+                        'date' => $fileDate,
+                        'domain_id' => $oldDomain[0]->id,
+                        'value' => $newMonthRank
                     ]
                 );
             }
         }
-
-        DB::table('domains')->where('day_update_date', '<>', $date)->delete();
+        fclose($fileHandle);
         $this->info('Processing ended..');
         $time_post = microtime(true);
         $exec_time = $time_post - $time_pre;
