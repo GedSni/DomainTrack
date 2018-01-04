@@ -12,5 +12,4 @@
 */
 
 Route::get('/', 'DomainController@index');
-
-Route::post('/', 'DomainController@index');
+Route::get('/old', 'DomainController@oldData');

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use DateTime;
 
 class DomainController extends Controller
 {
     public function index()
     {
-
         $dataDay = DB::table('domains')
             ->select(DB::raw('id, name, day_rank, day_diff, day_update_date'))
             ->orderBy('day_diff', 'desc')
@@ -30,4 +28,53 @@ class DomainController extends Controller
             ->with('dataWeek', $dataWeek)
             ->with('dataMonth', $dataMonth);
     }
+
+    public function oldData()
+    {
+        $dates = DB::table('ranks')
+            ->select(DB::raw('distinct date'))
+            ->orderBy('date', 'desc')
+            ->get();
+        if (isset($dates[2]->date)) {
+            $dataMonths3 = DB::table('domains')
+                ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+                ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
+                ->where('ranks.date', '=', $dates[2]->date)
+                ->orderByRaw('domains.day_rank - ranks.value DESC')
+                ->take(20)
+                ->get();
+            if (isset($dates[5]->date)) {
+                $dataMonths6 = DB::table('domains')
+                    ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+                    ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
+                    ->where('ranks.date', '=', $dates[5]->date)
+                    ->orderByRaw('domains.day_rank - ranks.value DESC')
+                    ->take(20)
+                    ->get();
+            } else {
+                return view('oldData')->with('dataMonths3',  $dataMonths3);
+            }
+            if (isset($dates[11]->date)) {
+                $dataMonths12 = DB::table('domains')
+                    ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+                    ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
+                    ->where('ranks.date', '=', $dates[11]->date)
+                    ->orderByRaw('domains.day_rank - ranks.value DESC')
+                    ->take(20)
+                    ->get();
+                return view('oldData')
+                    ->with('dataMonths3',  $dataMonths3)
+                    ->with('dataMonths6', $dataMonths6)
+                    ->with('dataMonths12', $dataMonths12);
+
+            } else {
+                return view('oldData')
+                    ->with('dataMonths3',  $dataMonths3)
+                    ->with('dataMonths6', $dataMonths6);
+            }
+        } else {
+            return view('oldData');
+        }
+    }
 }
+

@@ -11,7 +11,7 @@ use DateTime;
 class DailyDataUpdate extends Command
 {
     protected $signature = 'domain:data {domains?}';
-    protected $description = 'Data to database';
+    protected $description = 'Domain data daily update';
 
     public function __construct()
     {

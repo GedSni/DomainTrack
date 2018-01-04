@@ -27,3 +27,4 @@ class CreateRanksTable extends Migration
         Schema::dropIfExists('domains');
     }
 }
+
