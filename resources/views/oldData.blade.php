@@ -16,7 +16,7 @@
         @if (isset($dataMonths3))
             <p class="tableHead2">Updated {{ $dataMonths3[0]->date }}</p>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
+                <table class="table table-bordered table-curved table-hover table-striped">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -28,8 +28,8 @@
                     @for($i = 0; $i < count($dataMonths3); $i++)
                         <tr>
                             <td>{{$dataMonths3[$i]->name}}</td>
-                            <td>{{$dataMonths3[$i]->day_rank}}</td>
-                            <td>{{$dataMonths3[$i]->day_rank - $dataMonths3[$i]->value}}</td>
+                            <td align="right">{{$dataMonths3[$i]->day_rank}}</td>
+                            <td align="right">{{$dataMonths3[$i]->day_rank - $dataMonths3[$i]->value}}</td>
                         </tr>
                     @endfor
                     </tbody>
@@ -44,7 +44,7 @@
         @if (isset($dataMonths6))
             <p class="tableHead2">Updated {{ $dataMonths6[0]->date }}</p>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
+                <table class="table table-bordered table-curved table-hover table-striped">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -56,8 +56,8 @@
                     @for($i = 0; $i < count($dataMonths6); $i++)
                         <tr>
                             <td>{{$dataMonths6[$i]->name}}</td>
-                            <td>{{$dataMonths6[$i]->day_rank}}</td>
-                            <td>{{$dataMonths6[$i]->day_rank - $dataMonths6[$i]->value}}</td>
+                            <td align="right">{{$dataMonths6[$i]->day_rank}}</td>
+                            <td align="right">{{$dataMonths6[$i]->day_rank - $dataMonths6[$i]->value}}</td>
                         </tr>
                     @endfor
                     </tbody>
@@ -72,7 +72,7 @@
         @if (isset($dataMonths12))
             <p class="tableHead2">Updated {{ $dataMonths12[0]->date }}</p>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover table-striped">
+                <table class="table table-bordered table-curved table-hover table-striped">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -84,8 +84,8 @@
                     @for($i = 0; $i < count($dataMonths12); $i++)
                         <tr>
                             <td>{{$dataMonths12[$i]->name}}</td>
-                            <td>{{$dataMonths12[$i]->day_rank}}</td>
-                            <td>{{$dataMonths12[$i]->day_rank - $dataMonths12[$i]->value}}</td>
+                            <td align="right">{{$dataMonths12[$i]->day_rank}}</td>
+                            <td align="right">{{$dataMonths12[$i]->day_rank - $dataMonths12[$i]->value}}</td>
                         </tr>
                     @endfor
                     </tbody>

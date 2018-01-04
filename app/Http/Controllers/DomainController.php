@@ -10,16 +10,19 @@ class DomainController extends Controller
     {
         $dataDay = DB::table('domains')
             ->select(DB::raw('id, name, day_rank, day_diff, day_update_date'))
+            ->whereRaw('domains.day_update_date = (select MAX(domains.day_update_date) from domains)')
             ->orderBy('day_diff', 'desc')
             ->take(20)
             ->get();
         $dataWeek = DB::table('domains')
             ->select(DB::raw('id, name, week_rank, week_diff, week_update_date'))
+            ->whereRaw('domains.week_update_date = (select MAX(domains.week_update_date) from domains)')
             ->orderBy('week_diff', 'desc')
             ->take(20)
             ->get();
         $dataMonth = DB::table('domains')
             ->select(DB::raw('id, name, month_rank, month_diff, month_update_date'))
+            ->whereRaw('domains.month_update_date = (select MAX(domains.month_update_date) from domains)')
             ->orderBy('month_diff', 'desc')
             ->take(20)
             ->get();

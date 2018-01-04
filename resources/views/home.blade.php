@@ -14,7 +14,7 @@
         <p class="tableHead">Day</p>
         <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-bordered table-curved table-hover table-striped">
                 <thead>
                 <tr>
                     <th>Domain</th>
@@ -26,8 +26,8 @@
                 @for($i = 0; $i < count($dataDay); $i++)
                     <tr>
                         <td>{{$dataDay[$i]->name}}</td>
-                        <td>{{$dataDay[$i]->day_rank}}</td>
-                        <td>{{$dataDay[$i]->day_diff}}</td>
+                        <td align="right">{{$dataDay[$i]->day_rank}}</td>
+                        <td align="right">{{$dataDay[$i]->day_diff}}</td>
                     </tr>
                 @endfor
                 </tbody>
@@ -36,9 +36,9 @@
     </div>
     <div class="col-xs-4">
         <p class="tableHead" >Week</p>
-        <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
+        <p class="tableHead2">Updated {{ $dataWeek[0]->week_update_date }}</p>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-bordered table-curved table-hover table-striped">
                 <thead>
                 <tr>
                     <th>Domain</th>
@@ -50,8 +50,8 @@
                 @for($i = 0; $i < count($dataWeek); $i++)
                     <tr>
                         <td>{{$dataWeek[$i]->name}}</td>
-                        <td>{{$dataWeek[$i]->week_rank}}</td>
-                        <td>{{$dataWeek[$i]->week_diff}}</td>
+                        <td align="right">{{$dataWeek[$i]->week_rank}}</td>
+                        <td align="right">{{$dataWeek[$i]->week_diff}}</td>
                     </tr>
                 @endfor
                 </tbody>
@@ -60,9 +60,9 @@
     </div>
     <div class="col-xs-4">
         <p class="tableHead" >Month</p>
-        <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
+        <p class="tableHead2">Updated {{ $dataMonth[0]->month_update_date }}</p>
         <div class="table-responsive">
-            <table class="table table-bordered table-hover table-striped">
+            <table class="table table-bordered table-curved table-hover table-striped">
                 <thead>
                 <tr>
                     <th>Domain</th>
@@ -74,8 +74,8 @@
                 @for($i = 0; $i < count($dataMonth); $i++)
                     <tr>
                         <td>{{$dataMonth[$i]->name}}</td>
-                        <td>{{$dataMonth[$i]->month_rank}}</td>
-                        <td>{{$dataMonth[$i]->month_diff}}</td>
+                        <td align="right">{{$dataMonth[$i]->month_rank}}</td>
+                        <td align="right">{{$dataMonth[$i]->month_diff}}</td>
                     </tr>
                 @endfor
                 </tbody>
