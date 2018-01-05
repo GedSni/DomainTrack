@@ -34,8 +34,11 @@ class DailyDataUpdate extends Command
         }
         $this->call('domain:update');
         $this->info('Loading data files..');
-        foreach (glob($log_directory . '/*') as $file) {
-            array_push($files, $file);
+        foreach (glob($log_directory . "\*.csv") as $file) {
+            $fileDate = new DateTime(substr($file, -14, 10));
+            if ($fileDate->format('Y-m-d')) {
+                array_push($files, $file);
+            }
         }
         $this->info('Processing..');
         $fileHandle = fopen($files[count($files)-1], 'r');
@@ -77,6 +80,9 @@ class DailyDataUpdate extends Command
         }
         DB::commit();
         fclose($fileHandle);
+        foreach ($files as $file) {
+            unlink($file);
+        }
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;
