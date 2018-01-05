@@ -11,7 +11,7 @@ class DomainsTableSeeder extends Seeder
      */
     public function run()
     {
-        $log_directory = "./domains/";
+        $log_directory = storage_path();
         $domains = 20;
         $files = scandir($log_directory, SCANDIR_SORT_DESCENDING);
         $fileHandle = fopen($log_directory.$files[0], 'r');

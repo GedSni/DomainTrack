@@ -25,7 +25,7 @@ class DailyDataUpdate extends Command
         $files = [];
         $day = date('D');
         $month = date('d');
-        $log_directory = "./domains";
+        $log_directory = storage_path();
         $domains = $this->argument('domains');
         if (!isset($domains)) {
             $domains = 100000;
