@@ -34,12 +34,13 @@ class DailyDataUpdate extends Command
         }
         $this->call('domain:update');
         $this->info('Loading data files..');
-        foreach (glob($log_directory . '\*') as $file) {
+       /* foreach (glob($log_directory . '\*') as $file) {
             $fileDate = new DateTime(substr($file, -14, 10));
             if ($fileDate->format('Y-m-d')) {
                 array_push($files, $file);
             }
-        }
+        }*/
+        $files = scandir($log_directory);
         $this->info('Processing..');
         dd($files);
         $fileHandle = fopen($files[count($files)-1], 'r');
