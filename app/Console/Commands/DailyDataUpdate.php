@@ -40,33 +40,37 @@ class DailyDataUpdate extends Command
         $this->info('Deleting temporary files..');
         unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        $fileHandle = fopen("$log_directory/top-1m.csv", 'r');
+        $fileHandle = fopen("$log_directory/2017-12-14.csv", 'r');
         $fileDate = date("Y-m-d");
+        $fileDate = '2017-12-14';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
+            $saved = false;
             echo "( " . $i . " / " . $domains . " )\r";
             $line = fgetcsv($fileHandle);
             $newDayRank = $line[0];
             $domain = Domain::firstOrNew(['name' => $line[1]]);
-            if ($fileDate != $domain->day_update_date) {
+            /*if ($fileDate != $domain->day_update_date) {
                 $newDayDiff = $domain->day_rank - $newDayRank;
                 $domain->day_rank = $newDayRank;
                 $domain->day_diff = $newDayDiff;
                 $domain->day_update_date = $fileDate;
-            }
-            if ($day == 'Thu' && $fileDate != $domain->week_update_date) {
+            }*/
+            if ($day == 'Mon' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
                 $domain->week_rank = $newWeekRank;
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
             }
-            if ($month == 14 && $fileDate != $domain->month_update_date) {
+            if ($month == 5 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
                 $domain->month_rank = $newMonthRank;
                 $domain->month_diff = $newMonthDiff;
                 $domain->month_update_date = $fileDate;
+                $domain->save();
+                $saved = true;
                 Rank::create(
                     [
                         'date' => $fileDate,
@@ -75,7 +79,9 @@ class DailyDataUpdate extends Command
                     ]
                 );
             }
-            $domain->save();
+            if(!$saved) {
+                $domain->save();
+            }
         }
         DB::commit();
         fclose($fileHandle);

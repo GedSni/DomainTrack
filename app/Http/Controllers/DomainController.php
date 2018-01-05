@@ -12,19 +12,19 @@ class DomainController extends Controller
             ->select(DB::raw('id, name, day_rank, day_diff, day_update_date'))
             ->whereRaw('domains.day_update_date = (select MAX(domains.day_update_date) from domains)')
             ->orderBy('day_diff', 'desc')
-            ->take(20)
+            ->take(250)
             ->get();
         $dataWeek = DB::table('domains')
             ->select(DB::raw('id, name, week_rank, week_diff, week_update_date'))
             ->whereRaw('domains.week_update_date = (select MAX(domains.week_update_date) from domains)')
             ->orderBy('week_diff', 'desc')
-            ->take(20)
+            ->take(250)
             ->get();
         $dataMonth = DB::table('domains')
             ->select(DB::raw('id, name, month_rank, month_diff, month_update_date'))
             ->whereRaw('domains.month_update_date = (select MAX(domains.month_update_date) from domains)')
             ->orderBy('month_diff', 'desc')
-            ->take(20)
+            ->take(250)
             ->get();
         return view('home')
             ->with('dataDay', $dataDay)
@@ -44,7 +44,7 @@ class DomainController extends Controller
                 ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
                 ->where('ranks.date', '=', $dates[2]->date)
                 ->orderByRaw('domains.day_rank - ranks.value DESC')
-                ->take(20)
+                ->take(250)
                 ->get();
             if (isset($dates[5]->date)) {
                 $dataMonths6 = DB::table('domains')
@@ -52,7 +52,7 @@ class DomainController extends Controller
                     ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
                     ->where('ranks.date', '=', $dates[5]->date)
                     ->orderByRaw('domains.day_rank - ranks.value DESC')
-                    ->take(20)
+                    ->take(250)
                     ->get();
             } else {
                 return view('oldData')->with('dataMonths3',  $dataMonths3);
@@ -63,7 +63,7 @@ class DomainController extends Controller
                     ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
                     ->where('ranks.date', '=', $dates[11]->date)
                     ->orderByRaw('domains.day_rank - ranks.value DESC')
-                    ->take(20)
+                    ->take(250)
                     ->get();
                 return view('oldData')
                     ->with('dataMonths3',  $dataMonths3)

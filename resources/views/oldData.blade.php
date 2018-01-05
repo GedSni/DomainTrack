@@ -22,14 +22,21 @@
                         <th>Domain</th>
                         <th class="text-right">Rank</th>
                         <th class="text-right">Diff</th>
+                        <th class="text-center">Links</th>
                     </tr>
                     </thead>
                     <tbody>
                     @for($i = 0; $i < count($dataMonths3); $i++)
                         <tr>
-                            <td>{{$dataMonths3[$i]->name}}</td>
+                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonths3[$i]->name}}">{{$dataMonths3[$i]->name}}</a></td>
                             <td align="right">{{$dataMonths3[$i]->day_rank}}</td>
                             <td align="right">{{$dataMonths3[$i]->day_rank - $dataMonths3[$i]->value}}</td>
+                            <td align="center">
+                                <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonths3[$i]->name}}">
+                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
+                                <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonths3[$i]->name}}">
+                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                            </td>
                         </tr>
                     @endfor
                     </tbody>
@@ -50,14 +57,21 @@
                         <th>Domain</th>
                         <th class="text-right">Rank</th>
                         <th class="text-right">Diff</th>
+                        <th class="text-center">Links</th>
                     </tr>
                     </thead>
                     <tbody>
                     @for($i = 0; $i < count($dataMonths6); $i++)
                         <tr>
-                            <td>{{$dataMonths6[$i]->name}}</td>
+                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonths6[$i]->name}}">{{$dataMonths6[$i]->name}}</a></td>
                             <td align="right">{{$dataMonths6[$i]->day_rank}}</td>
                             <td align="right">{{$dataMonths6[$i]->day_rank - $dataMonths6[$i]->value}}</td>
+                            <td align="center">
+                                <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonths6[$i]->name}}">
+                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
+                                <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonths6[$i]->name}}">
+                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                            </td>
                         </tr>
                     @endfor
                     </tbody>
@@ -78,14 +92,21 @@
                         <th>Domain</th>
                         <th class="text-right">Rank</th>
                         <th class="text-right">Diff</th>
+                        <th class="text-center">Links</th>
                     </tr>
                     </thead>
                     <tbody>
                     @for($i = 0; $i < count($dataMonths12); $i++)
                         <tr>
-                            <td>{{$dataMonths12[$i]->name}}</td>
+                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonths12[$i]->name}}">{{$dataMonths12[$i]->name}}</a></td>
                             <td align="right">{{$dataMonths12[$i]->day_rank}}</td>
                             <td align="right">{{$dataMonths12[$i]->day_rank - $dataMonths12[$i]->value}}</td>
+                            <td align="center">
+                                <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonths12[$i]->name}}">
+                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
+                                <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonths12[$i]->name}}">
+                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                            </td>
                         </tr>
                     @endfor
                     </tbody>

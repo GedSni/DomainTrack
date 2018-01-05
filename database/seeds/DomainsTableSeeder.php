@@ -12,10 +12,9 @@ class DomainsTableSeeder extends Seeder
     public function run()
     {
         $log_directory = storage_path();
-        $domains = 20;
-        $files = scandir($log_directory, SCANDIR_SORT_DESCENDING);
-        $fileHandle = fopen($log_directory.$files[0], 'r');
-        $fileDate = new DateTime(substr($files[0], -14, 10));
+        $domains = 250;
+        $fileHandle = fopen("$log_directory/top-1m.csv", 'r');
+        $fileDate = date("Y-m-d");
         for ($i = 0; $i < $domains; $i++) {
             $line = fgetcsv($fileHandle);
             DB::table('domains')->updateOrInsert([
