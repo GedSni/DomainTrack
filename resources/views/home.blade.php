@@ -27,10 +27,10 @@
                     <tbody>
                     @for($i = 0; $i < count($dataDay); $i++)
                         <tr>
-                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a></td>
+                            <td style="word-wrap: break-word"><a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a></td>
                             <td align="right">{{$dataDay[$i]->day_rank}}</td>
                             <td align="right">{{$dataDay[$i]->day_diff}}</td>
-                            <td align="center">
+                            <td style="display: inline" align="center">
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataDay[$i]->name}}">
                                     <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">

@@ -40,9 +40,8 @@ class DailyDataUpdate extends Command
         $this->info('Deleting temporary files..');
         unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        $fileHandle = fopen("$log_directory/2018-01-04.csv", 'r');
+        $fileHandle = fopen("$log_directory/top-1m.csv", 'r');
         $fileDate = date("Y-m-d");
-        $fileDate = '2018-01-04';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             $saved = false;
@@ -56,14 +55,14 @@ class DailyDataUpdate extends Command
                 $domain->day_diff = $newDayDiff;
                 $domain->day_update_date = $fileDate;
             }
-            if ($day == 'Mon' && $fileDate != $domain->week_update_date) {
+            if ($day == 'Fri' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
                 $domain->week_rank = $newWeekRank;
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
             }
-            if ($month == 1 && $fileDate != $domain->month_update_date) {
+            if ($month == 5 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
                 $domain->month_rank = $newMonthRank;
