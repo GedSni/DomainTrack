@@ -62,14 +62,14 @@
                     <tbody>
                     @for($i = 0; $i < count($dataWeek); $i++)
                         <tr>
-                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a></td>
+                            <td style="max-width: 100px; overflow-wrap: break-word;"><a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a></td>
                             <td align="right">{{$dataWeek[$i]->week_rank}}</td>
                             <td align="right">{{$dataWeek[$i]->week_diff}}</td>
                             <td align="center">
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataWeek[$i]->name}}">
-                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
+                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="25" height="25"></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataWeek[$i]->name}}">
-                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="20" height="20"}}></a>
                             </td>
                         </tr>
                     @endfor
@@ -97,14 +97,14 @@
                     <tbody>
                     @for($i = 0; $i < count($dataMonth); $i++)
                         <tr>
-                            <td><a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a></td>
+                            <td style="max-width: 100px; overflow-wrap: break-word;"><a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a></td>
                             <td align="right">{{$dataMonth[$i]->month_rank}}</td>
                             <td align="right">{{$dataMonth[$i]->month_diff}}</td>
                             <td align="center">
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonth[$i]->name}}">
-                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="30" height="30"></a>
+                                    <img alt="Alexa" src={{ asset('img/alexa.ico') }} width="25" height="25"></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonth[$i]->name}}">
-                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                                    <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="20" height="20"}}></a>
                             </td>
                         </tr>
                     @endfor
