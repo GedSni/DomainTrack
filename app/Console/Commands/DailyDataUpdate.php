@@ -34,15 +34,16 @@ class DailyDataUpdate extends Command
         }
         $this->call('domain:update');
         $this->info('Loading data files..');
-        foreach (glob($log_directory . "\*.csv") as $file) {
+       /* foreach (glob($log_directory . "\*.csv") as $file) {
             $fileDate = new DateTime(substr($file, -14, 10));
             if ($fileDate->format('Y-m-d')) {
                 array_push($files, $file);
             }
-        }
+        }*/
         $this->info('Processing..');
-        $fileHandle = fopen($files[count($files)-1], 'r');
-        $fileDate = new DateTime(substr($files[count($files)-1], -14, 10));
+        $files = scandir($log_directory, SCANDIR_SORT_DESCENDING);
+        $fileHandle = fopen($log_directory.$files[0], 'r');
+        $fileDate = new DateTime(substr($files[0], -14, 10));
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
