@@ -19,13 +19,14 @@ class ManualDataUpdate extends Command
         $date = date("Y-m-d");
         $baseUrl3 ='http://s3.amazonaws.com/alexa-static/top-1m.csv.zip';
         $this->info('Downloading..');
-        file_put_contents("./domains/Tmpfile.zip", file_get_contents($baseUrl3));
+        $path = storage_path();
+        file_put_contents($path . "/tmpfile.zip", file_get_contents($baseUrl3));
         $this->info('Extracting..');
-        system('unzip -d ./domains  ./domains/Tmpfile.zip');
+        system("unzip -d $path $path/tmpfile.zip");
         $this->info('Renaming..');
-        rename("./domains/top-1m.csv", "./domains/".$date.".csv" );
+        rename($path . "/top-1m.csv", $path . "/".$date.".csv" );
         $this->info('Deleting temporary files..');
-        unlink('./domains/Tmpfile.zip');
+        unlink($path . "/tmpfile.zip");
         $this->info('Success!');
     }
 }

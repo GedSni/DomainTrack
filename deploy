@@ -1,2 +1,2 @@
 #!/bin/bash
-git archive --format=tar origin/master | gzip -9c | ssh alexa@138.201.36.30 "cd web && tar --directory=./ -xvzf - && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"
+git archive --format=tar master | gzip -9c | ssh alexa@138.201.36.30 "cd web && tar --directory=./ -xvzf - && composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader"

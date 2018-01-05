@@ -86,7 +86,9 @@
                     </tbody>
                 </table>
             </div>
+        @ekse
         @endif
+
     </div>
 </div>
 @endsection
