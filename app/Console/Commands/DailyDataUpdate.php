@@ -22,7 +22,6 @@ class DailyDataUpdate extends Command
     {
         $this->info('Defining variables');
         $timePre = microtime(true);
-        $files = [];
         $day = date('D');
         $month = date('d');
         $log_directory = storage_path();
@@ -32,39 +31,37 @@ class DailyDataUpdate extends Command
         } else {
             $this->info("Domains variable was taken from command arguments");
         }
-        $this->call('domain:update');
-        $this->info('Loading data files..');
-        foreach (glob($log_directory . '*') as $file) {
-            $fileDate = new DateTime(substr($file, -14, 10));
-            if ($fileDate->format('Y-m-d')) {
-                array_push($files, $file);
-            }
-        }
-        //$files = scandir($log_directory);
+        $baseUrl3 ='http://s3.amazonaws.com/alexa-static/top-1m.csv.zip';
+        $this->info('Downloading..');
+        $path = storage_path();
+        file_put_contents($path . "/tmpfile.zip", file_get_contents($baseUrl3));
+        $this->info('Extracting..');
+        system("unzip -d $path $path/tmpfile.zip");
+        $this->info('Deleting temporary files..');
+        unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        dd($files);
-        $fileHandle = fopen($files[count($files)-1], 'r');
-        $fileDate = new DateTime(substr($files[count($files)-1], -14, 10));
+        $fileHandle = fopen("$log_directory/top-1m.csv", 'r');
+        $fileDate = date("Y-m-d");
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
             $line = fgetcsv($fileHandle);
             $newDayRank = $line[0];
             $domain = Domain::firstOrNew(['name' => $line[1]]);
-            if ($fileDate->format('Y-m-d') != $domain->day_update_date) {
+            if ($fileDate != $domain->day_update_date) {
                 $newDayDiff = $domain->day_rank - $newDayRank;
                 $domain->day_rank = $newDayRank;
                 $domain->day_diff = $newDayDiff;
                 $domain->day_update_date = $fileDate;
             }
-            if ($day == 'Thu' && $fileDate->format('Y-m-d') != $domain->week_update_date) {
+            if ($day == 'Thu' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
                 $domain->week_rank = $newWeekRank;
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
             }
-            if ($month == 14 && $fileDate->format('Y-m-d') != $domain->month_update_date) {
+            if ($month == 14 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
                 $domain->month_rank = $newMonthRank;
@@ -82,9 +79,7 @@ class DailyDataUpdate extends Command
         }
         DB::commit();
         fclose($fileHandle);
-        foreach ($files as $file) {
-            unlink($file);
-        }
+        unlink("$log_directory/top-1m.csv");
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;
