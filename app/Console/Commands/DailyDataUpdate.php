@@ -55,14 +55,14 @@ class DailyDataUpdate extends Command
                 $domain->day_diff = $newDayDiff;
                 $domain->day_update_date = $fileDate;
             }
-            if ($day == 'Fri' && $fileDate != $domain->week_update_date) {
+            if ($day == 'Mon' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
                 $domain->week_rank = $newWeekRank;
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
             }
-            if ($month == 5 && $fileDate != $domain->month_update_date) {
+            if ($month == 1 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
                 $domain->month_rank = $newMonthRank;
