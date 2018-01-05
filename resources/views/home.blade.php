@@ -18,8 +18,8 @@
                 <thead>
                 <tr>
                     <th>Domain</th>
-                    <th>Rank</th>
-                    <th>Diff</th>
+                    <th class="text-right">Rank</th>
+                    <th class="text-right">Diff</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,8 +42,8 @@
                 <thead>
                 <tr>
                     <th>Domain</th>
-                    <th>Rank</th>
-                    <th>Diff</th>
+                    <th class="text-right">Rank</th>
+                    <th class="text-right">Diff</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -66,8 +66,8 @@
                 <thead>
                 <tr>
                     <th>Domain</th>
-                    <th>Rank</th>
-                    <th>Diff</th>
+                    <th class="text-right">Rank</th>
+                    <th class="text-right">Diff</th>
                 </tr>
                 </thead>
                 <tbody>

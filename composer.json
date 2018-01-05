@@ -8,6 +8,7 @@
         "php": ">=7.0.0",
         "barryvdh/laravel-ide-helper": "v2.4.1",
         "christianbach/tablesorter": "1.0.1",
+        "doctrine/dbal": "2.3.5",
         "fideloper/proxy": "~3.3",
         "khill/lavacharts": "3.1.9",
         "laravel/framework": "5.5.*",

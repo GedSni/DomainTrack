@@ -16,7 +16,6 @@ class ManualDataUpdate extends Command
 
     public function handle()
     {
-        $this->info('Defining variables');
         $date = date("Y-m-d");
         $baseUrl3 ='http://s3.amazonaws.com/alexa-static/top-1m.csv.zip';
         $this->info('Downloading..');
