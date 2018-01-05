@@ -9,7 +9,7 @@ class CreateRanksTable extends Migration
 
     public function up()
     {
-        Schema::create('Ranks', function (Blueprint $table) {
+        Schema::create('ranks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('domain_id')->unsigned();
             $table->integer('value')->nullable();
