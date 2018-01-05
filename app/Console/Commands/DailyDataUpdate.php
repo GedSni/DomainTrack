@@ -41,9 +41,9 @@ class DailyDataUpdate extends Command
             }
         }
         $this->info('Processing..');
+        dd($files);
         $fileHandle = fopen($files[count($files)-1], 'r');
         $fileDate = new DateTime(substr($files[count($files)-1], -14, 10));
-        dd($files);
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
