@@ -24,7 +24,6 @@ class DailyDataUpdate extends Command
         $timePre = microtime(true);
         $day = date('D');
         $month = date('d');
-        $log_directory = storage_path();
         $domains = $this->argument('domains');
         if (!isset($domains)) {
             $domains = 100000;
@@ -40,7 +39,7 @@ class DailyDataUpdate extends Command
         $this->info('Deleting temporary files..');
         unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        $fileHandle = fopen("$log_directory/top-1m.csv", 'r');
+        $fileHandle = fopen("$path/top-1m.csv", 'r');
         $fileDate = date("Y-m-d");
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
@@ -58,6 +57,7 @@ class DailyDataUpdate extends Command
             if ($day == 'Mon' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
+                $domain->day_rank = $newDayRank;
                 $domain->week_rank = $newWeekRank;
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
@@ -65,6 +65,7 @@ class DailyDataUpdate extends Command
             if ($month == 1 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
+                $domain->day_rank = $newDayRank;
                 $domain->month_rank = $newMonthRank;
                 $domain->month_diff = $newMonthDiff;
                 $domain->month_update_date = $fileDate;
@@ -84,7 +85,7 @@ class DailyDataUpdate extends Command
         }
         DB::commit();
         fclose($fileHandle);
-        unlink("$log_directory/top-1m.csv");
+        unlink("$path/top-1m.csv");
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;

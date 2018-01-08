@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+require __DIR__ . '/../../../vendor/autoload.php';
+
 use Illuminate\Support\Facades\DB;
+use GuzzleHttp\Client as GuzzleClient;
+use GuzzleHttp\Promise as GuzzlePromise;
 
 class DomainController extends Controller
 {
@@ -15,17 +19,20 @@ class DomainController extends Controller
             ->take(250)
             ->get();
         $dataWeek = DB::table('domains')
-            ->select(DB::raw('id, name, week_rank, week_diff, week_update_date'))
+            ->select(DB::raw('id, name, day_rank, week_rank, week_diff, week_update_date'))
             ->whereRaw('domains.week_update_date = (select MAX(domains.week_update_date) from domains)')
             ->orderBy('week_diff', 'desc')
             ->take(250)
             ->get();
         $dataMonth = DB::table('domains')
-            ->select(DB::raw('id, name, month_rank, month_diff, month_update_date'))
+            ->select(DB::raw('id, name, day_rank, month_rank, month_diff, month_update_date'))
             ->whereRaw('domains.month_update_date = (select MAX(domains.month_update_date) from domains)')
             ->orderBy('month_diff', 'desc')
             ->take(250)
             ->get();
+       $dataDay = $this->checkDomainsStatus($dataDay);
+       //$dataWeek = $this->checkDomainsStatus($dataWeek);
+       //$dataMonth = $this->checkDomainsStatus($dataMonth);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
@@ -78,6 +85,19 @@ class DomainController extends Controller
         } else {
             return view('oldData');
         }
+    }
+
+    private function checkDomainsStatus($data) {
+        $client = new GuzzleClient();
+        $requestPromises = [];
+        foreach ($data as $site) {
+            $requestPromises[$site->name] = $client->getAsync('http://www.' . $site->name);
+        }
+        $results = GuzzlePromise\settle($requestPromises)->wait();
+        foreach ($data as $site) {
+            $site->info = $results[$site->name];
+        }
+        return $data;
     }
 }
 
