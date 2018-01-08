@@ -10,34 +10,16 @@ p.tableHead2 {
     text-align: center;
 }
 
-.table-curved {
-    border-collapse: separate;
-    border: solid #ddd 1px;
-    border-radius: 6px;
-    border-left: 0px;
-    border-top: 0px;
-}
-.table-curved > thead:first-child > tr:first-child > th {
-    border-bottom: 0px;
-    border-top: solid #ddd 1px;
-}
-.table-curved td, .table-curved th {
-    border-left: 1px solid #ddd;
-    border-top: 1px solid #ddd;
-}
-.table-curved > :first-child > :first-child > :first-child {
-    border-top-left-radius: 6px;
-}
-.table-curved > :first-child > :first-child > :last-child {
-    border-top-right-radius: 6px;
-}
-.table-curved > :last-child > :last-child > :first-child {
-    border-bottom-left-radius: 6px;
-}
-.table-curved > :last-child > :last-child > :last-child {
-    border-bottom-right-radius: 6px;
-}
-
 a:visited {
     color: rgb(199, 30, 30);
+}
+
+div.tableDiv {
+    display: inline-table;
+}
+
+@media (min-width:1000px) {
+    .tableDiv {
+        width:30%;
+    }
 }

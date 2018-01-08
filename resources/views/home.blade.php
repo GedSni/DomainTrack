@@ -10,7 +10,7 @@
             </button>
         </form>
     </div>
-    <div class="col-xs-4">
+    <div class="tableDiv">
         <p class="tableHead">Day</p>
         @if(isset($dataDay[0]))
             <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
@@ -44,7 +44,7 @@
             <p class="tableHead" >Not Available</p>
         @endif
     </div>
-    <div class="col-xs-4">
+    <div class="tableDiv">
         <p class="tableHead" >Week</p>
         @if(isset($dataWeek[0]))
             <p class="tableHead2">Updated {{ $dataWeek[0]->week_update_date }}</p>
@@ -78,7 +78,7 @@
             <p class="tableHead" >Not Available</p>
         @endif
     </div>
-    <div class="col-xs-4">
+    <div class="tableDiv">
         <p class="tableHead" >Month</p>
         @if(isset($dataMonth[0]))
             <p class="tableHead2">Updated {{ $dataMonth[0]->month_update_date }}</p>
