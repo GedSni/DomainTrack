@@ -30,9 +30,7 @@ class DomainController extends Controller
             ->orderBy('month_diff', 'desc')
             ->take(250)
             ->get();
-       $dataDay = $this->checkDomainsStatus($dataDay);
-       //$dataWeek = $this->checkDomainsStatus($dataWeek);
-       //$dataMonth = $this->checkDomainsStatus($dataMonth);
+       //$dataDay = $this->checkDomainsStatus($dataDay);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
