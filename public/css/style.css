@@ -18,6 +18,27 @@ div.tableDiv {
     display: inline-table;
 }
 
+table.floatThead-table {
+    border-top: none;
+    border-bottom: none;
+    background-color: #fff;
+}
+
+#fixedHeader {
+    width: 50%;
+    margin: 0 auto;
+    position: relative;
+}
+#fixedHeader tr.scroll {
+    display: table;
+    width: 100%;
+    position: absolute;
+}
+
+th {
+    background-color:white;
+}
+
 @media (min-width:1000px) {
     .tableDiv {
         width:30%;

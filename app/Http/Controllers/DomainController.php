@@ -7,6 +7,8 @@ require __DIR__ . '/../../../vendor/autoload.php';
 use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Promise as GuzzlePromise;
+use GuzzleHttp\Pool;
+use GuzzleHttp\Psr7\Request;
 
 class DomainController extends Controller
 {
@@ -30,7 +32,9 @@ class DomainController extends Controller
             ->orderBy('month_diff', 'desc')
             ->take(250)
             ->get();
-       //$dataDay = $this->checkDomainsStatus($dataDay);
+        //$dataDay = $this->checkDomainsStatus($dataDay);
+        //$dataWeek = $this->checkDomainsStatus($dataWeek);
+        //$dataMonth = $this->checkDomainsStatus($dataMonth);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
@@ -96,6 +100,26 @@ class DomainController extends Controller
             $site->info = $results[$site->name];
         }
         return $data;
+
+
+       /* $client = new GuzzleClient();
+        $requests = function ($data) {
+            foreach ($data as $site) {
+                $uri = 'http://www.' . $site->name;
+                yield new Request('GET', $uri);
+            }
+        };
+        $pool = new Pool($client, $requests($data), [
+            'concurrency' => 2,
+            'fulfilled' => function ($response, $index) {
+
+            },
+            'rejected' => function ($reason, $index) {
+
+            },
+        ]);
+        $promise = $pool->promise();
+        $promise->wait();*/
     }
 }
 
