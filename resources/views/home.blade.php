@@ -33,8 +33,10 @@
                         <tr>
                             <td>
                                 <a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
-                                @if (isset($dataDay[$i]->info) && $dataDay[$i]->info['state'] == 'rejected')
+                                @if (isset($dataDay[$i]->info) && $dataDay[$i]->info == 'rejected')
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                @elseif (isset($dataDay[$i]->info) && $dataDay[$i]->info == 'fulfilled')
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
@@ -70,8 +72,10 @@
                         <tr>
                             <td>
                                 <a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
-                                @if (isset($dataWeek[$i]->info) && $dataWeek[$i]->info['state'] == 'rejected')
+                                @if (isset($dataWeek[$i]->info) && $dataWeek[$i]->info == 'rejected')
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                @elseif (isset($dataWeek[$i]->info) && $dataWeek[$i]->info == 'fulfilled')
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataWeek[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
@@ -107,8 +111,10 @@
                         <tr>
                             <td>
                                 <a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
-                                @if (isset($dataMonth[$i]->info) && $dataMonth[$i]->info['state'] == 'rejected')
+                                @if (isset($dataMonth[$i]->info) && $dataMonth[$i]->info == 'rejected')
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                @elseif (isset($dataMonth[$i]->info) && $dataMonth[$i]->info == 'fulfilled')
+                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonth[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>

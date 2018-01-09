@@ -9,6 +9,8 @@ use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Promise as GuzzlePromise;
 use GuzzleHttp\Pool;
 use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Handler\CurlMultiHandler;
+use GuzzleHttp\HandlerStack;
 
 class DomainController extends Controller
 {
@@ -32,9 +34,9 @@ class DomainController extends Controller
             ->orderBy('month_diff', 'desc')
             ->take(250)
             ->get();
-        //$dataDay = $this->checkDomainsStatus($dataDay);
-        //$dataWeek = $this->checkDomainsStatus($dataWeek);
-        //$dataMonth = $this->checkDomainsStatus($dataMonth);
+        $dataDay = $this->checkDomainsStatus($dataDay);
+        $dataWeek = $this->checkDomainsStatus($dataWeek);
+        $dataMonth = $this->checkDomainsStatus($dataMonth);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
@@ -90,23 +92,35 @@ class DomainController extends Controller
     }
 
     private function checkDomainsStatus($data) {
-        $client = new GuzzleClient();
+       /* $client = new GuzzleClient();
         $requestPromises = [];
         foreach ($data as $site) {
-            $requestPromises[$site->name] = $client->getAsync('http://' . $site->name, ['connect_timeout' => 10]);
+            $requestPromises[$site->name] = $client->getAsync('http://' . $site->name);
         }
-        $results = GuzzlePromise\settle($requestPromises)->wait();
+
         //dd($results);
         foreach ($data as $site) {
             $site->info = $results[$site->name];
         }
-        return $data;
+        return $data;*/
+
+        /*$curl = new CurlMultiHandler();
+        $client = new GuzzleClient();
+        $requestPromises = [];
+        foreach ($data as $site) {
+            $requestPromises[$site->name] = $client->getAsync('http://' . $site->name);
+        }
+        $aggregate = GuzzlePromise\all($requestPromises);
+        while (!GuzzlePromise\is_settled($aggregate)) {
+            $curl->tick();
+        }*/
 
 
-       /* $client = new GuzzleClient();
+
+        /*$client = new GuzzleClient();
         $requests = function ($data) {
             foreach ($data as $site) {
-                $uri = 'http://www.' . $site->name;
+                $uri = 'http://' . $site->name;
                 yield new Request('GET', $uri);
             }
         };
@@ -121,6 +135,38 @@ class DomainController extends Controller
         ]);
         $promise = $pool->promise();
         $promise->wait();*/
+
+
+
+
+        /*$requests = function ($data) {
+            foreach ($data as $site) {
+                $uri = 'http://' . $site->name;
+                yield new Request('GET', $uri);
+            }
+        };
+        $fulfilled = function($result, $index) {
+           echo $index . " ";
+
+        };
+        $rejected = function($reason, $index) {
+        };
+        $promises = $requests($data);
+        $each = GuzzlePromise\each_limit($promises, 50, $fulfilled, $rejected);
+        $each->wait();*/
+
+        $requests = function ($data) {
+            foreach ($data as $site) {
+                $uri = 'http://' . $site->name;
+                yield new Request('GET', $uri);
+            }
+        };
+        $promises = $requests($data);
+        $results = GuzzlePromise\settle($promises)->wait();
+        for ($i = 0; $i < count($data); $i++) {
+            $data[$i]->info = $results[$i]['state'];
+        }
+        return $data;
     }
 }
 
