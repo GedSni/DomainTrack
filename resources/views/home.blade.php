@@ -9,13 +9,18 @@
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
             </button>
         </form>
+        <select id="tables" class="form-control" style="width:auto;" onchange="changeTable(this.value);">
+            <option value="Day">Day</option>
+            <option value="Week">Week</option>
+            <option selected value="Month">Month</option>
+        </select>
     </div>
-    <div class="tableDiv">
+    <div class="dayTableDiv" id="dayTableDiv">
         <p class="tableHead">Day</p>
         @if(isset($dataDay[0]))
             <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -47,12 +52,12 @@
             <p class="tableHead" >Not Available</p>
         @endif
     </div>
-    <div class="tableDiv">
+    <div class="weekTableDiv" id="weekTableDiv">
         <p class="tableHead" >Week</p>
         @if(isset($dataWeek[0]))
             <p class="tableHead2">Updated {{ $dataWeek[0]->week_update_date }}</p>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -84,12 +89,12 @@
             <p class="tableHead" >Not Available</p>
         @endif
     </div>
-    <div class="tableDiv">
+    <div class="monthTableDiv" id="monthTableDiv">
         <p class="tableHead" >Month</p>
         @if(isset($dataMonth[0]))
             <p class="tableHead2">Updated {{ $dataMonth[0]->month_update_date }}</p>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
                         <th>Domain</th>

@@ -14,33 +14,33 @@ a:visited {
     color: rgb(206, 158, 162);
 }
 
-div.tableDiv {
-    display: inline-table;
-}
-
-table.floatThead-table {
-    border-top: none;
-    border-bottom: none;
-    background-color: #fff;
-}
-
-#fixedHeader {
-    width: 50%;
-    margin: 0 auto;
-    position: relative;
-}
-#fixedHeader tr.scroll {
-    display: table;
-    width: 100%;
-    position: absolute;
-}
-
 th {
     background-color:white;
 }
 
-@media (min-width:1000px) {
-    .tableDiv {
-        width:30%;
+@media (max-width:991px) {
+    .dayTableDiv, .weekTableDiv {
+        display: none;
     }
 }
+
+@media (max-width:991px) {
+    #tables {
+        display: block;
+    }
+}
+
+@media (min-width:992px) {
+    .dayTableDiv, .weekTableDiv, .monthTableDiv {
+        display: inline-table !important;
+        width:33% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    #tables {
+        display: none;
+    }
+}
+
+

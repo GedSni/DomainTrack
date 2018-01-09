@@ -93,9 +93,10 @@ class DomainController extends Controller
         $client = new GuzzleClient();
         $requestPromises = [];
         foreach ($data as $site) {
-            $requestPromises[$site->name] = $client->getAsync('http://www.' . $site->name);
+            $requestPromises[$site->name] = $client->getAsync('http://' . $site->name, ['connect_timeout' => 10]);
         }
         $results = GuzzlePromise\settle($requestPromises)->wait();
+        //dd($results);
         foreach ($data as $site) {
             $site->info = $results[$site->name];
         }
