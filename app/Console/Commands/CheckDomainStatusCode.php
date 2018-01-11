@@ -68,8 +68,8 @@ class CheckDomainStatusCode extends Command
             var_dump($i);
             var_dump($domain->name);
             var_dump($httpCode);
-            var_dump($results);
-            if ($httpCode < 400 || $httpCode == 405 || $httpCode == 501) {
+            //var_dump($results);
+            if ($httpCode < 400 && $httpCode != 0 || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
             } else {
                 $domain->status = false;
