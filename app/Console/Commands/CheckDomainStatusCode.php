@@ -37,18 +37,23 @@ class CheckDomainStatusCode extends Command
             ->orderBy('month_diff', 'desc')
             ->take(250)
             ->get();
+        $this->info('Processing cURL requests');
         $nodes = array();
         $nodes = $this->domainArray($dataDay, $nodes);
         $nodes = $this->domainArray($dataWeek, $nodes);
         $nodes = $this->domainArray($dataMonth, $nodes);
-        $this->info('Processing cURL requests');
+        dd($nodes);
         $curl_arr = array();
         $master = curl_multi_init();
         for($i = 0, $count=count($nodes); $i < $count; $i++) {
             $curl_arr[$i] = curl_init();
             curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
+            curl_setopt($curl_arr[$i], CURLOPT_CAINFO, storage_path() . '/cacert.pem');
+            curl_setopt($curl_arr[$i], CURLOPT_CAPATH, storage_path() . '/cacert.pem');
+            curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i] );
-            curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 20);
             curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
             curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
             curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
@@ -60,6 +65,11 @@ class CheckDomainStatusCode extends Command
         for($i = 0; $i < $count; $i++) {
             $domain = Domain::where('name', $nodes[$i])->first();
             $httpCode = curl_getinfo($curl_arr[$i], CURLINFO_HTTP_CODE);
+            $results = curl_multi_getcontent  ( $curl_arr[$i]  );
+           /* var_dump($i);
+            var_dump($domain->name);
+            var_dump($httpCode);
+            var_dump($results);*/
             if ($httpCode < 400 || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
             } else {
@@ -70,8 +80,7 @@ class CheckDomainStatusCode extends Command
         $this->info('Success!');
     }
 
-    private function domainArray($data, $nodes)
-    {
+    private function domainArray($data, $nodes) {
         foreach ($data as $site) {
             if (!in_array($site->name, $nodes)) {
                 array_push($nodes, $site->name);
@@ -79,4 +88,6 @@ class CheckDomainStatusCode extends Command
         }
         return $nodes;
     }
+
+
 }

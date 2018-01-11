@@ -35,7 +35,7 @@
                                 @if (isset($dataDay[$i]->status) && !$dataDay[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 @endif
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
+                                <a rel="noreferrer noopener nofollow" href="http://{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataDay[$i]->name}}">
@@ -72,7 +72,7 @@
                                 @if (isset($dataWeek[$i]->status) && !$dataWeek[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 @endif
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
+                                <a rel="noreferrer noopener nofollow" href="http://{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataWeek[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataWeek[$i]->name}}">
@@ -109,7 +109,7 @@
                                 @if (isset($dataMonth[$i]->status) && !$dataMonth[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                 @endif
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
+                                <a rel="noreferrer noopener nofollow" href="http://{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonth[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonth[$i]->name}}">
