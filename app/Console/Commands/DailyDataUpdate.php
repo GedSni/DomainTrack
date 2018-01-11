@@ -81,7 +81,6 @@ class DailyDataUpdate extends Command
             if(!$saved) {
                 $domain->save();
             }
-
         }
         DB::commit();
         fclose($fileHandle);

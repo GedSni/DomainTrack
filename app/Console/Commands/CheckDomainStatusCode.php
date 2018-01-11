@@ -64,11 +64,10 @@ class CheckDomainStatusCode extends Command
         for($i = 0; $i < $count; $i++) {
             $domain = Domain::where('name', $nodes[$i])->first();
             $httpCode = curl_getinfo($curl_arr[$i], CURLINFO_HTTP_CODE);
-            $results = curl_multi_getcontent  ( $curl_arr[$i]  );
             var_dump($i);
             var_dump($domain->name);
             var_dump($httpCode);
-            //var_dump($results);
+            echo "\n";
             if ($httpCode < 400 && $httpCode != 0 || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
             } else {
