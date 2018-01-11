@@ -42,7 +42,6 @@ class CheckDomainStatusCode extends Command
         $nodes = $this->domainArray($dataDay, $nodes);
         $nodes = $this->domainArray($dataWeek, $nodes);
         $nodes = $this->domainArray($dataMonth, $nodes);
-        dd($nodes);
         $curl_arr = array();
         $master = curl_multi_init();
         for($i = 0, $count=count($nodes); $i < $count; $i++) {
