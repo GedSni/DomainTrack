@@ -22,9 +22,6 @@ th {
     .dayTableDiv, .weekTableDiv {
         display: none;
     }
-}
-
-@media (max-width:991px) {
     #tables {
         display: block;
     }
@@ -33,14 +30,22 @@ th {
 @media (min-width:992px) {
     .dayTableDiv, .weekTableDiv, .monthTableDiv {
         display: inline-table !important;
-        width:33% !important;
+        width:30% !important;
     }
-}
-
-@media (min-width: 992px) {
     #tables {
         display: none;
     }
+    .dayTableDiv {
+        margin-right: 20px;
+    }
+    .weekTableDiv {
+        margin-right: 10px;
+        margin-left: 10px;
+    }
+    .monthTableDiv {
+        margin-left: 20px;
+    }
 }
+
 
 

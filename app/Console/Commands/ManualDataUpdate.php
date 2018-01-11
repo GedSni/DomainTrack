@@ -19,7 +19,7 @@ class ManualDataUpdate extends Command
         $date = date("Y-m-d");
         $baseUrl3 ='http://s3.amazonaws.com/alexa-static/top-1m.csv.zip';
         $this->info('Downloading..');
-        $path = storage_path();
+        $path = './domains';
         file_put_contents($path . "/tmpfile.zip", file_get_contents($baseUrl3));
         $this->info('Extracting..');
         system("unzip -d $path $path/tmpfile.zip");

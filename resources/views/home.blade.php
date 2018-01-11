@@ -19,7 +19,7 @@
         <p class="tableHead">Day</p>
         @if(isset($dataDay[0]))
             <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
-            <div class="table-responsive">
+            <div>
                 <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
@@ -32,12 +32,10 @@
                     @for($i = 0; $i < count($dataDay); $i++)
                         <tr>
                             <td>
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
-                                @if (isset($dataDay[$i]->info) && $dataDay[$i]->info == 'rejected')
+                                @if (isset($dataDay[$i]->status) && !$dataDay[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                @elseif (isset($dataDay[$i]->info) && $dataDay[$i]->info == 'fulfilled')
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
+                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataDay[$i]->name}}">
@@ -58,7 +56,7 @@
         <p class="tableHead" >Week</p>
         @if(isset($dataWeek[0]))
             <p class="tableHead2">Updated {{ $dataWeek[0]->week_update_date }}</p>
-            <div class="table-responsive">
+            <div>
                 <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
@@ -71,12 +69,10 @@
                     @for($i = 0; $i < count($dataWeek); $i++)
                         <tr>
                             <td>
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
-                                @if (isset($dataWeek[$i]->info) && $dataWeek[$i]->info == 'rejected')
+                                @if (isset($dataWeek[$i]->status) && !$dataWeek[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                @elseif (isset($dataWeek[$i]->info) && $dataWeek[$i]->info == 'fulfilled')
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
+                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataWeek[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataWeek[$i]->name}}">
@@ -97,7 +93,7 @@
         <p class="tableHead" >Month</p>
         @if(isset($dataMonth[0]))
             <p class="tableHead2">Updated {{ $dataMonth[0]->month_update_date }}</p>
-            <div class="table-responsive">
+            <div>
                 <table class="table" id="floatingHeader">
                     <thead>
                     <tr>
@@ -110,12 +106,10 @@
                     @for($i = 0; $i < count($dataMonth); $i++)
                         <tr>
                             <td>
-                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
-                                @if (isset($dataMonth[$i]->info) && $dataMonth[$i]->info == 'rejected')
+                                @if (isset($dataMonth[$i]->status) && !$dataMonth[$i]->status)
                                     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                @elseif (isset($dataMonth[$i]->info) && $dataMonth[$i]->info == 'fulfilled')
-                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 @endif
+                                <a rel="noreferrer noopener nofollow" href="http://www.{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonth[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonth[$i]->name}}">

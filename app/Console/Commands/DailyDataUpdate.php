@@ -6,7 +6,6 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Domain;
 use App\Rank;
-use DateTime;
 
 class DailyDataUpdate extends Command
 {
@@ -54,7 +53,7 @@ class DailyDataUpdate extends Command
                 $domain->day_diff = $newDayDiff;
                 $domain->day_update_date = $fileDate;
             }
-            if ($day == 'Mon' && $fileDate != $domain->week_update_date) {
+            if ($day == 'Thu' && $fileDate != $domain->week_update_date) {
                 $newWeekRank = $line[0];
                 $newWeekDiff = $domain->week_rank - $newWeekRank;
                 $domain->day_rank = $newDayRank;
@@ -62,7 +61,7 @@ class DailyDataUpdate extends Command
                 $domain->week_diff = $newWeekDiff;
                 $domain->week_update_date = $fileDate;
             }
-            if ($month == 1 && $fileDate != $domain->month_update_date) {
+            if ($month == 11 && $fileDate != $domain->month_update_date) {
                 $newMonthRank = $line[0];
                 $newMonthDiff = $domain->month_rank - $newMonthRank;
                 $domain->day_rank = $newDayRank;
@@ -82,10 +81,12 @@ class DailyDataUpdate extends Command
             if(!$saved) {
                 $domain->save();
             }
+
         }
         DB::commit();
         fclose($fileHandle);
         unlink("$path/top-1m.csv");
+        $this->call('domain:status');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;
