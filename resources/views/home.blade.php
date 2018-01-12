@@ -1,6 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="overlay">
+    <div class="section1">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="text-align: center" align="center">
+                        twitch.tv
+                        <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/http://twitch.tv">
+                            <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                        <a rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/http://twitch.tv">
+                            <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
+                    </th>
+                    <th style="text-align: center; " align="center">12</th>
+                    <th style="text-align: center" align="center"><span class="label label-success">+100</span></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <div class="section2">
+        <iframe style="width: 100%; height: 100%" src="https://www.w3schools.com">
+            <p>Your browser does not support iframes.</p>
+        </iframe>
+    </div>
+    <div class="section3">
+        <table class="table">
+            <thead>
+            <tr>
+                <th style="text-align: center" align="center">
+                    reddit.com
+                </th>
+                <th style="text-align: center" align="center">13</th>
+                <th style="text-align: center" align="center"><span class="label label-success">+156</span></th>
+                <th>
+                    <form action="/" method="GET">
+                        <button type="submit" class="btn"  style="float: right; margin-right: 30px">Next</button>
+                    </form>
+                </th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
 <div class="container" style="margin-top: 50px">
     <div class="container">
         <form action="/old" method="GET">
@@ -20,7 +62,7 @@
         @if(isset($dataDay[0]))
             <p class="tableHead2">Updated {{ $dataDay[0]->day_update_date }}</p>
             <div>
-                <table class="table" id="floatingHeader">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -31,7 +73,7 @@
                     <tbody>
                     @for($i = 0; $i < count($dataDay); $i++)
                         <tr>
-                            <td>
+                            <td style="max-width:100%;  overflow: hidden; white-space:nowrap">
                                 <a rel="noreferrer noopener nofollow" href="http://{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
                                 <a rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">
                                     <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
@@ -63,7 +105,7 @@
         @if(isset($dataWeek[0]))
             <p class="tableHead2">Updated {{ $dataWeek[0]->week_update_date }}</p>
             <div>
-                <table class="table" id="floatingHeader">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Domain</th>
@@ -106,7 +148,7 @@
         @if (isset($dataMonth[0]))
             <p class="tableHead2">Updated {{ $dataMonth[0]->month_update_date }}</p>
             <div>
-                <table class="table" id="floatingHeader">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>Domain</th>

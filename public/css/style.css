@@ -18,6 +18,40 @@ th {
     background-color:white;
 }
 
+.overlay {
+    position: fixed;
+    z-index:999;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.section1 {
+    height: 5%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    background: rgba(255, 255, 0, 0.5);
+
+}
+
+.section2 {
+    height: 90%;
+    width: 100%;
+    top: 7%;
+    position: absolute;
+    background: rgba(0, 128, 0, 0.5);
+
+}
+
+.section3 {
+    height: 5%;
+    width: 100%;
+    position: absolute;
+    bottom: 2%;
+    background: rgba(255, 0, 0, 0.5);
+}
+
 span.glyphicon {
     color: #9b9494;
 }

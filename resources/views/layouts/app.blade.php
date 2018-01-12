@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Alexa</title>
     <link rel="stylesheet" type="text/css" href={{ URL::asset('css/style.css') }}>
     <link rel="favicon" href="{{{ asset('img/favicon.ico') }}}">
