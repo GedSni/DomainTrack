@@ -75,6 +75,7 @@ class CheckDomainStatusCode extends Command
             curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
             curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 20);
+            curl_setopt($curl_arr[$i], CURLOPT_TIMEOUT, 20);
             curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
             curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
             curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
