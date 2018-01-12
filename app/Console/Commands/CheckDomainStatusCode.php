@@ -42,25 +42,6 @@ class CheckDomainStatusCode extends Command
         $nodes = $this->domainArray($dataDay, $nodes);
         $nodes = $this->domainArray($dataWeek, $nodes);
         $nodes = $this->domainArray($dataMonth, $nodes);
-
-        //Synch
-        /*for($i = 0, $count=count($nodes); $i < $count; $i++) {
-            echo "( " . $i . " / " . $count . " )\r";
-            $domain = Domain::where('name', $nodes[$i])->first();
-            if($this->urlExists('http://' . $nodes[$i]))
-            {
-                $domain->status = true;
-            } else {
-                $domain->status = false;
-            }
-            $domain->save();
-        }*/
-
-        /*$ch = curl_init($url);
-        $data = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);*/
-
-        //Asynch
         $curl_arr = array();
         $userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2';
         $master = curl_multi_init();
@@ -110,27 +91,4 @@ class CheckDomainStatusCode extends Command
         }
         return $nodes;
     }
-
-    private function urlExists($url=NULL)
-    {
-        if($url == NULL) return false;
-        $ch = curl_init($url);
-        $userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2';
-        curl_setopt($ch,CURLOPT_USERAGENT, $userAgent);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $data = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        var_dump($url);
-        var_dump($httpcode);
-        if($httpcode>=200 && $httpcode<400 || $httpcode == 405 || $httpcode == 501 || $httpcode == 463){
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
 }

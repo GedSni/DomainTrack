@@ -18,6 +18,10 @@ th {
     background-color:white;
 }
 
+span.glyphicon {
+    color: #9b9494;
+}
+
 @media (max-width:991px) {
     .dayTableDiv, .weekTableDiv {
         display: none;
