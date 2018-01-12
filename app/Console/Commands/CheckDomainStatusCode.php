@@ -42,20 +42,38 @@ class CheckDomainStatusCode extends Command
         $nodes = $this->domainArray($dataDay, $nodes);
         $nodes = $this->domainArray($dataWeek, $nodes);
         $nodes = $this->domainArray($dataMonth, $nodes);
-        $curl_arr = array();
+
+        //Synch
+        for($i = 0, $count=count($nodes); $i < $count; $i++) {
+            echo "( " . $i . " / " . $count . " )\r";
+            $domain = Domain::where('name', $nodes[$i])->first();
+            if($this->urlExists('http://' . $nodes[$i]))
+            {
+                $domain->status = true;
+            } else {
+                $domain->status = false;
+            }
+            $domain->save();
+        }
+
+        //Asynch
+        /*$curl_arr = array();
         $master = curl_multi_init();
         for($i = 0, $count=count($nodes); $i < $count; $i++) {
             $curl_arr[$i] = curl_init();
-            curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
+            curl_setopt($curl_arr[$i],CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
             curl_setopt($curl_arr[$i], CURLOPT_CAINFO, storage_path() . '/cacert.pem');
             curl_setopt($curl_arr[$i], CURLOPT_CAPATH, storage_path() . '/cacert.pem');
-            curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i] );
+            curl_setopt($curl_arr[$i], CURLOPT_AUTOREFERER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
+            curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 20);
             curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
             curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
             curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
+            curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i] );
             curl_multi_add_handle($master, $curl_arr[$i]);
         }
         do {
@@ -74,7 +92,7 @@ class CheckDomainStatusCode extends Command
                 $domain->status = false;
             }
             $domain->save();
-        }
+        }*/
         $this->info('Success!');
     }
 
@@ -85,6 +103,25 @@ class CheckDomainStatusCode extends Command
             }
         }
         return $nodes;
+    }
+
+    private function urlExists($url=NULL)
+    {
+        if($url == NULL) return false;
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $data = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        var_dump($url);
+        var_dump($httpcode);
+        if($httpcode>=200 && $httpcode<400 || $httpcode == 405 || $httpcode == 501 || $httpcode == 463){
+            return true;
+        } else {
+            return false;
+        }
     }
 
 
