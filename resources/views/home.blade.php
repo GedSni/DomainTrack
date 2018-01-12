@@ -24,7 +24,8 @@
                     <thead>
                     <tr>
                         <th>Domain</th>
-                        <th class="text-left">Rank</th>
+                        <th>Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,13 +40,12 @@
                                 @if (isset($dataDay[$i]->status) && !$dataDay[$i]->status)
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
-
                             </td>
-                            <td align="right">{{$dataDay[$i]->day_rank}}</td>
+                            <td>{{$dataDay[$i]->day_rank}}</td>
                             @if ($dataDay[$i]->day_diff > 0)
-                                <td align="left"> <span class="label label-success">+{{$dataDay[$i]->day_diff}}</span></td>
+                                <td align="left"><span class="label label-success">+{{$dataDay[$i]->day_diff}}</span></td>
                             @elseif ($dataDay[$i]->day_diff < 0)
-                                <td align="left"> <span class="label label-danger">{{$dataDay[$i]->day_diff}}</span></td>
+                                <td align="left"><span class="label label-danger">{{$dataDay[$i]->day_diff}}</span></td>
                             @elseif ($dataDay[$i]->day_diff == 0)
                                 <td align="left"> <span class="label label-default">{{$dataDay[$i]->day_diff}}</span></td>
                             @endif
@@ -67,7 +67,8 @@
                     <thead>
                     <tr>
                         <th>Domain</th>
-                        <th class="text-left">Rank</th>
+                        <th align="left" class="text-left">Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -83,13 +84,13 @@
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
                             </td>
-                            <td align="right">{{$dataWeek[$i]->day_rank}}</td>
+                            <td>{{$dataWeek[$i]->day_rank}}</td>
                             @if ($dataWeek[$i]->week_diff > 0)
-                                <td align="left"> <span class="label label-success">+{{$dataWeek[$i]->week_diff}}</span></td>
+                                <td align="left"><span class="label label-success">+{{$dataWeek[$i]->week_diff}}</span></td>
                             @elseif ($dataWeek[$i]->week_diff < 0)
-                                <td align="left"> <span class="label label-danger">{{$dataWeek[$i]->week_diff}}</span></td>
+                                <td align="left"><span class="label label-danger">{{$dataWeek[$i]->week_diff}}</span></td>
                             @elseif ($dataWeek[$i]->week_diff == 0)
-                                <td align="left"> <span class="label label-default">{{$dataWeek[$i]->week_diff}}</span></td>
+                                <td align="left"><span class="label label-default">{{$dataWeek[$i]->week_diff}}</span></td>
                             @endif
                         </tr>
                     @endfor
@@ -109,7 +110,8 @@
                     <thead>
                     <tr>
                         <th>Domain</th>
-                        <th class="text-left">Rank</th>
+                        <th align="left" class="text-left">Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -125,9 +127,9 @@
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
                             </td>
-                            <td align="right">{{$dataMonth[$i]->day_rank}}</td>
+                            <td>{{$dataMonth[$i]->day_rank}}</td>
                             @if ($dataMonth[$i]->month_diff > 0)
-                                <td align="left"> <span class="label label-success">+{{$dataMonth[$i]->month_diff}}</span></td>
+                                <td align="left"><span class="label label-success">+{{$dataMonth[$i]->month_diff}}</span></td>
                             @elseif ($dataMonth[$i]->month_diff < 0)
                                 <td align="left"> <span class="label label-danger">{{$dataMonth[$i]->month_diff}}</span></td>
                             @elseif ($dataMonth[$i]->month_diff == 0)

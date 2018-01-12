@@ -25,6 +25,7 @@
                     <tr>
                         <th>Domain</th>
                         <th class="text-left">Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,9 +40,8 @@
                                 @if (isset($dataMonths3[$i]->status) && !$dataMonths3[$i]->status)
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
-
                             </td>
-                            <td align="right">{{$dataMonths3[$i]->day_rank}}</td>
+                            <td>{{$dataMonths3[$i]->day_rank}}</td>
                             @if ($dataMonths3[$i]->day_diff > 0)
                                 <td align="left"> <span class="label label-success">+{{$dataMonths3[$i]->day_diff}}</span></td>
                             @elseif ($dataMonths3[$i]->day_diff < 0)
@@ -68,6 +68,7 @@
                     <tr>
                         <th>Domain</th>
                         <th class="text-left">Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -82,9 +83,8 @@
                                 @if (isset($dataMonths6[$i]->status) && !$dataMonths6[$i]->status)
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
-
                             </td>
-                            <td align="right">{{$dataMonths6[$i]->day_rank}}</td>
+                            <td>{{$dataMonths6[$i]->day_rank}}</td>
                             @if ($dataMonths6[$i]->day_diff > 0)
                                 <td align="left"> <span class="label label-success">+{{$dataMonths6[$i]->day_diff}}</span></td>
                             @elseif ($dataMonths6[$i]->day_diff < 0)
@@ -111,6 +111,7 @@
                     <tr>
                         <th>Domain</th>
                         <th class="text-left">Rank</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -125,9 +126,8 @@
                                 @if (isset($dataMonths12[$i]->status) && !$dataMonths12[$i]->status)
                                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                 @endif
-
                             </td>
-                            <td align="right">{{$dataMonths12[$i]->day_rank}}</td>
+                            <td>{{$dataMonths12[$i]->day_rank}}</td>
                             @if ($dataMonths12[$i]->day_diff > 0)
                                 <td align="left"> <span class="label label-success">+{{$dataMonths12[$i]->day_diff}}</span></td>
                             @elseif ($dataMonths12[$i]->day_diff < 0)
