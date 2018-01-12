@@ -56,23 +56,28 @@ class CheckDomainStatusCode extends Command
             $domain->save();
         }*/
 
+        /*$ch = curl_init($url);
+        $data = curl_exec($ch);
+        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);*/
+
         //Asynch
         $curl_arr = array();
+        $userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2';
         $master = curl_multi_init();
         for($i = 0, $count=count($nodes); $i < $count; $i++) {
             $curl_arr[$i] = curl_init();
-            //curl_setopt($curl_arr[$i],CURLOPT_USERAGENT,'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.52 Safari/537.17');
+            curl_setopt($curl_arr[$i],CURLOPT_USERAGENT, $userAgent);
             //curl_setopt($curl_arr[$i], CURLOPT_CAINFO, storage_path() . '/cacert.pem');
             //curl_setopt($curl_arr[$i], CURLOPT_CAPATH, storage_path() . '/cacert.pem');
             //curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYPEER, true);
             //curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYHOST, false);
-            //curl_setopt($curl_arr[$i], CURLOPT_AUTOREFERER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_AUTOREFERER, true);
             curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
-            //curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
+            curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
             curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 20);
-            //curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
-            //curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
-            //curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
+            curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
+            curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
             curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i] );
             curl_multi_add_handle($master, $curl_arr[$i]);
         }
@@ -109,6 +114,8 @@ class CheckDomainStatusCode extends Command
     {
         if($url == NULL) return false;
         $ch = curl_init($url);
+        $userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2';
+        curl_setopt($ch,CURLOPT_USERAGENT, $userAgent);
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 20);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
