@@ -18,7 +18,16 @@ th {
     background-color:white;
 }
 
+.link {
+    display :inline-block;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .overlay {
+    display: none;
     position: fixed;
     z-index:999;
     top: 0;
@@ -27,36 +36,100 @@ th {
 }
 
 .section1 {
-    height: 5%;
+    height: 8%;
     width: 100%;
     position: absolute;
     top: 0;
-    background: rgba(255, 255, 0, 0.5);
-
+    background-color: white;
 }
 
 .section2 {
-    height: 90%;
+    height: 84%;
     width: 100%;
-    top: 7%;
+    top: 8%;
     position: absolute;
-    background: rgba(0, 128, 0, 0.5);
-
+    background-color: #000000;
 }
 
 .section3 {
-    height: 5%;
+    height: 8%;
     width: 100%;
     position: absolute;
-    bottom: 2%;
-    background: rgba(255, 0, 0, 0.5);
+    bottom: 0;
+    background-color: white;
 }
 
-span.glyphicon {
+.layout {
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+
+.tableCell {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+span.glyphicon.glyphicon-exclamation-sign {
     color: #9b9494;
 }
 
-@media (max-width:991px) {
+span.glyphicon.glyphicon-off .glyphicon-forward {
+    color: #000000;
+    padding: 0px;
+}
+
+#topName, #bottomName, #topRank, #bottomRank {
+    margin-top: 10px;
+}
+
+@media (max-width: 450px) {
+    .domainName {
+        max-width: 100px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 450px) {
+    .domainName {
+        max-width: 220px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-width: 700px) {
+    .domainName {
+        max-width: 500px;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+@media (min-height: 900px) {
+    #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
+        font-size: 25px;
+    }
+    .exitGlyph, .nextRowGlyph {
+        font-size: 30px;
+    }
+}
+@media (max-height: 900px) {
+    #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
+        font-size: 15px;
+    }
+    .exitGlyph, .nextRowGlyph {
+        font-size: 20px;
+    }
+}
+@media (max-width:1000px) {
     .dayTableDiv, .weekTableDiv {
         display: none;
     }
@@ -65,7 +138,7 @@ span.glyphicon {
     }
 }
 
-@media (min-width:992px) {
+@media (min-width:1000px) {
     .dayTableDiv, .weekTableDiv, .monthTableDiv {
         display: inline-table !important;
         width:30% !important;
@@ -84,6 +157,8 @@ span.glyphicon {
         margin-left: 20px;
     }
 }
+
+
 
 
 
