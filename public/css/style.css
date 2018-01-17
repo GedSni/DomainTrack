@@ -36,11 +36,11 @@ th {
 }
 
 .section2 {
-    height: 84%;
+    height: 86%;
     width: 100%;
-    top: 8%;
+    top: 7%;
     position: absolute;
-    background-color: #000000;
+    background-color: #ffffff;
 }
 
 .section3 {
@@ -78,10 +78,13 @@ span.glyphicon.glyphicon-off .glyphicon-forward {
 #topName, #bottomName, #topRank, #bottomRank {
     margin-top: 10px;
 }
+a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
+    color: black;
+}
 
 @media (max-width: 450px) {
     .domainName {
-        max-width: 100px;
+        max-width: 140px;
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
@@ -137,12 +140,16 @@ span.glyphicon.glyphicon-off .glyphicon-forward {
     .exitGlyph, .nextRowGlyph {
         font-size: 30px;
     }
+    .status, .statusGlyph {
+        font-size: 20px;
+    }
     .similarImg, .alexaImg {
         width: 40px;
         height: 40px;
     }
 
 }
+
 @media (max-height: 900px) {
     #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
         font-size: 15px;
@@ -150,11 +157,15 @@ span.glyphicon.glyphicon-off .glyphicon-forward {
     .exitGlyph, .nextRowGlyph {
         font-size: 20px;
     }
+    .status, .statusGlyph {
+        font-size: 15px;
+    }
     .similarImg, .alexaImg {
         width: 25px;
         height: 25px;
     }
 }
+
 @media (max-width:1200px) {
     .dayTableDiv, .weekTableDiv {
         display: none;

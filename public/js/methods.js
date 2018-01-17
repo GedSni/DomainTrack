@@ -26,23 +26,13 @@ function changeTable(value) {
     }
 }
 
-/*$(document).ready(function() {
-    function disable_scroll()
-    {
-        document.getElementById("mainDiv").style.overflow="hidden";
-    }
-
-    function enable_scroll()
-    {
-        document.getElementById("mainDiv").style.overflow="auto";
-    }
-    document.getElementById("mainFrame").onmouseenter = disable_scroll;
-    document.getElementById("mainFrame").onmouseleave = enable_scroll;
-});*/
-
 function error(e){
     alert(e);
 }
+
+$(document).ready(function() {
+    $("a.domainTooltip").tooltip();
+});
 
 (function () {
     var row;
@@ -62,6 +52,7 @@ function error(e){
     });
 
     function proceed() {
+        $('#loader').show();
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
         var bottomDiff = $("#bottomDiff");
@@ -100,6 +91,9 @@ function error(e){
             $("#bottomStatusDiv").hide();
         }
         $("#mainFrame").attr("src", "http://"+$(row.children('.nameAndLinks')).text().trim());
+        $('#mainFrame').on('load', function () {
+            $('#loader').hide();
+        });
         row = nextRow;
     }
 })();

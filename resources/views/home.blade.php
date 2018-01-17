@@ -4,7 +4,9 @@
 <div class="overlay">
     <div class="section1 layout">
         <div id="topStatusDiv" class="tableCell">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
+            </a>
         </div>
         <div class="tableCell">
             <p class="domainName" id="topName"></p>
@@ -26,13 +28,18 @@
         </div>
     </div>
     <div class="section2">
-        <iframe id="mainFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
+        <img id="loader" alt="Loading indicator" width="30" height="30" src={{ asset('img/loader.gif') }} >
+        <iframe id="mainFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+                style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
             <p>Your browser does not support iframes.</p>
         </iframe>
+
     </div>
     <div class="section3 layout">
         <div id="bottomStatusDiv" class="tableCell">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
+            </a>
         </div>
         <div class="tableCell">
             <p class="domainName" id="bottomName"></p>
@@ -91,7 +98,9 @@
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataDay[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataDay[$i]->status) && !$dataDay[$i]->status)
-                                    <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                                        <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    </a>
                                 @endif
                             </td>
                             <td class="rank">{{$dataDay[$i]->day_rank}}</td>
@@ -134,7 +143,9 @@
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataWeek[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataWeek[$i]->status) && !$dataWeek[$i]->status)
-                                    <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                                        <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    </a>
                                 @endif
                             </td>
                             <td class="rank">{{$dataWeek[$i]->day_rank}}</td>
@@ -177,7 +188,9 @@
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonth[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataMonth[$i]->status) && !$dataMonth[$i]->status)
-                                    <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                                        <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    </a>
                                 @endif
                             </td>
                             <td class="rank">{{$dataMonth[$i]->day_rank}}</td>
