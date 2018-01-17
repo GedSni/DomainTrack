@@ -26,6 +26,20 @@ function changeTable(value) {
     }
 }
 
+/*$(document).ready(function() {
+    function disable_scroll()
+    {
+        document.getElementById("mainDiv").style.overflow="hidden";
+    }
+
+    function enable_scroll()
+    {
+        document.getElementById("mainDiv").style.overflow="auto";
+    }
+    document.getElementById("mainFrame").onmouseenter = disable_scroll;
+    document.getElementById("mainFrame").onmouseleave = enable_scroll;
+});*/
+
 function error(e){
     alert(e);
 }
@@ -49,29 +63,41 @@ function error(e){
 
     function proceed() {
         var nextRow = row.closest('tr').next('tr');
+        var topDiff = $("#topDiff");
+        var bottomDiff = $("#bottomDiff");
         $("#topName").text($(row.children('.nameAndLinks')).text());
         $("#topSimilar").attr( "href", "https://www.similarweb.com/website/" + $(row.children('.nameAndLinks')).text());
         $("#topAlexa").attr( "href", "https://www.alexa.com/siteinfo/" + $(row.children('.nameAndLinks')).text());
         $("#topRank").text($(row.children('.rank')).text());
-        $("#topDiff").text($(row.children('.diff')).text());
-        if (parseInt($("#topDiff").text()) > 0) {
-            $("#topDiff").addClass("label-success").removeClass("label-danger label-default");
-        } else if (parseInt($("#topDiff").text()) < 0) {
-            $("#topDiff").addClass("label-danger").removeClass("label-success label-default");
-        } else if (parseInt($("#topDiff").text()) === 0) {
-            $("#topDiff").addClass("label-default").removeClass("label-success label-danger");
+        topDiff.text($(row.children('.diff')).text());
+        if (parseInt(topDiff.text()) > 0) {
+            topDiff.addClass("label-success").removeClass("label-danger label-default");
+        } else if (parseInt(topDiff.text()) < 0) {
+            topDiff.addClass("label-danger").removeClass("label-success label-default");
+        } else if (parseInt(topDiff.text()) === 0) {
+            topDiff.addClass("label-default").removeClass("label-success label-danger");
+        }
+        if($(row.find('.status')).length) {
+            $("#topStatusDiv").css("display", "table-cell");
+        } else {
+            $("#topStatusDiv").hide();
         }
         $("#bottomName").text($(nextRow.children('.nameAndLinks')).text());
         $("#bottomSimilar").attr( "href", "https://www.similarweb.com/website/" + $(nextRow.children('.nameAndLinks')).text());
         $("#bottomAlexa").attr( "href", "https://www.alexa.com/siteinfo/" + $(nextRow.children('.nameAndLinks')).text());
         $("#bottomRank").text($(nextRow.children('.rank')).text());
-        $("#bottomDiff").text($(nextRow.children('.diff')).text());
-        if (parseInt($("#bottomDiff").text()) > 0) {
-            $("#bottomDiff").addClass("label-success").removeClass("label-danger label-default");
-        } else if (parseInt($("#bottomDiff").text()) < 0) {
-            $("#bottomDiff").addClass("label-danger").removeClass("label-success label-default");
-        } else if (parseInt($("#bottomDiff").text()) === 0) {
-            $("#bottomDiff").addClass("label-default").removeClass("label-success label-danger");
+        bottomDiff.text($(nextRow.children('.diff')).text());
+        if (parseInt(bottomDiff.text()) > 0) {
+            bottomDiff.addClass("label-success").removeClass("label-danger label-default");
+        } else if (parseInt(bottomDiff.text()) < 0) {
+            bottomDiff.addClass("label-danger").removeClass("label-success label-default");
+        } else if (parseInt(bottomDiff.text()) === 0) {
+            bottomDiff.addClass("label-default").removeClass("label-success label-danger");
+        }
+        if($(nextRow.find('.status')).length) {
+            $("#bottomStatusDiv").css("display", "table-cell");
+        } else {
+            $("#bottomStatusDiv").hide();
         }
         $("#mainFrame").attr("src", "http://"+$(row.children('.nameAndLinks')).text().trim());
         row = nextRow;
