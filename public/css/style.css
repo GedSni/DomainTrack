@@ -182,6 +182,13 @@ span.glyphicon.glyphicon-off .glyphicon-forward {
     .monthTableDiv {
         margin-left: 20px;
     }
+    .link {
+        display :inline-block;
+        max-width: 200px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 

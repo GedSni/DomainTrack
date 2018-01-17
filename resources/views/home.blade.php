@@ -57,7 +57,7 @@
 <div id="mainDiv" class="container" style="margin-top: 50px">
     <div class="container">
         <form action="/old" method="GET">
-            <button type="submit" class="btn"  style="float: right; margin-right: 30px">
+            <button type="submit" class="btn"  style="width:auto; float:right">
                 Older Data
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
             </button>
