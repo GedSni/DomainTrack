@@ -28,28 +28,28 @@ th {
 }
 
 .section1 {
-    height: 8%;
+    height: 50px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     top: 0;
     background-color: white;
     border-bottom: 1px solid black;
 }
 
 .section2 {
-    height: 86%;
+    height: calc( 100% - 100px );
     width: 100%;
-    top: 8%;
-    position: absolute;
+    top: 50px;
+    position: fixed;
     background-color: #ffffff;
     overflow:auto;
     -webkit-overflow-scrolling:touch;
 }
 
 .section3 {
-    height: 8%;
+    height: 50px;
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     background-color: white;
     border-top: 1px solid black;
@@ -170,20 +170,20 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 
 @media (min-height: 900px) {
     #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
-        font-size: 25px;
+        font-size: 15px;
     }
     .exitGlyph, .nextRowGlyph {
-        font-size: 30px;
+        font-size: 25px;
     }
     .status {
         font-size: 20px;
     }
     .statusGlyph {
-        font-size: 25px;
+        font-size: 20px;
     }
     .similarImg, .alexaImg {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 
 }

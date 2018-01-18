@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="section2" style="">
-        <div class="loader" id="loader"></div>
+        <div style="position: fixed" class="loader" id="loader"></div>
         <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
             <p>Your browser does not support iframes.</p>

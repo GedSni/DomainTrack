@@ -37,12 +37,14 @@ function error(e){
             $('.link', 'tr').click(function(e) {
                 e.preventDefault();
                 $(".overlay").show();
+                $("body").css("overflow", "hidden");
                 row = $(this).closest('tr');
                 proceed();
             });
             $("button.nextRow").click(proceed);
             $("button.exit").click(function(){
                 $(".overlay").hide();
+                $("body").css("overflow", "visible");
             });
         }
         $("a.domainTooltip").tooltip();
