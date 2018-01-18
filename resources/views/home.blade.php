@@ -24,12 +24,12 @@
             <span id="topDiff" class="label"></span>
         </div>
         <div class="tableCell">
-            <button class="btn btn-link exit"><span class="glyphicon glyphicon-off exitGlyph" aria-hidden="true"></span></button>
+            <button class="btn btn-link exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
         </div>
     </div>
-    <div class="section2">
-        <img id="loader" alt="Loading indicator" width="30" height="30" src={{ asset('img/loader.gif') }} >
-        <iframe id="mainFrame" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
+    <div class="section2" style="overflow:auto;-webkit-overflow-scrolling:touch">
+        <div class="loader" id="loader"></div>
+        <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
             <p>Your browser does not support iframes.</p>
         </iframe>
@@ -57,7 +57,7 @@
             <span id="bottomDiff" class="label"></span>
         </div>
         <div class="tableCell">
-            <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-forward nextRowGlyph" aria-hidden="true"></span></button>
+            <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
         </div>
     </div>
 </div>
