@@ -31,9 +31,7 @@
         <div style="position: fixed" class="loader" id="loader"></div>
         <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
-            <p>Your browser does not support iframes.</p>
         </iframe>
-
     </div>
     <div class="section3 layout">
         <div id="bottomStatusDiv" class="tableCell">
@@ -94,7 +92,7 @@
                             <td class="nameAndLinks">
                                 <a class="link" rel="noreferrer noopener nofollow" href="http://{{$dataDay[$i]->name}}">{{$dataDay[$i]->name}}</a>
                                 <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataDay[$i]->name}}">
-                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataDay[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataDay[$i]->status) && !$dataDay[$i]->status)
@@ -139,7 +137,7 @@
                             <td class="nameAndLinks">
                                 <a class="link" rel="noreferrer noopener nofollow" href="http://{{$dataWeek[$i]->name}}">{{$dataWeek[$i]->name}}</a>
                                 <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataWeek[$i]->name}}">
-                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataWeek[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataWeek[$i]->status) && !$dataWeek[$i]->status)
@@ -184,7 +182,7 @@
                             <td class="nameAndLinks">
                                 <a class="link" rel="noreferrer noopener nofollow" href="http://{{$dataMonth[$i]->name}}">{{$dataMonth[$i]->name}}</a>
                                 <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$dataMonth[$i]->name}}">
-                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"}}></a>
+                                    <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
                                 <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$dataMonth[$i]->name}}">
                                     <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                 @if (isset($dataMonth[$i]->status) && !$dataMonth[$i]->status)

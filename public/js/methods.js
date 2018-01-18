@@ -89,8 +89,7 @@ function error(e){
         } else {
             $("#bottomStatusDiv").hide();
         }
-        $("#mainFrame").attr("src", "http://"+$(row.children('.nameAndLinks')).text().trim());
-        $('#mainFrame').on('load', function () {
+        $("#mainFrame").attr("src", "http://"+$(row.children('.nameAndLinks')).text().trim()).on('load', function () {
             $('#loader').hide();
         });
         row = nextRow;

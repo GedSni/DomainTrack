@@ -18,6 +18,35 @@ th {
     background-color:white;
 }
 
+span.glyphicon.glyphicon-exclamation-sign {
+    color: #9b9494;
+}
+
+span.glyphicon.glyphicon-off .glyphicon-forward {
+    color: #000000;
+    padding: 0px;
+}
+
+a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
+    color: black;
+}
+
+#topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
+    font-size: 15px;
+}
+
+#topName, #bottomName, #topRank, #bottomRank {
+    margin-top: 10px;
+}
+
+#topStatusDiv, #bottomStatusDiv {
+    display: none;
+}
+
+.exitGlyph {
+    color: red;
+}
+
 .overlay {
     display: none;
     position: fixed;
@@ -93,30 +122,6 @@ th {
     to {left: 100%;}
 }
 
-#topStatusDiv, #bottomStatusDiv {
-    display: none;
-}
-
-span.glyphicon.glyphicon-exclamation-sign {
-    color: #9b9494;
-}
-
-span.glyphicon.glyphicon-off .glyphicon-forward {
-    color: #000000;
-    padding: 0px;
-}
-
-.exitGlyph {
-    color: red;
-}
-
-#topName, #bottomName, #topRank, #bottomRank {
-    margin-top: 10px;
-}
-a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
-    color: black;
-}
-
 @media (max-width: 450px) {
     .domainName {
         max-width: 140px;
@@ -169,9 +174,6 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 }
 
 @media (min-height: 900px) {
-    #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
-        font-size: 15px;
-    }
     .exitGlyph, .nextRowGlyph {
         font-size: 25px;
     }
@@ -189,9 +191,6 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 }
 
 @media (max-height: 900px) {
-    #topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
-        font-size: 15px;
-    }
     .exitGlyph, .nextRowGlyph {
         font-size: 20px;
     }
@@ -202,8 +201,8 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
         font-size: 15px;
     }
     .similarImg, .alexaImg {
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
     }
 }
 
