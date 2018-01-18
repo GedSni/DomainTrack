@@ -27,7 +27,7 @@
             <button class="btn btn-link exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
         </div>
     </div>
-    <div class="section2" style="overflow:auto;-webkit-overflow-scrolling:touch">
+    <div class="section2" style="">
         <div class="loader" id="loader"></div>
         <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">

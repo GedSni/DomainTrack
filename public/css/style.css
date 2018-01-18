@@ -42,6 +42,8 @@ th {
     top: 8%;
     position: absolute;
     background-color: #ffffff;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
 }
 
 .section3 {
