@@ -140,8 +140,11 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
     .exitGlyph, .nextRowGlyph {
         font-size: 30px;
     }
-    .status, .statusGlyph {
+    .status {
         font-size: 20px;
+    }
+    .statusGlyph {
+        font-size: 25px;
     }
     .similarImg, .alexaImg {
         width: 40px;
@@ -157,7 +160,10 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
     .exitGlyph, .nextRowGlyph {
         font-size: 20px;
     }
-    .status, .statusGlyph {
+    .status {
+        font-size: 15px;
+    }
+    .statusGlyph {
         font-size: 15px;
     }
     .similarImg, .alexaImg {

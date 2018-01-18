@@ -30,14 +30,10 @@ function error(e){
     alert(e);
 }
 
-$(document).ready(function() {
-    $("a.domainTooltip").tooltip();
-});
-
 (function () {
     var row;
     $(document).ready(function(){
-        if ( $(window).width() < 992) {
+        if ( $(window).width() < 1200) {
             $('.link', 'tr').click(function(e) {
                 e.preventDefault();
                 $(".overlay").show();
@@ -49,6 +45,7 @@ $(document).ready(function() {
                 $(".overlay").hide();
             });
         }
+        $("a.domainTooltip").tooltip();
     });
 
     function proceed() {
