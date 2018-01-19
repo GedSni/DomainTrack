@@ -62,7 +62,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
     position: fixed;
     top: 0;
     background-color: white;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #ababab;
 }
 
 .section2 {
@@ -81,7 +81,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
     position: fixed;
     bottom: 0;
     background-color: white;
-    border-top: 1px solid black;
+    border-top: 2px solid #ababab;
 }
 
 .layout {
