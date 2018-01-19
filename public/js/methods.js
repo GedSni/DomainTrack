@@ -55,7 +55,7 @@ function error(e){
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
         var bottomDiff = $("#bottomDiff");
-        $("#topName").text($(row.children('.nameAndLinks')).text());
+        $("#topName").text($(row.children('.nameAndLinks')).text()).attr("href", "http://" + $(row.children('.nameAndLinks')).text().trim());
         $("#topSimilar").attr( "href", "https://www.similarweb.com/website/" + $(row.children('.nameAndLinks')).text());
         $("#topAlexa").attr( "href", "https://www.alexa.com/siteinfo/" + $(row.children('.nameAndLinks')).text());
         $("#topRank").text($(row.children('.rank')).text());
@@ -72,7 +72,7 @@ function error(e){
         } else {
             $("#topStatusDiv").hide();
         }
-        $("#bottomName").text($(nextRow.children('.nameAndLinks')).text());
+        $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", "http://" + $(nextRow.children('.nameAndLinks')).text().trim());
         $("#bottomSimilar").attr( "href", "https://www.similarweb.com/website/" + $(nextRow.children('.nameAndLinks')).text());
         $("#bottomAlexa").attr( "href", "https://www.alexa.com/siteinfo/" + $(nextRow.children('.nameAndLinks')).text());
         $("#bottomRank").text($(nextRow.children('.rank')).text());

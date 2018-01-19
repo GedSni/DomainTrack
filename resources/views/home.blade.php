@@ -9,7 +9,7 @@
             </a>
         </div>
         <div class="tableCell">
-            <p class="domainName" id="topName"></p>
+            <a class="domainName" id="topName" rel="noreferrer noopener nofollow"></a>
         </div>
         <div class="tableCell">
             <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
@@ -26,9 +26,10 @@
         <div class="tableCell">
             <button class="btn btn-link exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
         </div>
+
     </div>
-    <div class="section2" style="">
-        <div style="position: fixed" class="loader" id="loader"></div>
+    <div class="section2">
+        <div class="loader" id="loader"></div>
         <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
         </iframe>
@@ -40,7 +41,7 @@
             </a>
         </div>
         <div class="tableCell">
-            <p class="domainName" id="bottomName"></p>
+            <a class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
         </div>
         <div class="tableCell">
             <a id='bottomSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>

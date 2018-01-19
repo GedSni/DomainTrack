@@ -9,7 +9,7 @@
                 </a>
             </div>
             <div class="tableCell">
-                <p class="domainName" id="topName"></p>
+                <a class="domainName" id="topName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCell">
                 <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
@@ -40,7 +40,7 @@
                 </a>
             </div>
             <div class="tableCell">
-                <p class="domainName" id="bottomName"></p>
+                <a class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCell">
                 <a id='bottomSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>

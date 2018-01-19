@@ -98,13 +98,13 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 .loader {
     height: 4px;
     width: 100%;
-    position: relative;
+    position: fixed;
     overflow: hidden;
     background-color: #ddd;
 }
 .loader:before{
     display: block;
-    position: absolute;
+    position: fixed;
     content: "";
     left: -200px;
     width: 200px;
