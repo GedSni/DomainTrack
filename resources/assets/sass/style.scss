@@ -1,0 +1,258 @@
+
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+.red {
+  color: red;
+}
+
+p.tableHead {
+  font-family: verdana;
+  font-size: 20px;
+  text-align: center;
+}
+
+p.tableHead2 {
+  font-family: verdana;
+  font-size: 15px;
+  text-align: center;
+}
+
+a:visited {
+  color: rgb(206, 158, 162);
+}
+
+th {
+  background-color:white;
+}
+
+span.glyphicon.glyphicon-exclamation-sign {
+  color: #9b9494;
+}
+
+span.glyphicon.glyphicon-off .glyphicon-forward {
+  color: #000000;
+  padding: 0px;
+}
+
+a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
+  color: black;
+}
+
+#topDiff, #bottomDiff, #topName, #bottomName, #topRank, #bottomRank {
+  font-size: 15px;
+}
+
+#topName, #bottomName, #topRank, #bottomRank {
+  margin-top: 10px;
+}
+
+#topStatusDiv, #bottomStatusDiv {
+  display: none;
+}
+
+.exitGlyph {
+  color: red;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  z-index:999;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.section1 {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  border-bottom: 2px solid #ababab;
+}
+
+.section2 {
+  height: calc( 100% - 100px );
+  width: 100%;
+  top: 50px;
+  position: fixed;
+  background-color: #ffffff;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+}
+
+.section3 {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+  border-top: 2px solid #ababab;
+}
+
+.layout {
+  display: table;
+  width: 100%;
+  text-align: center;
+}
+
+.tableCell {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.loader {
+  height: 4px;
+  width: 100%;
+  position: fixed;
+  overflow: hidden;
+  background-color: #ddd;
+}
+.loader:before{
+  display: block;
+  position: fixed;
+  content: "";
+  left: -200px;
+  width: 200px;
+  height: 4px;
+  background-color: #2980b9;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  from {left: -200px; width: 30%;}
+  50% {width: 30%;}
+  70% {width: 70%;}
+  80% { left: 50%;}
+  95% {left: 120%;}
+  to {left: 100%;}
+}
+
+@media (max-width: 450px) {
+  .domainName {
+    max-width: 140px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .link {
+    display :inline-block;
+    max-width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 450px) {
+  .domainName {
+    max-width: 220px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .link {
+    display :inline-block;
+    max-width: 250px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-width: 700px) {
+  .domainName {
+    max-width: 500px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .link {
+    display :inline-block;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (min-height: 900px) {
+  .exitGlyph, .nextRowGlyph {
+    font-size: 25px;
+  }
+  .status {
+    font-size: 20px;
+  }
+  .statusGlyph {
+    font-size: 20px;
+  }
+  .similarImg, .alexaImg {
+    width: 30px;
+    height: 30px;
+  }
+
+}
+
+@media (max-height: 900px) {
+  .exitGlyph, .nextRowGlyph {
+    font-size: 20px;
+  }
+  .status {
+    font-size: 15px;
+  }
+  .statusGlyph {
+    font-size: 15px;
+  }
+  .similarImg, .alexaImg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width:1200px) {
+  .dayTableDiv, .weekTableDiv {
+    display: none;
+  }
+  #tables {
+    display: block;
+  }
+}
+
+@media (min-width:1200px) {
+  .dayTableDiv, .weekTableDiv, .monthTableDiv {
+    display: inline-table !important;
+    width:30% !important;
+  }
+  #tables {
+    display: none;
+  }
+  .dayTableDiv {
+    margin-right: 20px;
+  }
+  .weekTableDiv {
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  .monthTableDiv {
+    margin-left: 20px;
+  }
+  .link {
+    display :inline-block;
+    max-width: 200px !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
