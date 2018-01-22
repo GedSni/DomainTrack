@@ -172,7 +172,7 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>Domain</th>
+                        <th>Domai</th>
                         <th>Rank</th>
                         <th></th>
                     </tr>
