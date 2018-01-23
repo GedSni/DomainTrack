@@ -34,18 +34,23 @@
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
         </iframe>
     </div>
-    <div class="section3 layout">
-        <div id="bottomStatusDiv" class="tableCell">
-            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
-            </a>
-        </div>
-        <div class="tableCell">
-            <a class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
-        </div>
-        <div class="tableCell" style="position: relative">
-            <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
-        </div>
+    <div class="section3">
+        <table style="width:100%;">
+            <tr>
+                <td id="bottomStatusDiv" style="width:10%">
+                    <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                        <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
+                    </a>
+                </td>
+                <td style="width:80%;">
+                    <a style="margin-left:100px;" class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
+                </td>
+                <td style="width:10%">
+                    <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
+                </td>
+            </tr>
+        </table>
+
     </div>
 </div>
 <div id="mainDiv" class="container" style="margin-top: 50px">
@@ -56,7 +61,7 @@
                 <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
             </button>
         </form>
-        <select id="tables" class="form-control" style="width:auto;" onchange="changeTable(this.value);">
+        <select id="tables" class="form-control" style="width:auto;">
             <option value="Day">Day</option>
             <option value="Week">Week</option>
             <option selected value="Month">Month</option>
