@@ -8394,11 +8394,12 @@ a.domainTooltip:visited {
   font-size: 15px;
 }
 
-#topName,
-#bottomName,
-#topRank,
-#bottomRank {
+#topRank {
   margin-top: 10px;
+}
+
+#bottomName {
+  margin-left: 20px;
 }
 
 #topStatusDiv,

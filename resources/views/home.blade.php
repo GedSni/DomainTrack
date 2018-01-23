@@ -43,19 +43,7 @@
         <div class="tableCell">
             <a class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
         </div>
-        <div class="tableCell">
-            <a id='bottomSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
-                <img class="similarImg" alt='SimilarWeb' align='right' src={{ asset('img/similarweb.ico') }}></a>
-            <a id="bottomAlexa" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/">
-                <img class="alexaImg" alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }}></a>
-        </div>
-        <div class="tableCell">
-            <p id="bottomRank"></p>
-        </div>
-        <div class="tableCell">
-            <span id="bottomDiff" class="label"></span>
-        </div>
-        <div class="tableCell">
+        <div class="tableCell" style="position: relative">
             <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
         </div>
     </div>
