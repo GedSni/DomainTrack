@@ -1,5 +1,5 @@
 function changeTable(value) {
-    if (value == 'Month') {
+    if (value === 'Month') {
         document.getElementById("dayTableDiv").style.display = "none";
         document.getElementById("weekTableDiv").style.display = "none";
         document.getElementById("monthTableDiv").style.display = "inline-table";
@@ -7,7 +7,7 @@ function changeTable(value) {
         if (document.getElementById("floatingHeader") != null) {
             document.getElementById("floatingHeader").style.width = "100%";
         }
-    } else if (value == 'Week') {
+    } else if (value === 'Week') {
         document.getElementById("dayTableDiv").style.display = "none";
         document.getElementById("weekTableDiv").style.display = "inline-table";
         document.getElementById("weekTableDiv").style.width = "100%";
@@ -15,7 +15,7 @@ function changeTable(value) {
             document.getElementById("floatingHeader").style.width = "100%";
         }
         document.getElementById("monthTableDiv").style.display = "none";
-    } else if (value == 'Day') {
+    } else if (value === 'Day') {
         document.getElementById("dayTableDiv").style.display = "inline-table";
         document.getElementById("dayTableDiv").style.width = "100%";
         if (document.getElementById("floatingHeader") != null) {
@@ -33,20 +33,25 @@ function error(e) {
 (function () {
     var row;
     $(document).ready(function () {
-        if ($(window).width() < 1200) {
-            $('.link', 'tr').click(function (e) {
-                e.preventDefault();
-                $(".overlay").show();
-                $("body").css("overflow", "hidden");
-                row = $(this).closest('tr');
-                proceed();
-            });
-            $("button.nextRow").click(proceed);
-            $("button.exit").click(function () {
-                $(".overlay").hide();
-                $("body").css("overflow", "visible");
-            });
-        }
+        $(window).resize(function(){
+            if ($(window).width() < 1200) {
+                $('.link', 'tr').click(function (e) {
+                    e.preventDefault();
+                    $(".overlay").show();
+                    $("body").css("overflow", "hidden");
+                    row = $(this).closest('tr');
+                    proceed();
+                });
+                $("button.nextRow").click(proceed);
+                $("button.exit").click(function () {
+                    $(".overlay").hide();
+                    $("body").css("overflow", "visible");
+                });
+            } else if ($(window).width() >= 1200) {
+                $('.link', 'tr').off('click');
+            }
+        });
+        $(window).resize();
         $("a.domainTooltip").tooltip();
     });
 
