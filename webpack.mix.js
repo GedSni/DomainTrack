@@ -13,10 +13,10 @@ const mix = require('laravel-mix');
 
 //mix.less('resources/assets/less/app.less', 'public/stylesheets/styles.css')
 
-mix.sass('resources/assets/sass/app.scss', 'public/css/app.css')
+mix.sass('resources/assets/sass/app.scss', 'public/css/')
     .sass('resources/assets/sass/style.scss', 'public/css/style.css')
     .js('resources/assets/js/methods.js', 'public/js/methods.js')
-    .js('resources/assets/js/app.js', 'public/js/app.js')
+    .js('resources/assets/js/app.js', 'public/js/')
     .version();
 mix.browserSync('localhost:8000');
 mix.disableNotifications();
