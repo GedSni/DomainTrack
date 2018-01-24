@@ -8373,12 +8373,16 @@ p.tableHead2 {
 
 .button {
   background-color: white;
-  border-radius: 7px;
-  padding: 2px 7px;
+  border-radius: 5px;
+  padding-top: 3px;
 }
 
 .button.nextRow {
   border: 2px solid green;
+}
+
+.nextRowGlyph {
+  color: green;
 }
 
 .button.exit {
@@ -8387,10 +8391,6 @@ p.tableHead2 {
 
 .exitGlyph {
   color: red;
-}
-
-.nextRowGlyph {
-  color: green;
 }
 
 a:visited {
