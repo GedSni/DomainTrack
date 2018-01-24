@@ -8386,12 +8386,13 @@ a.domainTooltip:visited {
 }
 
 #topDiff,
-#bottomDiff,
 #topName,
-#bottomName,
-#topRank,
-#bottomRank {
+#topRank {
   font-size: 15px;
+}
+
+#bottomName {
+  font-size: 18px;
 }
 
 #topRank {

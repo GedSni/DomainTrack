@@ -37,15 +37,16 @@
     <div class="section3">
         <table style="width:100%;">
             <tr>
-                <td  style="width:10%">
-                    <a id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                <td  style="width:10%;"></td>
+                <td style="width:10%; vertical-align: middle" align="right">
+                    <a style=" margin-left:50px;" id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                         <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
                     </a>
                 </td>
-                <td style="width:80%;">
-                    <a style="margin-left:100px;" class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
+                <td style="width:70%; vertical-align: middle;" align="left">
+                    <a style="margin-left:50px;" class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
                 </td>
-                <td style="width:10%">
+                <td style="width:10%;  vertical-align: middle">
                     <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
                 </td>
             </tr>
