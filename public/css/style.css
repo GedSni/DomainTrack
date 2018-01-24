@@ -8416,10 +8416,13 @@ a.domainTooltip:visited {
   color: black;
 }
 
-#topDiff,
 #topName,
 #topRank {
   font-size: 15px;
+}
+
+#topDiff {
+  font-size: 13px;
 }
 
 #bottomName {

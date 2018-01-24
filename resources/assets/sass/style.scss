@@ -71,8 +71,12 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
   color: black;
 }
 
-#topDiff, #topName, #topRank {
+#topName, #topRank {
   font-size: 15px;
+}
+
+#topDiff {
+  font-size: 13px;
 }
 
 #bottomName {
