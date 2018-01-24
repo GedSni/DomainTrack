@@ -6,7 +6,7 @@
     </div>
     <div class="overlay">
         <div class="section1 layout">
-            <div id="topStatus" class="tableCellLeft">
+            <div id="topStatus" class="tableCellTopLeft">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                     <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
                 </a>

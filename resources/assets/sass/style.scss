@@ -145,6 +145,13 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
   text-align: right;
 }
 
+.tableCellTopLeft {
+  display: table-cell;
+  vertical-align: middle;
+  width: 10%;
+  text-align: right;
+}
+
 .tableCellMiddle {
   display: table-cell;
   vertical-align: middle;
