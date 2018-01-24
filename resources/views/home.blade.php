@@ -3,13 +3,13 @@
 @section('content')
 <div class="overlay">
     <div class="section1 layout">
-        <div id="topStatusDiv" class="tableCell">
+        <div id="topStatus" class="tableCell">
             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                 <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
             </a>
         </div>
         <div class="tableCell">
-            <a class="domainName" id="topName" rel="noreferrer noopener nofollow"></a>
+            <a id="topName" rel="noreferrer noopener nofollow"></a>
         </div>
         <div class="tableCell">
             <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
@@ -39,12 +39,12 @@
             <tr>
                 <td style="width:10%;"></td>
                 <td style="width:10%; vertical-align: middle" align="right">
-                    <a style=" margin-left:50px;" id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                    <a style=" margin-left:50px;" id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                         <span class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
                     </a>
                 </td>
                 <td style="width:60%; vertical-align: middle;" align="left">
-                    <a style="margin-left:50px;" class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
+                    <a style="margin-left:50px;" id="bottomName" rel="noreferrer noopener nofollow"></a>
                 </td>
                 <td style="width:10%;  vertical-align: middle">
                     <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>

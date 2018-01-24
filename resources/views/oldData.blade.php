@@ -3,13 +3,13 @@
 @section('content')
     <div class="overlay">
         <div class="section1 layout">
-            <div id="topStatusDiv" class="tableCell">
+            <div id="topStatus" class="tableCell">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                     <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
                 </a>
             </div>
             <div class="tableCell">
-                <a class="domainName" id="topName" rel="noreferrer noopener nofollow"></a>
+                <a id="topName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCell">
                 <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
@@ -26,37 +26,33 @@
             <div class="tableCell">
                 <button class="btn btn-link exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
             </div>
+
         </div>
-        <div class="section2" style="">
-            <div style="position: fixed" class="loader" id="loader"></div>
+        <div class="section2">
+            <div class="loader" id="loader"></div>
             <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
                     style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
             </iframe>
         </div>
-        <div class="section3 layout">
-            <div id="bottomStatusDiv" class="tableCell">
-                <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                    <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
-                </a>
-            </div>
-            <div class="tableCell">
-                <a class="domainName" id="bottomName" rel="noreferrer noopener nofollow"></a>
-            </div>
-            <div class="tableCell">
-                <a id='bottomSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
-                    <img class="similarImg" alt='SimilarWeb' align='right' src={{ asset('img/similarweb.ico') }}></a>
-                <a id="bottomAlexa" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/">
-                    <img class="alexaImg" alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }}></a>
-            </div>
-            <div class="tableCell">
-                <p id="bottomRank"></p>
-            </div>
-            <div class="tableCell">
-                <span id="bottomDiff" class="label"></span>
-            </div>
-            <div class="tableCell">
-                <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
-            </div>
+        <div class="section3">
+            <table style="width:100%;">
+                <tr>
+                    <td style="width:10%;"></td>
+                    <td style="width:10%; vertical-align: middle" align="right">
+                        <a style=" margin-left:50px;" id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                            <span class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
+                        </a>
+                    </td>
+                    <td style="width:60%; vertical-align: middle;" align="left">
+                        <a style="margin-left:50px;" id="bottomName" rel="noreferrer noopener nofollow"></a>
+                    </td>
+                    <td style="width:10%;  vertical-align: middle">
+                        <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
+                    </td>
+                    <td style="width:10%;"></td>
+                </tr>
+            </table>
+
         </div>
     </div>
     <div id="mainDiv" class="container" style="margin-top: 50px">

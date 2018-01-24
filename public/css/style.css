@@ -8362,6 +8362,15 @@ p.tableHead2 {
   text-align: center;
 }
 
+*:focus {
+  outline: 0 !important;
+}
+
+.btn-link:active {
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
+}
+
 a:visited {
   color: #ce9ea2;
 }
@@ -8399,13 +8408,17 @@ a.domainTooltip:visited {
   margin-top: 10px;
 }
 
-#topStatusDiv,
-#bottomStatusDiv {
+#topStatus,
+#bottomStatus {
   display: none;
 }
 
 .exitGlyph {
   color: red;
+}
+
+.nextRowGlyph {
+  color: green;
 }
 
 .overlay {
@@ -8531,8 +8544,16 @@ a.domainTooltip:visited {
 }
 
 @media (max-width: 450px) {
-  .domainName {
+  #topName {
     max-width: 140px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #bottomName {
+    max-width: 180px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -8549,8 +8570,16 @@ a.domainTooltip:visited {
 }
 
 @media (min-width: 450px) {
-  .domainName {
+  #topName {
     max-width: 220px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  #bottomName {
+    max-width: 270px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -8567,7 +8596,8 @@ a.domainTooltip:visited {
 }
 
 @media (min-width: 700px) {
-  .domainName {
+  #topName,
+  #bottomName {
     max-width: 500px;
     display: inline-block;
     white-space: nowrap;

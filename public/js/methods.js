@@ -113,15 +113,15 @@
             topDiff.addClass("label-default").removeClass("label-success label-danger");
         }
         if ($(row.find('.status')).length) {
-            $("#topStatusDiv").css("display", "table-cell");
+            $("#topStatus").css("display", "table-cell");
         } else {
-            $("#topStatusDiv").hide();
+            $("#topStatus").hide();
         }
         $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", "http://" + $(nextRow.children('.nameAndLinks')).text().trim());
         if ($(nextRow.find('.status')).length) {
-            $("#bottomStatusDiv").css("display", "table-cell");
+            $("#bottomStatus").css("display", "table-cell");
         } else {
-            $("#bottomStatusDiv").hide();
+            $("#bottomStatus").hide();
         }
         $("#mainFrame").attr("src", "http://" + $(row.children('.nameAndLinks')).text().trim()).on('load', function () {
             $('#loader').hide();
