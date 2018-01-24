@@ -8785,8 +8785,8 @@ a.domainTooltip:visited {
 
 #loading-content {
   border: 3px solid transparent;
-  border-top-color: #4D658D;
-  border-bottom-color: #4D658D;
+  border-top-color: #3ab32f;
+  border-bottom-color: #3ab32f;
   border-radius: 50%;
   -webkit-animation: loader 2s linear infinite;
   animation: loader 2s linear infinite;
@@ -8794,8 +8794,8 @@ a.domainTooltip:visited {
 
 #loading-content:before {
   border: 3px solid transparent;
-  border-top-color: #D4CC6A;
-  border-bottom-color: #D4CC6A;
+  border-top-color: #d4cf21;
+  border-bottom-color: #d4cf21;
   border-radius: 50%;
   -webkit-animation: loader 3s linear infinite;
   animation: loader 3s linear infinite;
@@ -8803,8 +8803,8 @@ a.domainTooltip:visited {
 
 #loading-content:after {
   border: 3px solid transparent;
-  border-top-color: #84417C;
-  border-bottom-color: #84417C;
+  border-top-color: #fe8c19;
+  border-bottom-color: #fe8c19;
   border-radius: 50%;
   -webkit-animation: loader 1.5s linear infinite;
   animation: loader 1.5s linear infinite;
