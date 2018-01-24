@@ -45,23 +45,6 @@
         <div class="tableCellRight">
             <button style="margin-right: 20px" class="button nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
         </div>
-        <!-- <table style="width:100%;">
-            <tr>
-                <td style="width:10%;"></td>
-                <td style="width:10%; vertical-align: middle" align="right">
-                    <a id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                        <span class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
-                    </a>
-                </td>
-                <td style="width:60%; vertical-align: middle;" align="left">
-                    <a style="margin-left:50px;" id="bottomName" rel="noreferrer noopener nofollow"></a>
-                </td>
-                <td style="width:10%;  vertical-align: middle">
-                    <button class="btn btn-link nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
-                </td>
-                <td style="width:10%;"></td>
-            </tr>
-        </table> -->
     </div>
 </div>
 <div id="mainDiv" class="container" style="margin-top: 50px">
