@@ -135,6 +135,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 .tableCell {
   display: table-cell;
   vertical-align: middle;
+  width: 20%;
 }
 
 .tableCellLeft {
@@ -191,7 +192,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 // Responsive styles
 @media (max-width: 450px) {
   #topName {
-    max-width: 140px;
+    max-width: 120px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -215,7 +216,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 
 @media (min-width: 450px) {
   #topName {
-    max-width: 220px;
+    max-width: 200px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;

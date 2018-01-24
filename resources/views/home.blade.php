@@ -6,13 +6,13 @@
     </div>
     <div class="overlay">
         <div class="section1 layout">
-            <div id="topStatus" class="tableCell">
+            <div id="topStatus" class="tableCellLeft">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                     <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
                 </a>
             </div>
             <div class="tableCell">
-                <a id="topName" rel="noreferrer noopener nofollow"></a>
+                <a style="margin-left: 5px" id="topName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCell">
                 <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
@@ -26,8 +26,8 @@
             <div class="tableCell">
                 <span id="topDiff" class="label"></span>
             </div>
-            <div class="tableCell">
-                <button class="button exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
+            <div class="tableCellRight">
+                <button style="margin-right: 20px" class="button exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
             </div>
         </div>
         <div class="section2">
