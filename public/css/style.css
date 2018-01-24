@@ -8598,6 +8598,10 @@ a.domainTooltip:visited {
     font-size: 20px;
   }
 
+  .statusGlyphBottom {
+    font-size: 22px;
+  }
+
   .similarImg,
   .alexaImg {
     width: 30px;
@@ -8617,6 +8621,10 @@ a.domainTooltip:visited {
 
   .statusGlyph {
     font-size: 15px;
+  }
+
+  .statusGlyphBottom {
+    font-size: 17px;
   }
 
   .similarImg,

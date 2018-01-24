@@ -40,7 +40,7 @@
                 <td style="width:10%;"></td>
                 <td style="width:10%; vertical-align: middle" align="right">
                     <a style=" margin-left:50px;" id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                        <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
                     </a>
                 </td>
                 <td style="width:60%; vertical-align: middle;" align="left">
