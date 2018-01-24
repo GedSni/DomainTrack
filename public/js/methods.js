@@ -71,7 +71,7 @@
 (function () {
     var row;
     $(document).ready(function () {
-        //$("#loading-wrapper").remove();
+        $("#loading-wrapper").remove();
         $("#tables").change(function () {
             changeTable(this.value);
         });
