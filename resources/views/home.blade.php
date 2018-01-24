@@ -37,8 +37,8 @@
     <div class="section3">
         <table style="width:100%;">
             <tr>
-                <td id="bottomStatusDiv" style="width:10%">
-                    <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                <td  style="width:10%">
+                    <a id="bottomStatusDiv" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                         <span class="glyphicon glyphicon-exclamation-sign statusGlyph" aria-hidden="true"></span>
                     </a>
                 </td>
