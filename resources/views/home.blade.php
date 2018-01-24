@@ -24,9 +24,8 @@
             <span id="topDiff" class="label"></span>
         </div>
         <div class="tableCell">
-            <button class="btn btn-link exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
+            <button class="button exit"><span class="glyphicon glyphicon-remove exitGlyph" aria-hidden="true"></span></button>
         </div>
-
     </div>
     <div class="section2">
         <div class="loader" id="loader"></div>
@@ -34,12 +33,23 @@
                 style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
         </iframe>
     </div>
-    <div class="section3">
-        <table style="width:100%;">
+    <div class="section3 layout">
+        <div class="tableCellLeft">
+            <a id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                <span style="margin-left: 40px" class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="tableCellMiddle">
+            <a id="bottomName" rel="noreferrer noopener nofollow"></a>
+        </div>
+        <div class="tableCellRight">
+            <button style="margin-right: 20px" class="button nextRow"><span class="glyphicon glyphicon-play nextRowGlyph" aria-hidden="true"></span></button>
+        </div>
+        <!-- <table style="width:100%;">
             <tr>
                 <td style="width:10%;"></td>
                 <td style="width:10%; vertical-align: middle" align="right">
-                    <a style=" margin-left:50px;" id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                    <a id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                         <span class="glyphicon glyphicon-exclamation-sign statusGlyphBottom" aria-hidden="true"></span>
                     </a>
                 </td>
@@ -51,8 +61,7 @@
                 </td>
                 <td style="width:10%;"></td>
             </tr>
-        </table>
-
+        </table> -->
     </div>
 </div>
 <div id="mainDiv" class="container" style="margin-top: 50px">

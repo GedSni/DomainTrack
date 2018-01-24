@@ -24,8 +24,30 @@ p.tableHead2 {
   outline: 0 !important;
 }
 
-.btn-link:active {
+.button:active {
   transform: translateY(1px);
+}
+
+.button {
+  background-color: white;
+  border-radius: 7px;
+  padding: 2px 7px;
+}
+
+.button.nextRow {
+  border: 2px solid green;
+}
+
+.button.exit {
+  border: 2px solid red;
+}
+
+.exitGlyph {
+  color: red;
+}
+
+.nextRowGlyph {
+  color: green;
 }
 
 a:visited {
@@ -63,14 +85,6 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 
 #topStatus, #bottomStatus {
   display: none;
-}
-
-.exitGlyph {
-  color: red;
-}
-
-.nextRowGlyph {
-  color: green;
 }
 
 .overlay {
@@ -119,6 +133,27 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 .tableCell {
   display: table-cell;
   vertical-align: middle;
+}
+
+.tableCellLeft {
+  display: table-cell;
+  vertical-align: middle;
+  width: 20%;
+  text-align: right;
+}
+
+.tableCellMiddle {
+  display: table-cell;
+  vertical-align: middle;
+  width: 60%;
+  text-align: left;
+}
+
+.tableCellRight {
+  display: table-cell;
+  vertical-align: middle;
+  width: 20%;
+  text-align: right;
 }
 
 .loader {
