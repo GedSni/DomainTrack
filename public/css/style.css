@@ -8763,11 +8763,10 @@ a.domainTooltip:visited {
 #loading-content {
   display: block;
   position: relative;
-  left: 50%;
-  top: 50%;
-  width: 170px;
-  height: 170px;
-  margin: -85px 0 0 -85px;
+  left: calc(50% - 50px);
+  top: calc(50% - 50px);
+  width: 100px;
+  height: 100px;
   border: 3px solid #F00;
 }
 
@@ -8796,8 +8795,8 @@ a.domainTooltip:visited {
   border-top-color: #3ab32f;
   border-bottom-color: #3ab32f;
   border-radius: 50%;
-  -webkit-animation: loader 2s linear infinite;
-  animation: loader 2s linear infinite;
+  -webkit-animation: loader 5s linear infinite;
+  animation: loader 5s linear infinite;
 }
 
 #loading-content:before {
@@ -8805,8 +8804,8 @@ a.domainTooltip:visited {
   border-top-color: #d4cf21;
   border-bottom-color: #d4cf21;
   border-radius: 50%;
-  -webkit-animation: loader 3s linear infinite;
-  animation: loader 3s linear infinite;
+  -webkit-animation: loader 2s linear infinite;
+  animation: loader 2s linear infinite;
 }
 
 #loading-content:after {
@@ -8814,8 +8813,8 @@ a.domainTooltip:visited {
   border-top-color: #fe8c19;
   border-bottom-color: #fe8c19;
   border-radius: 50%;
-  -webkit-animation: loader 1.5s linear infinite;
-  animation: loader 1.5s linear infinite;
+  -webkit-animation: loader 2s linear infinite;
+  animation: loader 2s linear infinite;
   -moz-animation: loader 2s linear infinite;
   -o-animation: loader 2s linear infinite;
 }
