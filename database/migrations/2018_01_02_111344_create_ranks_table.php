@@ -12,10 +12,9 @@ class CreateRanksTable extends Migration
         Schema::create('ranks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('domain_id')->unsigned();
-            $table->integer('value')->nullable();
             $table->date('date')->nullable();
-
-            $table->index('date');
+            $table->integer('rank')->nullable();
+            $table->unique(['date', 'domain_id']);
             $table->foreign('domain_id')
                 ->references('id')->on('domains')
                 ->onDelete('cascade')->onUpdate('cascade');

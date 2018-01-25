@@ -8,77 +8,54 @@ class DomainController extends Controller
 {
     public function index()
     {
-        $dataDay = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, day_diff, day_update_date, status'))
-            ->whereRaw('domains.day_update_date = (select MAX(domains.day_update_date) from domains)')
-            ->orderBy('day_diff', 'desc')
+        $yesterday = date("Y-m-d", strtotime("yesterday"));
+        $lastMonday = date("Y-m-d", strtotime("last monday"));
+        $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
+        $data = DB::table('domains')
+            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
+            ->whereRaw('ranks.date = (select MAX(ranks.date) from ranks)')
+            ->orderBy('ranks.rank', 'asc')
             ->take(250)
             ->get();
-        $dataWeek = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, week_rank, week_diff, week_update_date, status'))
-            ->whereRaw('domains.week_update_date = (select MAX(domains.week_update_date) from domains)')
-            ->orderBy('week_diff', 'desc')
-            ->take(250)
-            ->get();
-        $dataMonth = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, month_rank, month_diff, month_update_date, status'))
-            ->whereRaw('domains.month_update_date = (select MAX(domains.month_update_date) from domains)')
-            ->orderBy('month_diff', 'desc')
-            ->take(250)
-            ->get();
-
+        $dataDay = $this->getData($yesterday);
+        $dataWeek = $this->getData($lastMonday);
+        $dataMonth = $this->getData($firstMonthDay);
+        $dataDay = $this->getDiff($dataDay, $data);
+        $dataWeek = $this->getDiff($dataWeek, $data);
+        $dataMonth = $this->getDiff($dataMonth, $data);
+        $dataDay = $dataDay->sortByDesc('diff');
+        $dataWeek = $dataWeek->sortByDesc('diff');
+        $dataMonth = $dataMonth->sortByDesc('diff');
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
             ->with('dataMonth', $dataMonth);
     }
 
-    public function oldData()
+    private function getData($time)
     {
-        $dates = DB::table('ranks')
-            ->select(DB::raw('distinct date'))
-            ->orderBy('date', 'desc')
+        $data = DB::table('domains')
+            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
+            ->where('ranks.date', '=', $time)
+            ->orderBy('ranks.rank', 'asc')
+            ->take(250)
             ->get();
-        if (isset($dates[2]->date)) {
-            $dataMonths3 = DB::table('domains')
-                ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-                ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
-                ->where('ranks.date', '=', $dates[2]->date)
-                ->orderByRaw('domains.day_rank - ranks.value DESC')
-                ->take(250)
-                ->get();
-            if (isset($dates[5]->date)) {
-                $dataMonths6 = DB::table('domains')
-                    ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-                    ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
-                    ->where('ranks.date', '=', $dates[5]->date)
-                    ->orderByRaw('domains.day_rank - ranks.value DESC')
-                    ->take(250)
-                    ->get();
-            } else {
-                return view('oldData')->with('dataMonths3',  $dataMonths3);
-            }
-            if (isset($dates[11]->date)) {
-                $dataMonths12 = DB::table('domains')
-                    ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-                    ->select(DB::raw('domains.id, domains.name, domains.day_rank, ranks.domain_id, ranks.date, ranks.value'))
-                    ->where('ranks.date', '=', $dates[11]->date)
-                    ->orderByRaw('domains.day_rank - ranks.value DESC')
-                    ->take(250)
-                    ->get();
-                return view('oldData')
-                    ->with('dataMonths3',  $dataMonths3)
-                    ->with('dataMonths6', $dataMonths6)
-                    ->with('dataMonths12', $dataMonths12);
-
-            } else {
-                return view('oldData')
-                    ->with('dataMonths3',  $dataMonths3)
-                    ->with('dataMonths6', $dataMonths6);
-            }
-        } else {
-            return view('oldData');
-        }
+        return $data;
     }
+
+    private function getDiff($intervalData, $data)
+    {
+        for ($i = 0; $i < count($intervalData); $i++) {
+            for ($j = 0; $j < count($data); $j++) {
+                if ($intervalData[$i]->name == $data[$j]->name) {
+                    $intervalData[$i]->diff = $data[$i]->rank - $intervalData[$j]->rank;
+                }
+            }
+        }
+        return $intervalData;
+    }
+
 }
 
