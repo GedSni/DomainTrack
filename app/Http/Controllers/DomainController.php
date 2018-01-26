@@ -27,6 +27,8 @@ class DomainController extends Controller
         $dataDay = $dataDay->sortByDesc('diff');
         $dataWeek = $dataWeek->sortByDesc('diff');
         $dataMonth = $dataMonth->sortByDesc('diff');
+
+        dd($dataDay);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
