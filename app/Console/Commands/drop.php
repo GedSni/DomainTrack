@@ -12,7 +12,7 @@ class drop extends Command
      *
      * @var string
      */
-    protected $signature = 'ranks:drop';
+    protected $signature = 'tables:drop';
 
     /**
      * The console command description.
@@ -39,5 +39,7 @@ class drop extends Command
     public function handle()
     {
         DB::statement('DROP TABLE ranks');
+        DB::statement('DROP TABLE domains');
+        DB::statement('DROP TABLE migrations');
     }
 }
