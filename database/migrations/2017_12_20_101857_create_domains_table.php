@@ -19,11 +19,7 @@ class CreateDomainsTable extends Migration
 
     public function down()
     {
-        DB::beginTransaction();
-        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('domains');
-        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
-        DB::commit();
     }
 }
 
