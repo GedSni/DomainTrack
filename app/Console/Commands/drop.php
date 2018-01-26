@@ -38,8 +38,10 @@ class drop extends Command
      */
     public function handle()
     {
+        DB::beginTransaction();
         DB::statement('DROP TABLE ranks');
         DB::statement('DROP TABLE domains');
         DB::statement('DROP TABLE migrations');
+        DB::commit();
     }
 }
