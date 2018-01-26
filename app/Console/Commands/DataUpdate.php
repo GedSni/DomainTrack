@@ -79,7 +79,7 @@ class DataUpdate extends Command
         DB::commit();
         fclose($fileHandle);
         unlink("$path/top-1m.csv");
-        //$this->call('domain:stat');
+        $this->call('domain:stat');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;

@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
+use App\Domain;
 
 class StatusUpdate extends Command
 {
@@ -38,31 +40,12 @@ class StatusUpdate extends Command
     public function handle()
     {
         $this->info('Getting domains\' data');
-        $dataDay = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, day_diff, day_update_date'))
-            ->whereRaw('domains.day_update_date = (select MAX(domains.day_update_date) from domains)')
-            ->orderBy('day_diff', 'desc')
-            ->take(250)
-            ->get();
-        $dataWeek = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, week_rank, week_diff, week_update_date'))
-            ->whereRaw('domains.week_update_date = (select MAX(domains.week_update_date) from domains)')
-            ->orderBy('week_diff', 'desc')
-            ->take(250)
-            ->get();
-        $dataMonth = DB::table('domains')
-            ->select(DB::raw('id, name, day_rank, month_rank, month_diff, month_update_date'))
-            ->whereRaw('domains.month_update_date = (select MAX(domains.month_update_date) from domains)')
-            ->orderBy('month_diff', 'desc')
-            ->take(250)
-            ->get();
-
-        $data = DB::table('domains')
-            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.diff, ranks.date'))
-            ->take(250)
-            ->get();
-
+        $yesterday = date("Y-m-d", strtotime("yesterday"));
+        $lastMonday = date("Y-m-d", strtotime("last monday"));
+        $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
+        $dataDay = $this->getData($yesterday);
+        $dataWeek = $this->getData($lastMonday);
+        $dataMonth = $this->getData($firstMonthDay);
         $this->info('Processing cURL requests');
         $nodes = array();
         $nodes = $this->domainArray($dataDay, $nodes);
@@ -107,6 +90,18 @@ class StatusUpdate extends Command
             $domain->save();
         }
         $this->info('Success!');
+    }
+
+    private function getData($time)
+    {
+        $data = DB::table('domains')
+            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
+            ->where('ranks.date', '=', $time)
+            ->orderBy('ranks.rank', 'asc')
+            ->take(250)
+            ->get();
+        return $data;
     }
 
     private function domainArray($data, $nodes) {
