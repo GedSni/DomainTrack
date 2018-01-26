@@ -18,7 +18,6 @@ class DomainController extends Controller
             ->orderBy('ranks.rank', 'asc')
             ->take(250)
             ->get();
-        dd($data);
         $dataDay = $this->getData($yesterday);
         $dataWeek = $this->getData($lastMonday);
         $dataMonth = $this->getData($firstMonthDay);
