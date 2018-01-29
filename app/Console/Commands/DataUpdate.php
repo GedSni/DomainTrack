@@ -41,6 +41,7 @@ class DataUpdate extends Command
     public function handle()
     {
         $this->info('Defining variables');
+        $dropDate = date("Y-m-d", strtotime("-3 months"));
         $timePre = microtime(true);
         $domains = $this->argument('domains');
         if (!isset($domains)) {
@@ -57,8 +58,10 @@ class DataUpdate extends Command
         $this->info('Deleting temporary files..');
         unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        $fileHandle = fopen("$path/top-1m.csv", 'r');
-        $fileDate = date("Y-m-d");
+        //$fileHandle = fopen("$path/top-1m.csv", 'r');
+        //$fileDate = date("Y-m-d");
+        $fileHandle = fopen('./domains/2018-01-26.csv', 'r');
+        $fileDate = '2018-01-28';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
@@ -79,7 +82,11 @@ class DataUpdate extends Command
         DB::commit();
         fclose($fileHandle);
         unlink("$path/top-1m.csv");
-        $this->call('domain:stat');
+        DB::table('ranks')->where([
+            ['date', '<', $dropDate],
+            ['date', '<>', date('Y-m-01')]
+        ])->delete();
+        //$this->call('domain:stat');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;

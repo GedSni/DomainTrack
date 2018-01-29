@@ -2,7 +2,6 @@
 
 @section('content')
     <div id="loading-wrapper">
-        <div
         <div id="loading-content"></div>
     </div>
     <div class="overlay">
@@ -52,23 +51,15 @@
         </div>
     </div>
     <div id="mainDiv" class="container" style="margin-top: 50px">
-        <div class="container">
-            <form action="/old" method="GET">
-                <button type="submit" class="btn"  style="width:auto; float:right">
-                    Older Data
-                    <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span>
-                </button>
-            </form>
-            <select id="tables" class="form-control" style="width:auto;">
-                <option value="Day">Day</option>
-                <option value="Week">Week</option>
-                <option selected value="Month">Month</option>
-            </select>
-        </div>
+        <select id="tables" class="form-control" style="width:auto;">
+            <option value="Day">Day</option>
+            <option value="Week">Week</option>
+            <option selected value="Month">Month</option>
+        </select>
         <div class="dayTableDiv" id="dayTableDiv">
             <p class="tableHead">Day</p>
             @if (isset($dataDay[0]))
-                <p class="tableHead2">Updated {{ $dataDay[0]->date }}</p>
+                <p class="tableHead2">Since {{ $yesterday }}</p>
                 <div>
                     <table class="table">
                         <thead>
@@ -82,7 +73,7 @@
                         @foreach($dataDay as $data)
                             <tr>
                                 <td class="nameAndLinks">
-                                    <a class="link" rel="noreferrer noopener nofollow" href="http://{{$data->name}}">{{$data->name}}</a>
+                                    <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
                                     <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$data->name}}">
                                         <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
                                     <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$data->name}}">
@@ -94,12 +85,16 @@
                                     @endif
                                 </td>
                                 <td class="rank">{{$data->rank}}</td>
-                                @if ($data->diff > 0)
-                                    <td class="diff" align="left"><span class="label label-success">+{{$data->diff}}</span></td>
-                                @elseif ($data->diff < 0)
-                                    <td class="diff" align="left"><span class="label label-danger">{{$data->diff}}</span></td>
-                                @elseif ($data->diff == 0)
-                                    <td class="diff" align="left"> <span class="label label-default">{{$data->diff}}</span></td>
+                                @if (isset($data->diff))
+                                    @if ($data->diff > 0)
+                                        <td class="diff" align="left"><span class="label label-success">+{{$data->diff}}</span></td>
+                                    @elseif ($data->diff < 0)
+                                        <td class="diff" align="left"><span class="label label-danger">{{$data->diff}}</span></td>
+                                    @elseif ($data->diff == 0)
+                                        <td class="diff" align="left"><span class="label label-default">{{$data->diff}}</span></td>
+                                    @endif
+                                @else
+                                    <td class="diff" align="left"><span class="label label-warning">Not available</span></td>
                                 @endif
                             </tr>
                         @endforeach
@@ -113,7 +108,7 @@
         <div class="weekTableDiv" id="weekTableDiv">
             <p class="tableHead" >Week</p>
             @if(isset($dataWeek[0]))
-                <p class="tableHead2">Updated {{ $dataWeek[0]->date }}</p>
+                <p class="tableHead2">Since {{ $lastMonday }}</p>
                 <div>
                     <table class="table">
                         <thead>
@@ -158,7 +153,7 @@
         <div class="monthTableDiv" id="monthTableDiv">
             <p class="tableHead" >Month</p>
             @if (isset($dataMonth[0]))
-                <p class="tableHead2">Updated {{ $dataMonth[0]->date }}</p>
+                <p class="tableHead2">Since {{ $firstMonthDay }}</p>
                 <div>
                     <table class="table">
                         <thead>

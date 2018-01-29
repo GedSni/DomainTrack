@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Khill\Lavacharts\Lavacharts;
 
 class DomainController extends Controller
 {
@@ -11,53 +12,73 @@ class DomainController extends Controller
         $yesterday = date("Y-m-d", strtotime("yesterday"));
         $lastMonday = date("Y-m-d", strtotime("last monday"));
         $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
-        $data = DB::table('domains')
-            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
-            ->whereRaw('ranks.date = (select MAX(ranks.date) from ranks)')
-            ->orderBy('ranks.rank', 'asc')
-            ->take(250)
-            ->get();
         $dataDay = $this->getData($yesterday);
         $dataWeek = $this->getData($lastMonday);
         $dataMonth = $this->getData($firstMonthDay);
-        $dataDay = $this->getDiff($dataDay, $data);
-        $dataWeek = $this->getDiff($dataWeek, $data);
-        $dataMonth = $this->getDiff($dataMonth, $data);
-        $dataDay = $dataDay->sortByDesc('diff');
-        $dataWeek = $dataWeek->sortByDesc('diff');
-        $dataMonth = $dataMonth->sortByDesc('diff');
-
-        dd($dataDay);
+        $dataDay = array_slice($dataDay, 0, 250);
+        $dataWeek = array_slice($dataWeek, 0, 250);
+        $dataMonth = array_slice($dataMonth, 0, 250);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
-            ->with('dataMonth', $dataMonth);
+            ->with('dataMonth', $dataMonth)
+            ->with('yesterday', $yesterday)
+            ->with('lastMonday', $lastMonday)
+            ->with('firstMonthDay', $firstMonthDay);
     }
 
-    private function getData($time)
+    public function show($name)
     {
-        $data = DB::table('domains')
-            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
-            ->where('ranks.date', '=', $time)
-            ->orderBy('ranks.rank', 'asc')
-            ->take(250)
-            ->get();
+        $data = $this->getDataIndividual($name);
+        $data->startDate = $data->min('date');
+        $data->minRank = $data->min('rank');
+        $data->maxRank = $data->max('rank');
+        $data[count($data)-1]->delta = 0;
+        for ($i = 0; $i < count($data)-1; $i++) {
+            $data[$i]->delta = $data[$i+1]->rank - $data[$i]->rank;
+        }
+        $history = \Lava::DataTable();
+        $history->addDateColumn('Date');
+        $history->addNumberColumn('Rank');
+        foreach ($data as $row) {
+            $history->addRow([$row->date, $row->rank]);
+        }
+        \Lava::LineChart('History', $history, [
+            'lineWidth' => 3,
+            'pointSize' => 7,
+            'legend' => [
+                'position' => 'none'
+            ],
+            'title' => 'Rank history',
+            'vAxis' => [
+                'direction' => -1,
+            ],
+        ]);
+        return view('domain')
+            ->with('data', $data);
+    }
+
+    private function getData($interval)
+    {
+        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date, r1.domain_id,
+                                  (select r2.rank
+                                  from domains as d2, ranks as r2 
+                                  where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
+                                   - r1.rank as diff
+                                  from domains as d1, ranks as r1
+                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks) order by diff desc"
+            , array( 'interval' => $interval));
         return $data;
     }
 
-    private function getDiff($intervalData, $data)
+    private function getDataIndividual($name)
     {
-        for ($i = 0; $i < count($intervalData); $i++) {
-            for ($j = 0; $j < count($data); $j++) {
-                if ($intervalData[$i]->name == $data[$j]->name) {
-                    $intervalData[$i]->diff = $data[$i]->rank - $intervalData[$j]->rank;
-                }
-            }
-        }
-        return $intervalData;
+        $data= DB::table('domains')
+            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
+            ->select('domains.*', 'ranks.*')
+            ->where('domains.name', '=', $name)
+            ->orderBy('ranks.date', 'desc')
+            ->get();
+        return $data;
     }
-
 }
-

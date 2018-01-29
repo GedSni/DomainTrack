@@ -195,6 +195,12 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
   to {left: 100%;}
 }
 
+//Tables
+.historyTable {
+  display: inline-table;
+  width:40%;
+}
+
 
 // Responsive styles
 @media (max-width: 450px) {

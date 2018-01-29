@@ -46,6 +46,9 @@ class StatusUpdate extends Command
         $dataDay = $this->getData($yesterday);
         $dataWeek = $this->getData($lastMonday);
         $dataMonth = $this->getData($firstMonthDay);
+        $dataDay = array_slice($dataDay, 0, 250);
+        $dataWeek = array_slice($dataWeek, 0, 250);
+        $dataMonth = array_slice($dataMonth, 0, 250);
         $this->info('Processing cURL requests');
         $nodes = array();
         $nodes = $this->domainArray($dataDay, $nodes);
@@ -82,7 +85,7 @@ class StatusUpdate extends Command
             var_dump($domain->name);
             var_dump($httpCode);
             echo "\n";
-            if ($httpCode < 400 && $httpCode != 0 || $httpCode == 405 || $httpCode == 501) {
+            if ($httpCode < 400 /*&& $httpCode != 0*/ || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
             } else {
                 $domain->status = false;
@@ -92,15 +95,16 @@ class StatusUpdate extends Command
         $this->info('Success!');
     }
 
-    private function getData($time)
+    private function getData($interval)
     {
-        $data = DB::table('domains')
-            ->join('ranks', 'domains.id', '=', 'ranks.domain_id')
-            ->select(DB::raw('domains.id, domains.name, domains.status, ranks.rank, ranks.date'))
-            ->where('ranks.date', '=', $time)
-            ->orderBy('ranks.rank', 'asc')
-            ->take(250)
-            ->get();
+        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date, r1.domain_id,
+                                  (select r2.rank
+                                  from domains as d2, ranks as r2 
+                                  where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
+                                   - r1.rank as diff
+                                  from domains as d1, ranks as r1
+                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks) order by diff desc"
+            , array( 'interval' => $interval));
         return $data;
     }
 

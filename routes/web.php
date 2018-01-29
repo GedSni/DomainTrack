@@ -1,4 +1,4 @@
 <?php
 
 Route::get('/', 'DomainController@index');
-Route::get('/old', 'DomainController@oldData');
+Route::get('/{name}', 'DomainController@show');

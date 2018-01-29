@@ -101,7 +101,7 @@
         $('#loader').show();
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
-        $("#topName").text($(row.children('.nameAndLinks')).text()).attr("href", "http://" + $(row.children('.nameAndLinks')).text().trim());
+        $("#topName").text($(row.children('.nameAndLinks')).text()).attr("href", $(row.children('.nameAndLinks')).text().trim());
         $("#topSimilar").attr("href", "https://www.similarweb.com/website/" + $(row.children('.nameAndLinks')).text());
         $("#topAlexa").attr("href", "https://www.alexa.com/siteinfo/" + $(row.children('.nameAndLinks')).text());
         $("#topRank").text($(row.children('.rank')).text());

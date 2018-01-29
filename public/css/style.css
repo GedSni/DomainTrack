@@ -8584,6 +8584,11 @@ a.domainTooltip:visited {
   }
 }
 
+.historyTable {
+  display: inline-table;
+  width: 40%;
+}
+
 @media (max-width: 450px) {
   #topName {
     max-width: 120px;
