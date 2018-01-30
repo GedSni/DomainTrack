@@ -72,6 +72,40 @@
     var row;
     $(document).ready(function () {
         $("#loading-wrapper").remove();
+        $("#datePicker").datepicker({
+            dateFormat: "yy-mm-dd",
+            maxDate: new Date(),
+            minDate: new Date(2017, 1, 1),
+            onSelect: function onSelect() {
+                var date = $(this).val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/",
+                    data: { date: date },
+                    dataType: "JSON",
+                    success: function success(data) {
+                        $("#tablesDiv").html(data.view);
+                        $("#tables").hide();
+                        $(window).resize();
+                    },
+                    error: function error() {
+                        alert('Request failed');
+                    }
+                });
+            }
+        });
+        $('#back').on('click', function (e) {
+            window.history.back();
+        });
+        $('#datePickerButton').click(function () {
+            $('#datePicker').datepicker('show');
+        });
+        $('#toHome').click(function () {
+            document.location.href = "/";
+        });
         $("#tables").change(function () {
             changeTable(this.value);
         });
@@ -91,6 +125,12 @@
                 });
             } else if ($(window).width() >= 1200) {
                 $('.link', 'tr').off('click');
+                window.onscroll = function () {
+                    scrollFunction();
+                };
+                $("#toTop").click(function () {
+                    topFunction();
+                });
             }
         });
         $(window).resize();
@@ -118,7 +158,7 @@
         } else {
             $("#topStatus").hide();
         }
-        $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", "http://" + $(nextRow.children('.nameAndLinks')).text().trim());
+        $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", $(nextRow.children('.nameAndLinks')).text().trim());
         if ($(nextRow.find('.status')).length) {
             $("#bottomStatus").css("display", "table-cell");
         } else {
@@ -156,6 +196,19 @@
             document.getElementById("weekTableDiv").style.display = "none";
             document.getElementById("monthTableDiv").style.display = "none";
         }
+    }
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("toTop").style.display = "block";
+        } else {
+            document.getElementById("toTop").style.display = "none";
+        }
+    }
+
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
     }
 
     function error(e) {

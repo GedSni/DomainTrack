@@ -4,6 +4,9 @@
     <div id="loading-wrapper">
         <div id="loading-content"></div>
     </div>
+    <div class="container" style="margin-top: 20px">
+        <button class="roundButton" id="back" title="Back"><span style="color: black; font-size: 20px" class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+    </div>
     <div class="container">
         <div>
             <h1>Domain information</h1>
@@ -11,7 +14,7 @@
                 <tbody>
                 <tr>
                     <th>Name</th>
-                    <td>{{ $data[0]->name }}</td>
+                    <td><a rel="noreferrer noopener nofollow" href="http://{{ $data[0]->name }}">{{ $data[0]->name }}</a></td>
                 </tr>
                 <tr>
                     <th>Status</th>

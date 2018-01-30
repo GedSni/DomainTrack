@@ -8401,6 +8401,32 @@ th {
   outline: 0 !important;
 }
 
+.roundButton {
+  z-index: 99;
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+.roundButton:hover {
+  background-color: #555;
+}
+
+#toTop {
+  display: none;
+  position: fixed;
+  bottom: 30px;
+  right: 60px;
+}
+
+#toHome {
+  top: 30px;
+  left: 60px;
+}
+
 span.glyphicon.glyphicon-exclamation-sign {
   color: #9b9494;
 }

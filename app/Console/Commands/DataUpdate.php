@@ -14,7 +14,7 @@ class DataUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'domain:dat {domains?}';
+    protected $signature = 'domain:data {domains?}';
 
     /**
      * The console command description.
@@ -86,7 +86,7 @@ class DataUpdate extends Command
             ['date', '<', $dropDate],
             ['date', '<>', date('Y-m-01')]
         ])->delete();
-        //$this->call('domain:stat');
+        $this->call('domain:status');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;

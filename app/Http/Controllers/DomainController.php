@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Khill\Lavacharts\Lavacharts;
+use Illuminate\Support\Facades\Input;
 
 class DomainController extends Controller
 {
@@ -56,6 +57,19 @@ class DomainController extends Controller
         ]);
         return view('domain')
             ->with('data', $data);
+    }
+
+    public function customDate()
+    {
+        $date = Input::get( 'date' );
+        $data = $this->getData($date);
+        $data = array_slice($data, 0, 250);
+        return response()->json([
+            'view' => view('date')
+                ->with('data', $data)
+                ->with('date', $date)
+                ->render(),
+        ]);
     }
 
     private function getData($interval)

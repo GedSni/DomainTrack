@@ -13,7 +13,7 @@ class StatusUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'domain:stat';
+    protected $signature = 'domain:status';
 
     /**
      * The console command description.

@@ -1,4 +1,5 @@
 <?php
 
-Route::get('/', 'DomainController@index');
-Route::get('/{name}', 'DomainController@show');
+Route::get('/', 'DomainController@index')->name('home');
+Route::get('/{name}', 'DomainController@show')->name('domain');
+Route::post('/', 'DomainController@customDate');
