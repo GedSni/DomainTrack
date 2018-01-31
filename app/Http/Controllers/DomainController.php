@@ -16,9 +16,6 @@ class DomainController extends Controller
         $dataDay = $this->getData($yesterday);
         $dataWeek = $this->getData($lastMonday);
         $dataMonth = $this->getData($firstMonthDay);
-        $dataDay = array_slice($dataDay, 0, 250);
-        $dataWeek = array_slice($dataWeek, 0, 250);
-        $dataMonth = array_slice($dataMonth, 0, 250);
         return view('home')
             ->with('dataDay', $dataDay)
             ->with('dataWeek', $dataWeek)
@@ -74,13 +71,15 @@ class DomainController extends Controller
 
     private function getData($interval)
     {
-        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date, r1.domain_id,
+        $data = DB::select("select d1.name, d1.status, r1.rank, r1.date,
                                   (select r2.rank
                                   from domains as d2, ranks as r2 
                                   where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
                                    - r1.rank as diff
                                   from domains as d1, ranks as r1
-                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks) order by diff desc"
+                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
+                                  order by diff desc
+                                  LIMIT 250"
             , array( 'interval' => $interval));
         return $data;
     }

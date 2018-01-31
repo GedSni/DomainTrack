@@ -15,6 +15,7 @@ class CreateRanksTable extends Migration
             $table->date('date')->nullable();
             $table->integer('rank')->nullable();
             $table->unique(['date', 'domain_id']);
+            $table->index(['rank', 'date']);
             $table->foreign('domain_id')
                 ->references('id')->on('domains')
                 ->onDelete('cascade')->onUpdate('cascade');

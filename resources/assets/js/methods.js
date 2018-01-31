@@ -1,12 +1,13 @@
 (function () {
     var row;
     $(document).ready(function () {
-        $("#loading-wrapper").remove();
+        $("#loading-wrapper").hide();
         $("#datePicker").datepicker({
             dateFormat: "yy-mm-dd",
             maxDate: new Date,
             minDate: new Date(2017, 1, 1),
             onSelect: function() {
+                $("#loading-wrapper").show();
                 var date = $(this).val();
                 $.ajax({
                     headers: {
@@ -20,9 +21,12 @@
                         $("#tablesDiv").html(data.view);
                         $("#tables").hide();
                         $(window).resize();
+                        $("a.domainTooltip").tooltip();
+                        $("#loading-wrapper").hide();
                     },
                     error: function() {
                         alert('Request failed');
+                        $("#loading-wrapper").hide();
                     }
                 });
             }

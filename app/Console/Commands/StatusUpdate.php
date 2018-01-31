@@ -43,17 +43,24 @@ class StatusUpdate extends Command
         $yesterday = date("Y-m-d", strtotime("yesterday"));
         $lastMonday = date("Y-m-d", strtotime("last monday"));
         $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
+        $this->info("wat");
         $dataDay = $this->getData($yesterday);
+        $this->info("wat");
+        $this->info('Processing cURL requests (1/3)');
+        $this->statusCheck($dataDay);
+        unset($dataDay);
         $dataWeek = $this->getData($lastMonday);
+        $this->info('Processing cURL requests (2/3)');
+        $this->statusCheck($dataWeek);
+        unset($dataWeek);
         $dataMonth = $this->getData($firstMonthDay);
-        $dataDay = array_slice($dataDay, 0, 250);
-        $dataWeek = array_slice($dataWeek, 0, 250);
-        $dataMonth = array_slice($dataMonth, 0, 250);
-        $this->info('Processing cURL requests');
-        $nodes = array();
-        $nodes = $this->domainArray($dataDay, $nodes);
-        $nodes = $this->domainArray($dataWeek, $nodes);
-        $nodes = $this->domainArray($dataMonth, $nodes);
+        $this->info('Processing cURL requests (3/3)');
+        $this->statusCheck($dataMonth);
+        unset($dataMonth);
+        $this->info('Success!');
+    }
+
+    private function statusCheck($nodes) {
         $curl_arr = array();
         $userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2';
         $master = curl_multi_init();
@@ -72,18 +79,15 @@ class StatusUpdate extends Command
             curl_setopt($curl_arr[$i], CURLOPT_NOBODY, true);
             curl_setopt($curl_arr[$i], CURLOPT_HEADER, true);
             curl_setopt($curl_arr[$i], CURLOPT_FOLLOWLOCATION, false);
-            curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i] );
+            curl_setopt($curl_arr[$i], CURLOPT_URL, 'http://' . $nodes[$i]->name );
             curl_multi_add_handle($master, $curl_arr[$i]);
         }
         do {
             curl_multi_exec($master,$running);
         } while($running > 0);
         for($i = 0; $i < $count; $i++) {
-            $domain = Domain::where('name', $nodes[$i])->first();
+            $domain = Domain::where('name', $nodes[$i]->name)->first();
             $httpCode = curl_getinfo($curl_arr[$i], CURLINFO_HTTP_CODE);
-            var_dump($i);
-            var_dump($domain->name);
-            var_dump($httpCode);
             echo "\n";
             if ($httpCode < 400 /*&& $httpCode != 0*/ || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
@@ -92,28 +96,20 @@ class StatusUpdate extends Command
             }
             $domain->save();
         }
-        $this->info('Success!');
     }
 
     private function getData($interval)
     {
-        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date, r1.domain_id,
+        $data = DB::select("select d1.name,
                                   (select r2.rank
                                   from domains as d2, ranks as r2 
                                   where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
                                    - r1.rank as diff
                                   from domains as d1, ranks as r1
-                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks) order by diff desc"
+                                  where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
+                                  order by diff desc
+                                  LIMIT 250"
             , array( 'interval' => $interval));
         return $data;
-    }
-
-    private function domainArray($data, $nodes) {
-        foreach ($data as $site) {
-            if (!in_array($site->name, $nodes)) {
-                array_push($nodes, $site->name);
-            }
-        }
-        return $nodes;
     }
 }

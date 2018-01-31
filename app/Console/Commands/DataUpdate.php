@@ -45,7 +45,7 @@ class DataUpdate extends Command
         $timePre = microtime(true);
         $domains = $this->argument('domains');
         if (!isset($domains)) {
-            $domains = 100000;
+            $domains = 80000;
         } else {
             $this->info("Domains variable was taken from command arguments");
         }
@@ -60,8 +60,8 @@ class DataUpdate extends Command
         $this->info('Processing..');
         //$fileHandle = fopen("$path/top-1m.csv", 'r');
         //$fileDate = date("Y-m-d");
-        $fileHandle = fopen('./domains/2018-01-26.csv', 'r');
-        $fileDate = '2018-01-28';
+        $fileHandle = fopen('./domains/2018-01-01.csv', 'r');
+        $fileDate = '2018-01-01';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
@@ -73,8 +73,10 @@ class DataUpdate extends Command
             );
             Rank::firstOrCreate(
                 [
-                    'domain_id' => $domain->id,
                     'date' => $fileDate,
+                    'domain_id' => $domain->id
+                ],
+                [
                     'rank' => $line[0]
                 ]
             );
@@ -86,7 +88,7 @@ class DataUpdate extends Command
             ['date', '<', $dropDate],
             ['date', '<>', date('Y-m-01')]
         ])->delete();
-        $this->call('domain:status');
+        //$this->call('domain:status');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;
