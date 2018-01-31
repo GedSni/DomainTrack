@@ -20,6 +20,7 @@ class CreateDomainsTable extends Migration
 
     public function down()
     {
+        Schema::dropIfExists('ranks');
         Schema::dropIfExists('domains');
     }
 }

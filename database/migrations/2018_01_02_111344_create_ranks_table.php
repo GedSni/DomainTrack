@@ -20,6 +20,13 @@ class CreateRanksTable extends Migration
                 ->references('id')->on('domains')
                 ->onDelete('cascade')->onUpdate('cascade');
         });
+
+
+    }
+
+    public function down()
+    {
+        Schema::dropIfExists('ranks');
     }
 
 }
