@@ -45,7 +45,7 @@ class DataUpdate extends Command
         $timePre = microtime(true);
         $domains = $this->argument('domains');
         if (!isset($domains)) {
-            $domains = 80000;
+            $domains = 100000;
         } else {
             $this->info("Domains variable was taken from command arguments");
         }

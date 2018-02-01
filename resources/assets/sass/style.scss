@@ -5,58 +5,26 @@
 @import "variables";
 
 // Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~bootstrap/scss/bootstrap";
 
 // Basic styles
 p.tableHead {
-  font-family: verdana;
+  margin-top: 20px;
   font-size: 20px;
   text-align: center;
 }
 
 p.tableHead2 {
-  font-family: verdana;
   font-size: 15px;
   text-align: center;
 }
 
-a:visited {
+a.link:visited {
   color: rgb(206, 158, 162);
 }
 
 th {
   background-color:white;
-}
-
-// Buttons
-.button:active {
-  transform: translateY(1px);
-}
-
-.button {
-  background-color: white;
-  border-radius: 5px;
-  padding-top: 3px;
-}
-
-.button.nextRow {
-  border: 2px solid green;
-}
-
-.nextRowGlyph {
-  color: green;
-}
-
-.button.exit {
-  border: 2px solid red;
-}
-
-.exitGlyph {
-  color: red;
-}
-
-*:focus {
-  outline: 0 !important;
 }
 
 .roundButton {
@@ -83,16 +51,6 @@ th {
 #toHome {
   top: 30px;
   left: 60px;
-}
-
-
-// Domain status glyph
-span.glyphicon.glyphicon-exclamation-sign {
-  color: #9b9494;
-}
-
-a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
-  color: black;
 }
 
 // Mobile overlay
@@ -190,7 +148,7 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
   display: table-cell;
   vertical-align: middle;
   width: 20%;
-  text-align: right;
+  text-align: center;
 }
 
 
@@ -296,17 +254,8 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 }
 
 @media (min-height: 900px) {
-  .exitGlyph, .nextRowGlyph {
-    font-size: 25px;
-  }
   .status {
     font-size: 20px;
-  }
-  .statusGlyph {
-    font-size: 20px;
-  }
-  .statusGlyphBottom {
-    font-size: 22px;
   }
   .similarImg, .alexaImg {
     width: 30px;
@@ -316,17 +265,8 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 }
 
 @media (max-height: 900px) {
-  .exitGlyph, .nextRowGlyph {
-    font-size: 20px;
-  }
   .status {
     font-size: 15px;
-  }
-  .statusGlyph {
-    font-size: 15px;
-  }
-  .statusGlyphBottom {
-    font-size: 17px;
   }
   .similarImg, .alexaImg {
     width: 20px;
@@ -337,6 +277,9 @@ a.domainTooltip, a.domainTooltip:hover, a.domainTooltip:visited {
 @media (max-width:1200px) {
   .dayTableDiv, .weekTableDiv {
     display: none;
+  }
+  .monthTableDiv {
+    display:block;
   }
   #tables {
     display: block;

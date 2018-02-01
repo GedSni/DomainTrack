@@ -1,11 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="loading-wrapper">
-        <div id="loading-content"></div>
-    </div>
-    <div class="container" style="margin-top: 20px">
-        <button class="roundButton" id="back" title="Back"><span style="color: black; font-size: 20px" class="glyphicon glyphicon-menu-left" aria-hidden="true"></span></button>
+    <div class="container" style="margin-top: 20px; margin-bottom: 20px">
+        <button class="btn btn-outline-primary" id="back" title="Back">Back</button>
     </div>
     <div class="container">
         <div>
@@ -21,13 +18,13 @@
                     @if ($data[0]->status == 1)
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain is working properly">
-                                <span class="glyphicon glyphicon-ok status" aria-hidden="true"></span>
+                                STATUS
                             </a>
                         </td>
                     @else
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                               STATUS
                             </a>
                         </td>
                     @endif
@@ -66,12 +63,16 @@
                     <tr>
                         <td>{{ $domain->date }}</td>
                         <td>{{ $domain->rank }}</td>
-                        @if ($domain->delta > 0)
-                            <td><span class="label label-success">+{{$domain->delta}}</span></td>
-                        @elseif ($domain->delta < 0)
-                            <td><span class="label label-danger">{{$domain->delta}}</span></td>
+                        @if (isset($domain->delta))
+                            @if ($domain->delta > 0)
+                                <td><span class="badge badge-pill badge-success">+{{$domain->delta}}</span></td>
+                            @elseif ($domain->delta < 0)
+                                <td><span class="badge badge-pill badge-danger">{{$domain->delta}}</span></td>
+                            @else
+                                <td><span class="badge badge-pill badge-primary">{{$domain->delta}}</span></td>
+                            @endif
                         @else
-                            <td><span class="label label-default">{{$domain->delta}}</span></td>
+                            <td><span class="badge badge-pill badge-warning">Not available</span></td>
                         @endif
                     </tr>
                 @endforeach

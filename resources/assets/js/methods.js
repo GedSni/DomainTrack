@@ -1,13 +1,11 @@
 (function () {
     var row;
     $(document).ready(function () {
-        $("#loading-wrapper").hide();
         $("#datePicker").datepicker({
             dateFormat: "yy-mm-dd",
             maxDate: new Date,
             minDate: new Date(2017, 1, 1),
             onSelect: function() {
-                $("#loading-wrapper").show();
                 var date = $(this).val();
                 $.ajax({
                     headers: {
@@ -22,11 +20,9 @@
                         $("#tables").hide();
                         $(window).resize();
                         $("a.domainTooltip").tooltip();
-                        $("#loading-wrapper").hide();
                     },
                     error: function() {
                         alert('Request failed');
-                        $("#loading-wrapper").hide();
                     }
                 });
             }
@@ -41,7 +37,19 @@
             document.location.href="/";
         });
         $("#tables").change(function () {
-            changeTable(this.value);
+            if (this.value === 'Month') {
+                $(".dayTableDiv").hide();
+                $(".weekTableDiv").hide();
+                $(".monthTableDiv").show();
+            } else if (this.value === 'Week') {
+                $(".dayTableDiv").hide();
+                $(".weekTableDiv").show();
+                $(".monthTableDiv").hide();
+            } else if (this.value === 'Day') {
+                $(".dayTableDiv").show();
+                $(".weekTableDiv").hide();
+                $(".monthTableDiv").hide();
+            }
         });
         $(window).resize(function(){
             if ($(window).width() < 1200) {
@@ -77,11 +85,11 @@
         $("#topRank").text($(row.children('.rank')).text());
         topDiff.text($(row.children('.diff')).text());
         if (parseInt(topDiff.text()) > 0) {
-            topDiff.addClass("label-success").removeClass("label-danger label-default");
+            topDiff.addClass("badge-success").removeClass("badge-danger badge-default");
         } else if (parseInt(topDiff.text()) < 0) {
-            topDiff.addClass("label-danger").removeClass("label-success label-default");
+            topDiff.addClass("badge-danger").removeClass("badge-success badge-default");
         } else if (parseInt(topDiff.text()) === 0) {
-            topDiff.addClass("label-default").removeClass("label-success label-danger");
+            topDiff.addClass("badge-default").removeClass("badge-success badge-danger");
         }
         if ($(row.find('.status')).length) {
             $("#topStatus").css("display", "table-cell");
@@ -100,34 +108,6 @@
         row = nextRow;
     }
 
-    function changeTable(value) {
-        if (value === 'Month') {
-            document.getElementById("dayTableDiv").style.display = "none";
-            document.getElementById("weekTableDiv").style.display = "none";
-            document.getElementById("monthTableDiv").style.display = "inline-table";
-            document.getElementById("monthTableDiv").style.width = "100%";
-            if (document.getElementById("floatingHeader") != null) {
-                document.getElementById("floatingHeader").style.width = "100%";
-            }
-        } else if (value === 'Week') {
-            document.getElementById("dayTableDiv").style.display = "none";
-            document.getElementById("weekTableDiv").style.display = "inline-table";
-            document.getElementById("weekTableDiv").style.width = "100%";
-            if (document.getElementById("floatingHeader") != null) {
-                document.getElementById("floatingHeader").style.width = "100%";
-            }
-            document.getElementById("monthTableDiv").style.display = "none";
-        } else if (value === 'Day') {
-            document.getElementById("dayTableDiv").style.display = "inline-table";
-            document.getElementById("dayTableDiv").style.width = "100%";
-            if (document.getElementById("floatingHeader") != null) {
-                document.getElementById("floatingHeader").style.width = "100%";
-            }
-            document.getElementById("weekTableDiv").style.display = "none";
-            document.getElementById("monthTableDiv").style.display = "none";
-        }
-    }
-
     function scrollFunction() {
         if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
             document.getElementById("toTop").style.display = "block";
@@ -140,8 +120,6 @@
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
-
-
 
     function error(e) {
         alert(e);

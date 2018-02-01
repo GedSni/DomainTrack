@@ -21,21 +21,21 @@
                                 <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                             @if (isset($row->status) && !$row->status)
                                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                    <span class="glyphicon glyphicon-exclamation-sign status" aria-hidden="true"></span>
+                                    STATUS
                                 </a>
                             @endif
                         </td>
                         <td class="rank">{{$row->rank}}</td>
                         @if (isset($row->diff))
                             @if ($row->diff > 0)
-                                <td class="diff" align="left"><span class="label label-success">+{{$row->diff}}</span></td>
+                                <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$row->diff}}</span></td>
                             @elseif ($row->diff < 0)
-                                <td class="diff" align="left"><span class="label label-danger">{{$row->diff}}</span></td>
+                                <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$row->diff}}</span></td>
                             @elseif ($row->diff == 0)
-                                <td class="diff" align="left"><span class="label label-default">{{$row->diff}}</span></td>
+                                <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$row->diff}}</span></td>
                             @endif
                         @else
-                            <td class="diff" align="left"><span class="label label-warning">Not available</span></td>
+                            <td class="diff" align="left"><span class="badge badge-pill badge-warning">Not available</span></td>
                         @endif
                     </tr>
                 @endforeach
