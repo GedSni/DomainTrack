@@ -84,7 +84,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                STATUS
+                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
                                             </a>
                                         @endif
                                     </td>
@@ -133,7 +133,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                STATUS
+                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
                                             </a>
                                         @endif
                                     </td>
@@ -182,7 +182,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                STATUS
+                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
                                             </a>
                                         @endif
                                     </td>

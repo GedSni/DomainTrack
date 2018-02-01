@@ -88,7 +88,7 @@ class DataUpdate extends Command
             ['date', '<', $dropDate],
             ['date', '<>', date('Y-m-01')]
         ])->delete();
-        //$this->call('domain:status');
+        $this->call('domain:status');
         $this->info('Processing ended..');
         $timePost = microtime(true);
         $execTime = $timePost - $timePre;

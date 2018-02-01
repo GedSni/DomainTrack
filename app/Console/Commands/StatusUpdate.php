@@ -43,9 +43,7 @@ class StatusUpdate extends Command
         $yesterday = date("Y-m-d", strtotime("yesterday"));
         $lastMonday = date("Y-m-d", strtotime("last monday"));
         $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
-        $this->info("wat");
         $dataDay = $this->getData($yesterday);
-        $this->info("wat");
         $this->info('Processing cURL requests (1/3)');
         $this->statusCheck($dataDay);
         unset($dataDay);
@@ -88,7 +86,6 @@ class StatusUpdate extends Command
         for($i = 0; $i < $count; $i++) {
             $domain = Domain::where('name', $nodes[$i]->name)->first();
             $httpCode = curl_getinfo($curl_arr[$i], CURLINFO_HTTP_CODE);
-            echo "\n";
             if ($httpCode < 400 /*&& $httpCode != 0*/ || $httpCode == 405 || $httpCode == 501) {
                 $domain->status = true;
             } else {

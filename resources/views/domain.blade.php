@@ -18,13 +18,13 @@
                     @if ($data[0]->status == 1)
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain is working properly">
-                                STATUS
+                                <span style="vertical-align: top" class="badge badge-pill badge-success">✓</span>
                             </a>
                         </td>
                     @else
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                               STATUS
+                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
                             </a>
                         </td>
                     @endif
