@@ -62,7 +62,7 @@
         <div id="tablesDiv">
             <div class="dayTableDiv">
                 <p class="tableHead">Day</p>
-                @if (isset($dataWeek[0]))
+                @if (isset($dataDay[0]))
                     <p class="tableHead2">Since {{ $yesterday }}</p>
                     <div>
                         <table class="table">
@@ -74,7 +74,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($dataWeek as $data)
+                            @foreach($dataDay as $data)
                                 <tr>
                                     <td class="nameAndLinks">
                                         <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
@@ -160,7 +160,7 @@
             </div>
             <div class="monthTableDiv">
                 <p class="tableHead">Month</p>
-                @if (isset($dataWeek[0]))
+                @if (isset($dataMonth[0]))
                     <p class="tableHead2">Since {{ $firstMonthDay }}</p>
                     <div>
                         <table class="table">
@@ -172,7 +172,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($dataWeek as $data)
+                            @foreach($dataMonth as $data)
                                 <tr>
                                     <td class="nameAndLinks">
                                         <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
