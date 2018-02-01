@@ -103,9 +103,6 @@
         $('#datePickerButton').click(function () {
             $('#datePicker').datepicker('show');
         });
-        $('#toHome').click(function () {
-            document.location.href = "/";
-        });
         $("#tables").change(function () {
             if (this.value === 'Month') {
                 $(".dayTableDiv").hide();
@@ -137,12 +134,6 @@
                 });
             } else if ($(window).width() >= 1200) {
                 $('.link', 'tr').off('click');
-                window.onscroll = function () {
-                    scrollFunction();
-                };
-                $("#toTop").click(function () {
-                    topFunction();
-                });
             }
         });
         $(window).resize();
@@ -180,19 +171,6 @@
             $('#loader').hide();
         });
         row = nextRow;
-    }
-
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            document.getElementById("toTop").style.display = "block";
-        } else {
-            document.getElementById("toTop").style.display = "none";
-        }
-    }
-
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
     }
 
     function error(e) {
