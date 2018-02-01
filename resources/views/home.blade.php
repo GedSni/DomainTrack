@@ -98,7 +98,7 @@
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">Not available</span></td>
+                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
                                 </tr>
                             @endforeach
@@ -147,7 +147,7 @@
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">Not available</span></td>
+                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
                                 </tr>
                             @endforeach
@@ -196,7 +196,7 @@
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">Not available</span></td>
+                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
                                 </tr>
                             @endforeach

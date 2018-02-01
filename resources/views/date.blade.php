@@ -35,7 +35,7 @@
                                 <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$row->diff}}</span></td>
                             @endif
                         @else
-                            <td class="diff" align="left"><span class="badge badge-pill badge-warning">Not available</span></td>
+                            <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                         @endif
                     </tr>
                 @endforeach

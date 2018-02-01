@@ -72,7 +72,7 @@
                                 <td><span class="badge badge-pill badge-primary">{{$domain->delta}}</span></td>
                             @endif
                         @else
-                            <td><span class="badge badge-pill badge-warning">Not available</span></td>
+                            <td><span class="badge badge-pill badge-warning">N/A</span></td>
                         @endif
                     </tr>
                 @endforeach
