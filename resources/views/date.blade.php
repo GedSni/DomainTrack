@@ -21,7 +21,7 @@
                                 <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                             @if (isset($row->status) && !$row->status)
                                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                    <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
+                                    <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                                 </a>
                             @endif
                         </td>

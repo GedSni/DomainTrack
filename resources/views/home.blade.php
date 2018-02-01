@@ -3,9 +3,9 @@
 @section('content')
     <div class="overlay">
         <div class="section1 layout">
-            <div id="topStatus" class="tableCellTopLeft">
+            <div class="tableCellTopLeft">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                    STATUS
+                    <img id="topStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
             <div class="tableCell">
@@ -24,7 +24,7 @@
                 <span id="topDiff" class="badge badge-pill"></span>
             </div>
             <div class="tableCellRight">
-                <button class="btn btn-outline-primary exit" href="#">Close</button>
+                <button style="margin-right: 30px" class="btn btn-outline-primary exit" href="#">Close</button>
             </div>
         </div>
         <div class="section2">
@@ -35,15 +35,15 @@
         </div>
         <div class="section3 layout">
             <div class="tableCellLeft">
-                <a id="bottomStatus" class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                    STATUS
+                <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
+                    <img id="bottomStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
             <div class="tableCellMiddle">
                 <a id="bottomName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCellRight">
-                <button class="btn btn-outline-primary nextRow">Next</button>
+                <button style="margin-right: 30px" class="btn btn-outline-primary nextRow">Next</button>
             </div>
         </div>
     </div>
@@ -84,7 +84,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
+                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
@@ -133,7 +133,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
+                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
@@ -182,7 +182,7 @@
                                             <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <span style="vertical-align: top" class="badge badge-pill badge-warning">!</span>
+                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>

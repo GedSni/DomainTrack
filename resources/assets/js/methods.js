@@ -74,26 +74,27 @@
         $('#loader').show();
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
+        if ($(row.find('.domainTooltip')).length) {
+            $("#topStatus").css("display", "table-cell");
+        } else {
+            $("#topStatus").hide();
+        }
         $("#topName").text($(row.children('.nameAndLinks')).text()).attr("href", $(row.children('.nameAndLinks')).text().trim() );
         $("#topSimilar").attr("href", "https://www.similarweb.com/website/" + $(row.children('.nameAndLinks')).text());
         $("#topAlexa").attr("href", "https://www.alexa.com/siteinfo/" + $(row.children('.nameAndLinks')).text());
         $("#topRank").text($(row.children('.rank')).text());
         topDiff.text($(row.children('.diff')).text());
         if (parseInt(topDiff.text()) > 0) {
-            topDiff.addClass("badge-success").removeClass("badge-danger badge-default");
+            topDiff.addClass("badge-success").removeClass("badge-danger badge-primary");
         } else if (parseInt(topDiff.text()) < 0) {
-            topDiff.addClass("badge-danger").removeClass("badge-success badge-default");
+            topDiff.addClass("badge-danger").removeClass("badge-success badge-primary");
         } else if (parseInt(topDiff.text()) === 0) {
-            topDiff.addClass("badge-default").removeClass("badge-success badge-danger");
+            topDiff.addClass("badge-primary").removeClass("badge-success badge-danger");
         }
-        if ($(row.find('.status')).length) {
-            $("#topStatus").css("display", "table-cell");
-        } else {
-            $("#topStatus").hide();
-        }
+
         $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", $(nextRow.children('.nameAndLinks')).text().trim());
-        if ($(nextRow.find('.status')).length) {
-            $("#bottomStatus").css("display", "table-cell");
+        if ($(nextRow.find('.domainTooltip')).length) {
+            $("#bottomStatus").show();
         } else {
             $("#bottomStatus").hide();
         }

@@ -10114,14 +10114,14 @@ th {
   display: table-cell;
   vertical-align: middle;
   width: 20%;
-  text-align: right;
+  text-align: center;
 }
 
 .tableCellTopLeft {
   display: table-cell;
   vertical-align: middle;
   width: 10%;
-  text-align: right;
+  text-align: left;
 }
 
 .tableCellMiddle {
@@ -10135,7 +10135,7 @@ th {
   display: table-cell;
   vertical-align: middle;
   width: 20%;
-  text-align: center;
+  text-align: right;
 }
 
 .loader {
@@ -10289,10 +10289,6 @@ th {
 }
 
 @media (min-height: 900px) {
-  .status {
-    font-size: 20px;
-  }
-
   .similarImg,
   .alexaImg {
     width: 30px;
@@ -10301,10 +10297,6 @@ th {
 }
 
 @media (max-height: 900px) {
-  .status {
-    font-size: 15px;
-  }
-
   .similarImg,
   .alexaImg {
     width: 20px;
