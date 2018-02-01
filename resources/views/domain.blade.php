@@ -15,7 +15,13 @@
                 </tr>
                 <tr>
                     <th>Status</th>
-                    @if ($data[0]->status == 1)
+                    @if (!isset($data[0]->status))
+                        <td>
+                            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Status is unknown">
+                                <span style="vertical-align: top" class="badge badge-pill badge-warning">N/A</span>
+                            </a>
+                        </td>
+                    @elseif ($data[0]->status == 1)
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain is working properly">
                                 <span style="vertical-align: top" class="badge badge-pill badge-success">✓</span>
@@ -25,12 +31,6 @@
                         <td>
                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                                 <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
-                            </a>
-                        </td>
-                    @else
-                        <td>
-                            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Data is not available">
-                                <span style="vertical-align: top" class="badge badge-pill badge-warning">N/A</span>
                             </a>
                         </td>
                     @endif
