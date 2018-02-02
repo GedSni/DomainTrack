@@ -26,8 +26,8 @@
         </nav>
         <a class="btn btn-outline-primary" href="#">Sign up</a>
     </div>
+    @yield('content')
     <div class="container">
-        @yield('content')
         <footer class="pt-4 my-md-5 pt-md-5 border-top">
             <div class="row">
                 <div class="col-12 col-md">

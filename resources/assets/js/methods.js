@@ -1,76 +1,21 @@
 (function () {
+
     var row;
+
     $(document).ready(function () {
-        $("#datePicker").datepicker({
-            dateFormat: "yy-mm-dd",
-            maxDate: new Date,
-            minDate: new Date(2017, 1, 1),
-            onSelect: function() {
-                var date = $(this).val();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: "POST",
-                    url: "/",
-                    data: {date: date},
-                    dataType: "JSON",
-                    success: function(data) {
-                        $("#tablesDiv").html(data.view);
-                        $("#tables").hide();
-                        $(window).resize();
-                        $("a.domainTooltip").tooltip();
-                    },
-                    error: function() {
-                        alert('Request failed');
-                    }
-                });
-            }
-        });
-        $('#back').on('click', function(e){
-            window.history.back();
-        });
+        screenMode();
+        datePicker();
         $('#datePickerButton').click(function() {
             $('#datePicker').datepicker('show');
         });
         $("#tables").change(function () {
-            if (this.value === 'Month') {
-                $(".dayTableDiv").hide();
-                $(".weekTableDiv").hide();
-                $(".monthTableDiv").show();
-            } else if (this.value === 'Week') {
-                $(".dayTableDiv").hide();
-                $(".weekTableDiv").show();
-                $(".monthTableDiv").hide();
-            } else if (this.value === 'Day') {
-                $(".dayTableDiv").show();
-                $(".weekTableDiv").hide();
-                $(".monthTableDiv").hide();
-            }
+            tableChange(this.value);
         });
-        $(window).resize(function(){
-            if ($(window).width() < 1200) {
-                $('.link', 'tr').click(function (e) {
-                    e.preventDefault();
-                    $(".overlay").show();
-                    $("body").css("overflow", "hidden");
-                    row = $(this).closest('tr');
-                    proceed();
-                });
-                $("button.nextRow").click(proceed);
-                $("button.exit").click(function () {
-                    $(".overlay").hide();
-                    $("body").css("overflow", "visible");
-                });
-            } else if ($(window).width() >= 1200) {
-                $('.link', 'tr').off('click');
-            }
-        });
-        $(window).resize();
         $("a.domainTooltip").tooltip();
     });
 
-    function proceed() {
+    function proceed()
+    {
         $('#loader').show();
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
@@ -104,7 +49,75 @@
         row = nextRow;
     }
 
-    function error(e) {
+    function screenMode()
+    {
+        if ($(window).width() < 1200) {
+            $('.link', 'tr').click(function (e) {
+                e.preventDefault();
+                $(".overlay").show();
+                $("body").css("overflow", "hidden");
+                row = $(this).closest('tr');
+                proceed();
+            });
+            $("button.nextRow").click(proceed);
+            $("button.exit").click(function () {
+                $(".overlay").hide();
+                $("body").css("overflow", "visible");
+            });
+        } else if ($(window).width() >= 1200) {
+            $('.link', 'tr').off('click');
+        }
+    }
+
+    function datePicker()
+    {
+        $("#datePicker").datepicker({
+            dateFormat: "yy-mm-dd",
+            maxDate: new Date(Date.now() - 864e5),
+            minDate: new Date(2017, 1, 1),
+            onSelect: function() {
+                var date = $(this).val();
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/",
+                    data: {date: date},
+                    dataType: "JSON",
+                    success: function(data) {
+                        $("#tablesDiv").html(data.view);
+                        $("#tables").hide();
+                        $(window).resize();
+                        $("a.domainTooltip").tooltip();
+                    },
+                    error: function() {
+                        alert('Request failed');
+                    }
+                });
+            }
+        });
+    }
+
+    function tableChange(value)
+    {
+        if (value === 'Month') {
+            $(".dayTableDiv").hide();
+            $(".weekTableDiv").hide();
+            $(".monthTableDiv").show();
+        } else if (value === 'Week') {
+            $(".dayTableDiv").hide();
+            $(".weekTableDiv").show();
+            $(".monthTableDiv").hide();
+        } else if (value === 'Day') {
+            $(".dayTableDiv").show();
+            $(".weekTableDiv").hide();
+            $(".monthTableDiv").hide();
+        }
+    }
+
+    function error(e)
+    {
         alert(e);
     }
 })();

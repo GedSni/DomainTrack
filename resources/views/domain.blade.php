@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container" style="margin-top: 20px; margin-bottom: 20px">
-        <button class="btn btn-outline-primary" id="back" title="Back">Back</button>
+        <a class="btn btn-outline-primary" href="/" title="Back">Back</a>
     </div>
     <div class="container">
         <div>
