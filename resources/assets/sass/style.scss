@@ -283,7 +283,7 @@ th {
 @media (min-width:1200px) {
   .dayTableDiv, .weekTableDiv, .monthTableDiv {
     display: inline-table !important;
-    width:30% !important;
+    max-width:30% !important;
   }
   #tables {
     display: none;
