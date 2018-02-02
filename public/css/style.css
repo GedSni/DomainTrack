@@ -10324,7 +10324,7 @@ th {
   .weekTableDiv,
   .monthTableDiv {
     display: inline-table !important;
-    max-width: 30% !important;
+    width: 25% !important;
   }
 
   #tables {
