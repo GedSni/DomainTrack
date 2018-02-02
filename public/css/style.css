@@ -10062,6 +10062,11 @@ th {
   display: none;
 }
 
+.rank,
+.diff {
+  max-width: 40px;
+}
+
 .overlay {
   display: none;
   position: fixed;

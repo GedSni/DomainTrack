@@ -64,7 +64,7 @@
                 });
             } else if ($(window).width() >= 1200) {
                 $('.link', 'tr').off('click');
-           }
+            }
         });
         $(window).resize();
         $("a.domainTooltip").tooltip();
