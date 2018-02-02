@@ -3,28 +3,28 @@
 @section('content')
     <div class="overlay">
         <div class="section1 layout">
-            <div class="tableCellTopLeft">
+            <div class="tableCell topLeft">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                     <img id="topStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
-            <div class="tableCell">
+            <div class="tableCell cell">
                 <a style="margin-left: 5px" id="topName" rel="noreferrer noopener nofollow"></a>
             </div>
-            <div class="tableCell">
+            <div class="tableCell cell">
                 <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
                     <img class="similarImg" alt='SimilarWeb' align='right' src={{ asset('img/similarweb.ico') }}></a>
                 <a id="topAlexa" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/">
                     <img class="alexaImg" alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }}></a>
             </div>
-            <div class="tableCell">
+            <div class="tableCell cell">
                 <p id="topRank"></p>
             </div>
-            <div class="tableCell">
+            <div class="tableCell cell">
                 <span id="topDiff" class="badge badge-pill"></span>
             </div>
-            <div class="tableCellRight">
-                <button style="margin-right: 30px" class="btn btn-outline-primary exit" href="#">Close</button>
+            <div class="tableCell right">
+                <button style="margin-right: 15px" class="btn btn-outline-primary exit" href="#">Close</button>
             </div>
         </div>
         <div class="section2">
@@ -34,16 +34,16 @@
             </iframe>
         </div>
         <div class="section3 layout">
-            <div class="tableCellLeft">
+            <div class="tableCell bottomLeft">
                 <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                     <img id="bottomStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
-            <div class="tableCellMiddle">
+            <div class="tableCell middle">
                 <a id="bottomName" rel="noreferrer noopener nofollow"></a>
             </div>
-            <div class="tableCellRight">
-                <button style="margin-right: 30px" class="btn btn-outline-primary nextRow">Next</button>
+            <div class="tableCell right">
+                <button style="margin-right: 15px" class="btn btn-outline-primary nextRow">Next</button>
             </div>
         </div>
     </div>

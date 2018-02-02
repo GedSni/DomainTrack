@@ -10014,32 +10014,6 @@ th {
   background-color: white;
 }
 
-.roundButton {
-  z-index: 99;
-  border: 2px solid #000000;
-  background-color: #ffffff;
-  color: #ffffff;
-  cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 3px;
-}
-
-.roundButton:hover {
-  background-color: #555;
-}
-
-#toTop {
-  display: none;
-  position: fixed;
-  bottom: 30px;
-  right: 60px;
-}
-
-#toHome {
-  top: 30px;
-  left: 60px;
-}
-
 #topName,
 #topRank {
   font-size: 15px;
@@ -10113,33 +10087,28 @@ th {
 .tableCell {
   display: table-cell;
   vertical-align: middle;
+}
+
+.tableCell.cell {
   width: 20%;
 }
 
-.tableCellLeft {
-  display: table-cell;
-  vertical-align: middle;
+.tableCell.bottomLeft {
   width: 20%;
   text-align: center;
 }
 
-.tableCellTopLeft {
-  display: table-cell;
-  vertical-align: middle;
+.tableCell.topLeft {
   width: 10%;
   text-align: left;
 }
 
-.tableCellMiddle {
-  display: table-cell;
-  vertical-align: middle;
+.tableCell.middle {
   width: 60%;
   text-align: left;
 }
 
-.tableCellRight {
-  display: table-cell;
-  vertical-align: middle;
+.tableCell.right {
   width: 20%;
   text-align: right;
 }
