@@ -10,9 +10,13 @@ class DomainController extends Controller
 {
     public function index()
     {
-        $yesterday = date("Y-m-d", strtotime("yesterday"));
+        /*$yesterday = date("Y-m-d", strtotime("yesterday"));
         $lastMonday = date("Y-m-d", strtotime("last monday"));
-        $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));
+        $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));*/
+
+        $yesterday = date("Y-m-d", strtotime("-1 day"));
+        $lastMonday = date("Y-m-d", strtotime("-1 week"));
+        $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
         $dataDay = $this->getData($yesterday);
         $dataWeek = $this->getData($lastMonday);
         $dataMonth = $this->getData($firstMonthDay);

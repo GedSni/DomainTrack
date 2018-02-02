@@ -1,5 +1,5 @@
 <div>
-    @if (isset($data[0]))
+    @if (isset($data[0]->diff))
         <p class="tableHead">Since {{ $date }}</p>
         <div>
             <table class="table">
@@ -14,7 +14,7 @@
                 @foreach($data as $row)
                     <tr>
                         <td class="nameAndLinks">
-                            <a class="link" href="{{ action('DomainController@show', [$row->name]) }}">{{$row->name}}</a>
+                            <a class="linkDate" href="{{ action('DomainController@show', [$row->name]) }}">{{$row->name}}</a>
                             <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$row->name}}">
                                 <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
                             <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$row->name}}">

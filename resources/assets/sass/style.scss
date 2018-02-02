@@ -19,7 +19,7 @@ p.tableHead2 {
   text-align: center;
 }
 
-a.link:visited {
+a.link:visited, a.linkDate:visited {
   color: rgb(206, 158, 162);
 }
 
@@ -190,7 +190,7 @@ th {
 // Responsive styles
 @media (max-width: 450px) {
   #topName {
-    max-width: 120px;
+    max-width: 100px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -205,7 +205,7 @@ th {
   }
   .link {
     display :inline-block;
-    max-width: 140px;
+    max-width: 100px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

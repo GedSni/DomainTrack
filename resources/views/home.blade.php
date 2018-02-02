@@ -62,7 +62,7 @@
         <div id="tablesDiv">
             <div class="dayTableDiv">
                 <p class="tableHead">Day</p>
-                @if (isset($dataDay[0]))
+                @if (isset($dataDay[0]->diff))
                     <p class="tableHead2">Since {{ $yesterday }}</p>
                     <div>
                         <table class="table">
@@ -111,7 +111,7 @@
             </div>
             <div class="weekTableDiv">
                 <p class="tableHead">Week</p>
-                @if (isset($dataWeek[0]))
+                @if (isset($dataWeek[0]->diff))
                     <p class="tableHead2">Since {{ $lastMonday }}</p>
                     <div>
                         <table class="table">
@@ -160,7 +160,7 @@
             </div>
             <div class="monthTableDiv">
                 <p class="tableHead">Month</p>
-                @if (isset($dataMonth[0]))
+                @if (isset($dataMonth[0]->diff))
                     <p class="tableHead2">Since {{ $firstMonthDay }}</p>
                     <div>
                         <table class="table">
