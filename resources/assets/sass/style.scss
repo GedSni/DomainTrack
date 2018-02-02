@@ -283,7 +283,7 @@ th {
 @media (min-width:1200px) {
   .dayTableDiv, .weekTableDiv, .monthTableDiv {
     display: inline-table !important;
-    width:25% !important;
+    width:30% !important;
   }
   #tables {
     display: none;
@@ -300,7 +300,7 @@ th {
   }
   .link {
     display :inline-block;
-    max-width: 200px !important;
+    max-width: 120px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
