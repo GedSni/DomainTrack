@@ -10352,7 +10352,7 @@ th {
 
   .link {
     display: inline-block;
-    max-width: 100px !important;
+    max-width: 130px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
