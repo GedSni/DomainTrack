@@ -4,25 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Khill\Lavacharts\Lavacharts;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 
 class DomainController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $yesterday = date("Y-m-d", strtotime("-1 day"));
-        $lastMonday = date("Y-m-d", strtotime("-1 week"));
-        $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
-        $dataDay = $this->getData($yesterday);
-        $dataWeek = $this->getData($lastMonday);
-        $dataMonth = $this->getData($firstMonthDay);
-        return view('home')
-            ->with('dataDay', $dataDay)
-            ->with('dataWeek', $dataWeek)
-            ->with('dataMonth', $dataMonth)
-            ->with('yesterday', $yesterday)
-            ->with('lastMonday', $lastMonday)
-            ->with('firstMonthDay', $firstMonthDay);
+        if ($request->query('date') != null) {
+            $date = $request->query('date');
+            $data = $this->getData($date);
+            $data = array_slice($data, 0, 50);
+            return view('date')
+                ->with('data', $data)
+                ->with('date', $date);
+        } else {
+            $yesterday = date("Y-m-d", strtotime("-1 day"));
+            $lastMonday = date("Y-m-d", strtotime("-1 week"));
+            $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
+            $dataDay = $this->getData($yesterday);
+            $dataWeek = $this->getData($lastMonday);
+            $dataMonth = $this->getData($firstMonthDay);
+            return view('home')
+                ->with('dataDay', $dataDay)
+                ->with('dataWeek', $dataWeek)
+                ->with('dataMonth', $dataMonth)
+                ->with('yesterday', $yesterday)
+                ->with('lastMonday', $lastMonday)
+                ->with('firstMonthDay', $firstMonthDay);
+        }
     }
 
     public function show($name)
@@ -58,19 +67,6 @@ class DomainController extends Controller
             ->with('data', $data);
     }
 
-    public function customDate()
-    {
-        $date = Input::get( 'date' );
-        $data = $this->getData($date);
-        $data = array_slice($data, 0, 250);
-        return response()->json([
-            'view' => view('date')
-                ->with('data', $data)
-                ->with('date', $date)
-                ->render(),
-        ]);
-    }
-
     private function getData($interval)
     {
         $data = DB::select("select d1.name, d1.status, r1.rank, r1.date,
@@ -81,7 +77,7 @@ class DomainController extends Controller
                                   from domains as d1, ranks as r1
                                   where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
                                   order by diff desc
-                                  LIMIT 250"
+                                  LIMIT 50"
             , array( 'interval' => $interval));
         return $data;
     }

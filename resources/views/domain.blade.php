@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container" style="margin-top: 20px; margin-bottom: 20px">
-        <a class="btn btn-outline-primary" href="/" title="Back">Back</a>
+        <button id="back" class="btn btn-outline-primary" >Back</button>
     </div>
     <div class="container">
         @if (isset($data[0]))
@@ -51,6 +51,15 @@
                 <tr>
                     <th>Lowest rank</th>
                     <td>{{ $data->maxRank }}</td>
+                </tr>
+                <tr>
+                    <th>Links</th>
+                    <td>
+                        <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$data[0]->name}}">
+                            <img alt="SimilarWeb" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
+                        <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$data[0]->name}}">
+                            <img alt="Alexa" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

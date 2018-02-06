@@ -4,9 +4,8 @@
 
     $(document).ready(function () {
         $("a.domainTooltip").tooltip();
-
+        datePicker();
         $('#datePickerButton').click(function() {
-            datePicker();
             $('#datePicker').datepicker('show');
         });
         $('.link, .linkDate').click(function (e) {
@@ -15,7 +14,9 @@
         $("#tables").change(function () {
             tableChange(this.value);
         });
-
+        $('#back').click(function () {
+            window.history.back();
+        });
     });
 
     function proceed()
@@ -28,9 +29,7 @@
         } else {
             $("#topStatus").hide();
         }
-        $("#topName").text($(row.children('.nameAndLinks')).text()).attr("href", $(row.children('.nameAndLinks')).text().trim() );
-        $("#topSimilar").attr("href", "https://www.similarweb.com/website/" + $(row.children('.nameAndLinks')).text());
-        $("#topAlexa").attr("href", "https://www.alexa.com/siteinfo/" + $(row.children('.nameAndLinks')).text());
+        $("#topName").text($(row.children('.name')).text()).attr("href", $(row.children('.name')).text().trim() );
         $("#topRank").text($(row.children('.rank')).text());
         topDiff.text($(row.children('.diff')).text());
         if (parseInt(topDiff.text()) > 0) {
@@ -41,13 +40,13 @@
             topDiff.addClass("badge-primary").removeClass("badge-success badge-danger");
         }
 
-        $("#bottomName").text($(nextRow.children('.nameAndLinks')).text()).attr("href", $(nextRow.children('.nameAndLinks')).text().trim());
+        $("#bottomName").text($(nextRow.children('.name')).text()).attr("href", $(nextRow.children('.name')).text().trim());
         if ($(nextRow.find('.domainTooltip')).length) {
             $("#bottomStatus").show();
         } else {
             $("#bottomStatus").hide();
         }
-        $("#mainFrame").attr("src", "http://" + $(row.children('.nameAndLinks')).text().trim()).on('load', function () {
+        $("#mainFrame").attr("src", "http://" + $(row.children('.name')).text().trim()).on('load', function () {
             $('#loader').hide();
         });
         row = nextRow;
@@ -75,26 +74,6 @@
             dateFormat: "yy-mm-dd",
             maxDate: new Date(Date.now() - 864e5),
             minDate: new Date(2017, 1, 1),
-            onSelect: function() {
-                var date = $(this).val();
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: "POST",
-                    url: "/",
-                    data: {date: date},
-                    dataType: "JSON",
-                    success: function(data) {
-                        $("#tablesDiv").html(data.view);
-                        $("#tables").hide();
-                        $("a.domainTooltip").tooltip();
-                    },
-                    error: function() {
-                        alert('Request failed');
-                    }
-                });
-            }
         });
     }
 

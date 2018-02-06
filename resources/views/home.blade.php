@@ -12,12 +12,6 @@
                 <a style="margin-left: 5px" id="topName" rel="noreferrer noopener nofollow"></a>
             </div>
             <div class="tableCell cell">
-                <a id='topSimilar' rel='noreferrer noopener nofollow' href='https://www.similarweb.com/website/'>
-                    <img class="similarImg" alt='SimilarWeb' align='right' src={{ asset('img/similarweb.ico') }}></a>
-                <a id="topAlexa" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/">
-                    <img class="alexaImg" alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }}></a>
-            </div>
-            <div class="tableCell cell">
                 <p id="topRank"></p>
             </div>
             <div class="tableCell cell">
@@ -49,15 +43,17 @@
     </div>
     <div id="mainDiv" class="container" style="margin-top: 50px">
         <div>
-            <button type="button" class="btn btn-outline-primary" id="datePickerButton">
-                <input id="datePicker" type="text" style="height: 0; width: 0; border: 0;" />
-                Pick a date
-            </button>
             <select id="tables" class="form-control" style="width:auto; float:right">
                 <option value="Day">Day</option>
                 <option value="Week">Week</option>
                 <option selected value="Month">Month</option>
             </select>
+            <form method="get" action="{{ action('DomainController@index') }}">
+                <button type="button" class="btn btn-outline-primary" id="datePickerButton">
+                    <input id="datePicker" name="date" type="text" onchange="this.form.submit()" style="height: 0; width: 0; border: 0;"/>
+                    Pick a date
+                </button>
+            </form>
         </div>
         <div id="tablesDiv">
             <div class="dayTableDiv">
@@ -71,17 +67,14 @@
                                 <th>Domain</th>
                                 <th>Rank</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($dataDay as $data)
                                 <tr>
-                                    <td class="nameAndLinks">
+                                    <td class="name">
                                         <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
-                                        <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$data->name}}">
-                                            <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
-                                        <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$data->name}}">
-                                            <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                                                 <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
@@ -93,14 +86,16 @@
                                         @if ($data->diff > 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="lbadge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
                                         <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
-                                </tr>
+                                <td>
+                                    <a href="#">Preview</a>
+                                </td>
                             @endforeach
                             </tbody>
                         </table>
@@ -120,17 +115,14 @@
                                 <th>Domain</th>
                                 <th>Rank</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($dataWeek as $data)
                                 <tr>
-                                    <td class="nameAndLinks">
+                                    <td class="name">
                                         <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
-                                        <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$data->name}}">
-                                            <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
-                                        <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$data->name}}">
-                                            <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                                                 <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
@@ -142,13 +134,16 @@
                                         @if ($data->diff > 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="lbadge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
                                         <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
+                                    <td>
+                                        <a href="#">Preview</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -169,35 +164,35 @@
                                 <th>Domain</th>
                                 <th>Rank</th>
                                 <th></th>
+                                <th></th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($dataMonth as $data)
                                 <tr>
-                                    <td class="nameAndLinks">
+                                    <td class="name">
                                         <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
-                                        <a class="similarwebLink" rel="noreferrer noopener nofollow" href="https://www.similarweb.com/website/{{$data->name}}">
-                                            <img alt="SimilarWeb" align="right" src={{ asset('img/similarweb.ico') }} width="25" height="25"></a>
-                                        <a class="alexaLink" rel="noreferrer noopener nofollow" href="https://www.alexa.com/siteinfo/{{$data->name}}">
-                                            <img alt="Alexa" align="right" src={{ asset('img/alexa2.ico') }} width="25" height="25"></a>
                                         @if (isset($data->status) && !$data->status)
                                             <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
                                                 <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
-                                    <td class="rank">{{$data->rank}}</td>
+                                    <td class="rank" align="left">{{$data->rank}}</td>
                                     @if (isset($data->diff))
                                         @if ($data->diff > 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="lbadge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
                                             <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
                                         @endif
                                     @else
                                         <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
                                     @endif
+                                    <td class="preview">
+                                        <a href="#">Preview</a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

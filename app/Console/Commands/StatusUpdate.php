@@ -105,7 +105,7 @@ class StatusUpdate extends Command
                                   from domains as d1, ranks as r1
                                   where d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
                                   order by diff desc
-                                  LIMIT 250"
+                                  LIMIT 50"
             , array( 'interval' => $interval));
         return $data;
     }

@@ -10040,11 +10040,6 @@ th {
   display: none;
 }
 
-.rank,
-.diff {
-  max-width: 50px;
-}
-
 .overlay {
   display: none;
   position: fixed;
@@ -10191,11 +10186,6 @@ th {
   }
 }
 
-.historyTable {
-  display: inline-table;
-  width: 40%;
-}
-
 @media (max-width: 450px) {
   #topName {
     max-width: 100px;
@@ -10216,7 +10206,7 @@ th {
   .link,
   .linkDate {
     display: inline-block;
-    max-width: 100px;
+    max-width: 120px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -10326,10 +10316,9 @@ th {
     margin-left: 15px;
   }
 
-  .link,
-  .linkDate {
+  .link {
     display: inline-block;
-    max-width: 130px !important;
+    max-width: 140px !important;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
