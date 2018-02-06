@@ -9994,6 +9994,10 @@ a.text-dark:focus {
   }
 }
 
+body {
+  font-family: Arial;
+}
+
 p.tableHead {
   margin-top: 20px;
   font-size: 20px;
@@ -10028,7 +10032,7 @@ th {
 }
 
 #topRank {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 #topStatus,
@@ -10051,7 +10055,7 @@ th {
 }
 
 .section1 {
-  height: 50px;
+  height: 65px;
   width: 100%;
   position: fixed;
   top: 0;
@@ -10060,9 +10064,9 @@ th {
 }
 
 .section2 {
-  height: calc( 100% - 100px);
+  height: calc( 100% - 130px);
   width: 100%;
-  top: 50px;
+  top: 65px;
   position: fixed;
   background-color: #ffffff;
   overflow: auto;
@@ -10070,7 +10074,7 @@ th {
 }
 
 .section3 {
-  height: 50px;
+  height: 65px;
   width: 100%;
   position: fixed;
   bottom: 0;
@@ -10209,7 +10213,8 @@ th {
     text-overflow: ellipsis;
   }
 
-  .link {
+  .link,
+  .linkDate {
     display: inline-block;
     max-width: 100px;
     white-space: nowrap;
@@ -10235,7 +10240,8 @@ th {
     text-overflow: ellipsis;
   }
 
-  .link {
+  .link,
+  .linkDate {
     display: inline-block;
     max-width: 250px;
     white-space: nowrap;
@@ -10254,7 +10260,8 @@ th {
     text-overflow: ellipsis;
   }
 
-  .link {
+  .link,
+  .linkDate {
     display: inline-block;
     max-width: 500px;
     white-space: nowrap;
@@ -10319,7 +10326,8 @@ th {
     margin-left: 15px;
   }
 
-  .link {
+  .link,
+  .linkDate {
     display: inline-block;
     max-width: 130px !important;
     white-space: nowrap;

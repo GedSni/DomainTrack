@@ -10,10 +10,6 @@ class DomainController extends Controller
 {
     public function index()
     {
-        /*$yesterday = date("Y-m-d", strtotime("yesterday"));
-        $lastMonday = date("Y-m-d", strtotime("last monday"));
-        $firstMonthDay =  date("Y-m-d", strtotime("first day of this month"));*/
-
         $yesterday = date("Y-m-d", strtotime("-1 day"));
         $lastMonday = date("Y-m-d", strtotime("-1 week"));
         $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
@@ -32,30 +28,32 @@ class DomainController extends Controller
     public function show($name)
     {
         $data = $this->getDataIndividual($name);
-        $data->startDate = $data->min('date');
-        $data->minRank = $data->min('rank');
-        $data->maxRank = $data->max('rank');
-        $data[count($data)-1]->delta = 0;
-        for ($i = 0; $i < count($data)-1; $i++) {
-            $data[$i]->delta = $data[$i+1]->rank - $data[$i]->rank;
+        if (!$data->isEmpty()) {
+            $data->startDate = $data->min('date');
+            $data->minRank = $data->min('rank');
+            $data->maxRank = $data->max('rank');
+            $data[count($data)-1]->delta = 0;
+            for ($i = 0; $i < count($data)-1; $i++) {
+                $data[$i]->delta = $data[$i+1]->rank - $data[$i]->rank;
+            }
+            $history = \Lava::DataTable();
+            $history->addDateColumn('Date');
+            $history->addNumberColumn('Rank');
+            foreach ($data as $row) {
+                $history->addRow([$row->date, $row->rank]);
+            }
+            \Lava::LineChart('History', $history, [
+                'lineWidth' => 3,
+                'pointSize' => 7,
+                'legend' => [
+                    'position' => 'none'
+                ],
+                'title' => 'Rank history',
+                'vAxis' => [
+                    'direction' => -1,
+                ],
+            ]);
         }
-        $history = \Lava::DataTable();
-        $history->addDateColumn('Date');
-        $history->addNumberColumn('Rank');
-        foreach ($data as $row) {
-            $history->addRow([$row->date, $row->rank]);
-        }
-        \Lava::LineChart('History', $history, [
-            'lineWidth' => 3,
-            'pointSize' => 7,
-            'legend' => [
-                'position' => 'none'
-            ],
-            'title' => 'Rank history',
-            'vAxis' => [
-                'direction' => -1,
-            ],
-        ]);
         return view('domain')
             ->with('data', $data);
     }

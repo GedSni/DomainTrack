@@ -5,6 +5,7 @@
         <a class="btn btn-outline-primary" href="/" title="Back">Back</a>
     </div>
     <div class="container">
+        @if (isset($data[0]))
         <div>
             <h1>Domain information</h1>
             <table class="table">
@@ -86,5 +87,8 @@
             </table>
         </div>
         <div id="historyChart">@linechart('History', 'historyChart')</div>
+        @else
+            <h1>Not available</h1>
+        @endif
     </div>
 @endsection
