@@ -9,15 +9,15 @@
     <title>Alexa</title>
     <link rel="stylesheet" type="text/css" href="{{ mix('css/style.css') }}">
     <link rel="favicon" href="{{{ asset('img/favicon.ico') }}}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{{ mix('js/methods.js') }}"></script>
 </head>
 <body>
 <div class="content">
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/">Alexa tracker</a></h4>
+        <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/">AlexaTrack</a></h4>
         <nav class="my-2 my-md-0 mr-md-3">
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Support</a>

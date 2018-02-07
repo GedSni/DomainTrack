@@ -1,67 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="overlay">
-        <div class="section1 layout">
-            <div class="tableCell topLeft">
-                <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                    <img id="topStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
+    <div class='overlay'>
+        <div class='section1 layout'>
+            <div class='tableCell topLeft'>
+                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
+                    <img id='topStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
-            <div class="tableCell cell">
-                <a style="margin-left: 5px" id="topName" rel="noreferrer noopener nofollow"></a>
+            <div class='tableCell cell'>
+                <a id='topName' rel='noreferrer noopener nofollow'></a>
             </div>
-            <div class="tableCell cell">
-                <p id="topRank"></p>
+            <div class='tableCell cell'>
+                <p id='topRank'></p>
             </div>
-            <div class="tableCell cell">
-                <span id="topDiff" class="badge badge-pill"></span>
+            <div class='tableCell cell'>
+                <span id='topDiff' class='badge badge-pill'></span>
             </div>
-            <div class="tableCell right">
-                <button style="margin-right: 15px" class="btn btn-outline-primary exit" href="#">Close</button>
+            <div class='tableCell right'>
+                <button class='btn btn-outline-primary exit' href='#'>Close</button>
             </div>
         </div>
-        <div class="section2">
-            <div class="loader" id="loader"></div>
-            <iframe id="mainFrame" frameborder="0" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"
-                    style="width: 100%; height: 100%" src="" onerror="error('Failed to load');">
+        <div class='section2'>
+            <div id='loader'></div>
+            <iframe id='mainFrame' frameborder='0' sandbox='allow-same-origin allow-scripts allow-popups allow-forms'
+                    src='' onerror="error('Failed to load');">
             </iframe>
         </div>
-        <div class="section3 layout">
-            <div class="tableCell bottomLeft">
-                <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                    <img id="bottomStatus" alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
+        <div class='section3 layout'>
+            <div class='tableCell bottomLeft'>
+                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
+                    <img id='bottomStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                 </a>
             </div>
-            <div class="tableCell middle">
-                <a id="bottomName" rel="noreferrer noopener nofollow"></a>
+            <div class='tableCell middle'>
+                <a id='bottomName' rel='noreferrer noopener nofollow'></a>
             </div>
-            <div class="tableCell right">
-                <button style="margin-right: 15px" class="btn btn-outline-primary nextRow">Next</button>
+            <div class='tableCell right'>
+                <button class='btn btn-outline-primary nextRow'>Next</button>
             </div>
         </div>
     </div>
-    <div id="mainDiv" class="container" style="margin-top: 50px">
+    <div id='mainDiv' class='container'>
         <div>
-            <select id="tables" class="form-control" style="width:auto; float:right">
-                <option value="Day">Day</option>
-                <option value="Week">Week</option>
-                <option selected value="Month">Month</option>
+            <select id='tables' class='form-control'>
+                <option value='Day'>Day</option>
+                <option value='Week'>Week</option>
+                <option selected value='Month'>Month</option>
             </select>
-            <form method="get" action="{{ action('DomainController@index') }}">
-                <button type="button" class="btn btn-outline-primary" id="datePickerButton">
-                    <input id="datePicker" name="date" type="text" onchange="this.form.submit()" style="height: 0; width: 0; border: 0;"/>
+            <form method='get' action='{{ action('DomainController@index') }}'>
+                <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
+                    <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
                     Pick a date
                 </button>
             </form>
         </div>
-        <div id="tablesDiv">
-            <div class="dayTableDiv">
-                <p class="tableHead">Day</p>
+        <div id='tablesDiv'>
+            <div class='dayTableDiv'>
+                <p class='tableHead'>Day</p>
                 @if (isset($dataDay[0]->diff))
-                    <p class="tableHead2">Since {{ $yesterday }}</p>
+                    <p class='tableHead2'>Since {{ $yesterday }}</p>
                     <div>
-                        <table class="table">
+                        <table class='table'>
                             <thead>
                             <tr>
                                 <th>Domain</th>
@@ -73,43 +73,43 @@
                             <tbody>
                             @foreach($dataDay as $data)
                                 <tr>
-                                    <td class="name">
-                                        <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
+                                    <td class='name'>
+                                        <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
+                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
+                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
-                                    <td class="rank">{{$data->rank}}</td>
+                                    <td class='rank'>{{$data->rank}}</td>
                                     @if (isset($data->diff))
                                         @if ($data->diff > 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-success'>+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-danger'>{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-primary'>{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
+                                        <td class='diff' align='left'><span class='badge badge-pill badge-warning'>N/A</span></td>
                                     @endif
                                 <td>
-                                    <a href="#">Preview</a>
+                                    <a class='preview' href='#'>Preview</a>
                                 </td>
                             @endforeach
                             </tbody>
                         </table>
                     </div>
                 @else
-                    <p class="tableHead" >Not Available</p>
+                    <p class='tableHead' >Not Available</p>
                 @endif
             </div>
-            <div class="weekTableDiv">
-                <p class="tableHead">Week</p>
+            <div class='weekTableDiv'>
+                <p class='tableHead'>Week</p>
                 @if (isset($dataWeek[0]->diff))
-                    <p class="tableHead2">Since {{ $lastMonday }}</p>
+                    <p class='tableHead2'>Since {{ $lastMonday }}</p>
                     <div>
-                        <table class="table">
+                        <table class='table'>
                             <thead>
                             <tr>
                                 <th>Domain</th>
@@ -121,28 +121,28 @@
                             <tbody>
                             @foreach($dataWeek as $data)
                                 <tr>
-                                    <td class="name">
-                                        <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
+                                    <td class='name'>
+                                        <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
+                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
+                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
-                                    <td class="rank">{{$data->rank}}</td>
+                                    <td class='rank'>{{$data->rank}}</td>
                                     @if (isset($data->diff))
                                         @if ($data->diff > 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-success'>+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-danger'>{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-primary'>{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
+                                        <td class='diff' align='left'><span class='badge badge-pill badge-warning'>N/A</span></td>
                                     @endif
                                     <td>
-                                        <a href="#">Preview</a>
+                                        <a class='preview' href='#'>Preview</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -150,15 +150,15 @@
                         </table>
                     </div>
                 @else
-                    <p class="tableHead" >Not Available</p>
+                    <p class='tableHead' >Not Available</p>
                 @endif
             </div>
-            <div class="monthTableDiv">
-                <p class="tableHead">Month</p>
+            <div class='monthTableDiv'>
+                <p class='tableHead'>Month</p>
                 @if (isset($dataMonth[0]->diff))
-                    <p class="tableHead2">Since {{ $firstMonthDay }}</p>
+                    <p class='tableHead2'>Since {{ $firstMonthDay }}</p>
                     <div>
-                        <table class="table">
+                        <table class='table'>
                             <thead>
                             <tr>
                                 <th>Domain</th>
@@ -170,28 +170,28 @@
                             <tbody>
                             @foreach($dataMonth as $data)
                                 <tr>
-                                    <td class="name">
-                                        <a class="link" href="{{ action('DomainController@show', [$data->name]) }}">{{$data->name}}</a>
+                                    <td class='name'>
+                                        <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle="tooltip" data-placement="right" title="Domain might not be available">
-                                                <img alt='Status' style="vertical-align: top;" height="20px" width="20px"  src={{ asset('img/exclamation.png') }}>
+                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
+                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                             </a>
                                         @endif
                                     </td>
-                                    <td class="rank" align="left">{{$data->rank}}</td>
+                                    <td class='rank' align='left'>{{$data->rank}}</td>
                                     @if (isset($data->diff))
                                         @if ($data->diff > 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-success">+{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-success'>+{{$data->diff}}</span></td>
                                         @elseif ($data->diff < 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-danger">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-danger'>{{$data->diff}}</span></td>
                                         @elseif ($data->diff == 0)
-                                            <td class="diff" align="left"><span class="badge badge-pill badge-primary">{{$data->diff}}</span></td>
+                                            <td class='diff' align='left'><span class='badge badge-pill badge-primary'>{{$data->diff}}</span></td>
                                         @endif
                                     @else
-                                        <td class="diff" align="left"><span class="badge badge-pill badge-warning">N/A</span></td>
+                                        <td class='diff' align='left'><span class='badge badge-pill badge-warning'>N/A</span></td>
                                     @endif
-                                    <td class="preview">
-                                        <a href="#">Preview</a>
+                                    <td class='preview'>
+                                        <a class='preview' href='#'>Preview</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -199,7 +199,7 @@
                         </table>
                     </div>
                 @else
-                    <p class="tableHead" >Not Available</p>
+                    <p class='tableHead' >Not Available</p>
                 @endif
             </div>
         </div>

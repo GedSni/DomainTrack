@@ -7,7 +7,6 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-
 body {
   font-family: Arial;
 }
@@ -32,25 +31,71 @@ th {
   background-color:white;
 }
 
+// Custom styles
+#tables {
+  width:auto;
+  float:right;
+}
+
+.statusImg {
+  vertical-align: top;
+}
+
+#datePicker {
+  height: 0;
+  width: 0;
+  border: 0;
+}
+
+.backButton {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#mainDiv {
+  margin-top: 50px;
+}
+
 // Mobile overlay
 #topName, #topRank {
   font-size: 15px;
 }
 
-#topDiff {
-  font-size: 13px;
+#topName, #bottomName {
+  margin-top: 5px;
+}
+
+#topName {
+  margin-left: 5px;
 }
 
 #bottomName {
   font-size: 18px;
 }
 
+#topStatus, #bottomStatus {
+  display: none;
+}
+
+#topStatus {
+  margin-left: 40%;
+}
+
 #topRank {
   margin-top: 20px;
 }
 
-#topStatus, #bottomStatus {
-  display: none;
+#topDiff {
+  font-size: 13px;
+}
+
+#mainFrame {
+  width: 100%;
+  height: 100%;
+}
+
+.nextRow {
+  margin-right: 15px;
 }
 
 .overlay {
@@ -112,7 +157,7 @@ th {
 
 .tableCell.topLeft {
   width: 10%;
-  text-align: left;
+  text-align: center;
 }
 
 .tableCell.middle {
@@ -122,19 +167,22 @@ th {
 
 .tableCell.right {
   width: 20%;
-  text-align: right;
+  text-align: center;
 }
 
+.tableCell.nameCell {
+  width: 30%;
+}
 
 // Mobile overlay IFrame loading indicator
-.loader {
+#loader {
   height: 4px;
   width: 100%;
   position: fixed;
   overflow: hidden;
   background-color: #ddd;
 }
-.loader:before{
+#loader:before{
   display: block;
   position: fixed;
   content: "";
@@ -225,7 +273,6 @@ th {
     width: 30px;
     height: 30px;
   }
-
 }
 
 @media (max-height: 900px) {
@@ -236,14 +283,10 @@ th {
 }
 
 @media (max-width:1200px) {
-  .dayTableDiv, .weekTableDiv {
-    display: none;
-  }
-  .monthTableDiv {
-    display:block;
-  }
   #tables {
     display: block;
+    width:auto;
+    float:right;
   }
 }
 

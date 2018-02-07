@@ -3,19 +3,25 @@
     var row;
 
     $(document).ready(function () {
+        tableChange($("#tables").val());
         $("a.domainTooltip").tooltip();
         datePicker();
         $('#datePickerButton').click(function() {
             $('#datePicker').datepicker('show');
         });
-        $('.link, .linkDate').click(function (e) {
-            screenMode($(this), e);
+        $('.preview').click(function (e) {
+            overlay($(this), e);
         });
         $("#tables").change(function () {
             tableChange(this.value);
         });
         $('#back').click(function () {
             window.history.back();
+        });
+        $("button.nextRow").click(proceed);
+        $("button.exit").click(function () {
+            $(".overlay").hide();
+            $("body").css("overflow", "visible");
         });
     });
 
@@ -39,7 +45,6 @@
         } else if (parseInt(topDiff.text()) === 0) {
             topDiff.addClass("badge-primary").removeClass("badge-success badge-danger");
         }
-
         $("#bottomName").text($(nextRow.children('.name')).text()).attr("href", $(nextRow.children('.name')).text().trim());
         if ($(nextRow.find('.domainTooltip')).length) {
             $("#bottomStatus").show();
@@ -52,20 +57,13 @@
         row = nextRow;
     }
 
-    function screenMode(thisObj, e)
+    function overlay(thisObj, e)
     {
-        if ($(window).width() < 1200) {
-            e.preventDefault();
-            $(".overlay").show();
-            $("body").css("overflow", "hidden");
-            row = thisObj.closest('tr');
-            proceed();
-            $("button.nextRow").click(proceed);
-            $("button.exit").click(function () {
-                $(".overlay").hide();
-                $("body").css("overflow", "visible");
-            });
-        }
+        e.preventDefault();
+        $(".overlay").show();
+        $("body").css("overflow", "hidden");
+        row = thisObj.closest('tr');
+        proceed();
     }
 
     function datePicker()
