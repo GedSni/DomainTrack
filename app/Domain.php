@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Domain
@@ -26,7 +27,16 @@ class Domain extends Model
         'name',
         'status'
     ];
-    public function rank(){
+
+    public function rank()
+    {
         return $this->hasMany('App\Rank');
+    }
+
+    public function favorited()
+    {
+        return (bool) Favorite::where('user_id', Auth::id())
+            ->where('domain_name', $this->name)
+            ->first();
     }
 }

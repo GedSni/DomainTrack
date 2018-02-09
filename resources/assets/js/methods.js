@@ -3,6 +3,11 @@
     var row;
 
     $(document).ready(function () {
+        if (window.location.hash === '#_=_'){
+            history.replaceState
+                ? history.replaceState(null, null, window.location.href.split('#')[0])
+                : window.location.hash = '';
+        }
         tableChange($("#tables").val());
         $("a.domainTooltip").tooltip();
         datePicker();
@@ -10,6 +15,7 @@
             $('#datePicker').datepicker('show');
         });
         $('.preview').click(function (e) {
+            $("button.nextRow").show();
             overlay($(this), e);
         });
         $("#tables").change(function () {
@@ -23,6 +29,32 @@
             $(".overlay").hide();
             $("body").css("overflow", "visible");
         });
+        $(".heart").click(function () {
+            $(this).toggleClass("filled");
+            var name = window.location.pathname.substr(1);
+            if ($(this).hasClass("filled")) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/favorite/" + name,
+                    data: {name: name},
+                    dataType: "JSON"
+                });
+            } else {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: "POST",
+                    url: "/unfavorite/" + name,
+                    data: {name: name},
+                    dataType: "JSON"
+                });
+            }
+        });
+
     });
 
     function proceed()
@@ -55,6 +87,9 @@
             $('#loader').hide();
         });
         row = nextRow;
+        if ($(row.children('.name')).text() === "") {
+            $("button.nextRow").hide();
+        }
     }
 
     function overlay(thisObj, e)

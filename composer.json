@@ -11,6 +11,7 @@
         "fideloper/proxy": "~3.3",
         "khill/lavacharts": "3.1.9",
         "laravel/framework": "5.5.*",
+        "laravel/socialite": "^3.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "v5.5.1",
         "laravelnews/laravel-twbs4": "^1.3"

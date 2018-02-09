@@ -3,11 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Khill\Lavacharts\Lavacharts;
 use Illuminate\Http\Request;
+use App\Domain;
+use App\Favorite;
 
 class DomainController extends Controller
 {
+
+    public function favorite($name) {
+        Auth::user()->domains()->attach($name);
+        return back();
+    }
+
+    public function unfavorite($name) {
+        Auth::user()->domains()->detach($name);
+        return back();
+    }
+
+    public function favorites()
+    {
+        $data = DB::table('domains')
+            ->leftJoin('favorites', 'domains.name', '=', 'favorites.domain_name')
+            ->select('domains.*')
+            ->where('favorites.user_id', '=', Auth::id())
+            ->get();
+        return view('favorites', compact('data'));
+    }
+
     public function index(Request $request)
     {
         if ($request->query('date') != null) {
@@ -24,6 +48,7 @@ class DomainController extends Controller
             $dataDay = $this->getData($yesterday);
             $dataWeek = $this->getData($lastMonday);
             $dataMonth = $this->getData($firstMonthDay);
+
             return view('home')
                 ->with('dataDay', $dataDay)
                 ->with('dataWeek', $dataWeek)
@@ -38,6 +63,8 @@ class DomainController extends Controller
     {
         $data = $this->getDataIndividual($name);
         if (!$data->isEmpty()) {
+            $domain = Domain::where('name', '=', $name)->get();
+            $data->isFavorited = $domain[0]->favorited();
             $data->startDate = $data->min('date');
             $data->minRank = $data->min('rank');
             $data->maxRank = $data->max('rank');
@@ -63,7 +90,12 @@ class DomainController extends Controller
                 ],
             ]);
             $whoIs = $this->whoIsData($name);
-            $whoIs = $this->formatWhoIs($whoIs);
+            if (!isset($whoIs) || $whoIs === "Not available") {
+                return view('domain')
+                    ->with('data', $data);
+            } else {
+                $whoIs = $this->formatWhoIs($whoIs);
+            }
         }
         return view('domain')
             ->with('data', $data)
@@ -73,7 +105,7 @@ class DomainController extends Controller
 
     private function getData($interval)
     {
-        $data = DB::select("select d1.name, d1.status, r1.rank, r1.date,
+        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date,
                                   (select r2.rank
                                   from domains as d2, ranks as r2 
                                   where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
@@ -300,25 +332,29 @@ class DomainController extends Controller
         );
         $domain_parts = explode(".", $domain);
         $tld = strtolower(array_pop($domain_parts));
-        $whoisserver = $whoisservers[$tld];
-        if(!$whoisserver) {
-            return "Error: No appropriate Whois server found for $domain domain!";
-        }
-        $result = $this->getWhoIsData($whoisserver, $domain);
-        if(!$result) {
-            return "Error: No results retrieved from $whoisserver server for $domain domain!";
-        }
-        else {
-            while(strpos($result, "Whois Server:") !== FALSE){
-                preg_match("/Whois Server: (.*)/", $result, $matches);
-                $secondary = $matches[1];
-                if($secondary) {
-                    $result = $this->getWhoIsData($secondary, $domain);
-                    $whoisserver = $secondary;
+        if( isset($whoisservers[$tld])) {
+            $whoisserver = $whoisservers[$tld];
+            if(!$whoisserver) {
+                return "Error: No appropriate Whois server found for $domain domain!";
+            }
+            $result = $this->getWhoIsData($whoisserver, $domain);
+            if(!$result) {
+                return "Error: No results retrieved from $whoisserver server for $domain domain!";
+            }
+            else {
+                while(strpos($result, "Whois Server:") !== FALSE){
+                    preg_match("/Whois Server: (.*)/", $result, $matches);
+                    $secondary = $matches[1];
+                    if($secondary) {
+                        $result = $this->getWhoIsData($secondary, $domain);
+                        $whoisserver = $secondary;
+                    }
                 }
             }
+            return "$domain domain lookup results from $whoisserver server:\n\n" . $result;
+        } else {
+            return "Not available";
         }
-        return "$domain domain lookup results from $whoisserver server:\n\n" . $result;
     }
 
     private function getWhoIsData($whoisserver, $domain) {

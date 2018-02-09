@@ -26,4 +26,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function domains()
+    {
+        return $this->belongsToMany('App\Domain', 'favorites', 'user_id', 'domain_name')->using('App\Favorite');;
+    }
 }

@@ -15647,6 +15647,16 @@ namespace  {
             {    
                 return \Illuminate\Database\Query\Builder::macroCall($method, $parameters);
             }
+        /**
+         * Routes for authentication.
+         *
+         * @return void
+         * @static
+         */
+            public static function routes()
+            {
+                \Illuminate\Routing\Router::auth();
+            }
         }
 
     class Event extends \Illuminate\Support\Facades\Event {}

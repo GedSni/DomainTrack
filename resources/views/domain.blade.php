@@ -1,8 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class='container backButton'>
+    <div class='container buttons'>
         <button id='back' class='btn btn-outline-primary' >Back</button>
+        @auth
+            @if($data->isFavorited)
+                <svg class="heart filled" width="45" height="30" id="heart" viewBox="-5 0 50 30">
+                    <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+            c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/><a href='{{ action('DomainController@unfavorite', [$data[0]->name]) }}'></a>
+                </svg>
+            @else
+                <svg class="heart" width="45" height="30" id="heart" viewBox="-5 0 50 30">
+                    <path d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2
+            c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/><a href='{{ action('DomainController@favorite', [$data[0]->name]) }}'></a>
+                </svg>
+            @endif
+        @endauth
     </div>
     <div class='container'>
         @if (isset($data[0]))
@@ -100,6 +113,7 @@
         </div>
         <div>
             <h1>WhoIs Information</h1>
+            @if (isset($keys))
             <table class='table'>
                 <tbody>
                 @for($i = 0; $i < count($keys); $i++)
@@ -110,6 +124,9 @@
                 @endfor
                 </tbody>
             </table>
+            @else
+                <h3>Not available</h3>
+            @endif
         </div>
         @else
             <h1>Not available</h1>

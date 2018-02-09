@@ -7,12 +7,13 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Alexa</title>
-    <link rel="stylesheet" type="text/css" href="{{ mix('css/style.css') }}">
-    <link rel="favicon" href="{{{ asset('img/favicon.ico') }}}">
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{{ mix('js/methods.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ mix('css/style.css') }}">
+    <link rel="favicon" href="{{{ asset('img/favicon.ico') }}}">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 <body>
 <div class="content">
@@ -22,7 +23,23 @@
             <a class="p-2 text-dark" href="#">Features</a>
             <a class="p-2 text-dark" href="#">Support</a>
         </nav>
-        <a class="btn btn-outline-primary" href="#">Sign in</a>
+        @guest
+            <a class="btn btn-outline-primary" href="{{ route('redirect') }}"><span class="fab fa-facebook-square fa-lg"></span> Login with facebook </a>
+        @else
+            <div class="dropdown">
+                <button class="btn btn-outline-primary">{{ Auth::user()->name }}</button>
+                <div class="dropdown-content">
+                    <a class="btn btn-outline-primary dropdown-item" href="{{ route('favorites') }}"><span class="fa fa-heart"></span> Favorites</a>
+                    <a class="btn btn-outline-primary dropdown-item" href="#"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <span class="fa fa-power-off"></span> Logout
+                    </a>
+                </div>
+            </div>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                {{ csrf_field() }}
+            </form>
+        @endguest
     </div>
     @yield('content')
     <div class="container">
