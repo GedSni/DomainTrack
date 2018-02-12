@@ -3,6 +3,9 @@
     var row;
 
     $(document).ready(function () {
+        if (!!window.performance && window.performance.navigation.type === 2 && window.location.pathname === '/favorites') {
+            window.location.reload();
+        }
         if (window.location.hash === '#_=_'){
             history.replaceState
                 ? history.replaceState(null, null, window.location.href.split('#')[0])

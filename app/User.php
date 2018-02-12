@@ -27,8 +27,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function domains()
+    public function favorites()
     {
-        return $this->belongsToMany('App\Domain', 'favorites', 'user_id', 'domain_name')->using('App\Favorite');;
+        return $this->belongsToMany(Domain::class, 'favorites', 'user_id', 'domain_name')->withTimeStamps();
     }
 }

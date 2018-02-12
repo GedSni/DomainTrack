@@ -12,23 +12,21 @@ use App\Favorite;
 class DomainController extends Controller
 {
 
-    public function favorite($name) {
-        Auth::user()->domains()->attach($name);
+    public function favorite($name)
+    {
+        Auth::user()->favorites()->attach($name);
         return back();
     }
 
-    public function unfavorite($name) {
-        Auth::user()->domains()->detach($name);
+    public function unfavorite($name)
+    {
+        Auth::user()->favorites()->detach($name);
         return back();
     }
 
     public function favorites()
     {
-        $data = DB::table('domains')
-            ->leftJoin('favorites', 'domains.name', '=', 'favorites.domain_name')
-            ->select('domains.*')
-            ->where('favorites.user_id', '=', Auth::id())
-            ->get();
+        $data = Auth::user()->favorites;
         return view('favorites', compact('data'));
     }
 
@@ -96,11 +94,13 @@ class DomainController extends Controller
             } else {
                 $whoIs = $this->formatWhoIs($whoIs);
             }
+            return view('domain')
+                ->with('data', $data)
+                ->with('keys', $whoIs[0])
+                ->with('values', $whoIs[1]);
         }
         return view('domain')
-            ->with('data', $data)
-            ->with('keys', $whoIs[0])
-            ->with('values', $whoIs[1]);
+            ->with('data', $data);
     }
 
     private function getData($interval)

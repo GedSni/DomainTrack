@@ -46,6 +46,7 @@
             <div>
                 <p class='tableHead'>Your Favorites</p>
                 <div>
+                    @if (isset($data[0]))
                     <table align="center" style=" width: 40%;" class='table'>
                         <thead>
                         <tr>
@@ -71,6 +72,9 @@
                         @endforeach
                         </tbody>
                     </table>
+                    @else
+                        <h1 align="center">Not available</h1>
+                    @endif
                 </div>
             </div>
         </div>

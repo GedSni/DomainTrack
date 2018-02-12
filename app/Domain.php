@@ -23,6 +23,11 @@ use Illuminate\Support\Facades\Auth;
  */
 class Domain extends Model
 {
+
+
+    protected $primaryKey = 'name';
+    public $incrementing = false;
+
     protected $fillable = [
         'name',
         'status'
