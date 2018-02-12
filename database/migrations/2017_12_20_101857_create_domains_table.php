@@ -17,6 +17,9 @@ class CreateDomainsTable extends Migration
             $table->unique(['name', 'status']);
             $table->timestamps();
         });
+
+        $statement = "ALTER TABLE domains AUTO_INCREMENT = 1;";
+        DB::unprepared($statement);
     }
 
     public function down()

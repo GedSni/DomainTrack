@@ -27,7 +27,7 @@
                 <tbody>
                 <tr>
                     <th>Id</th>
-                    <td id="domainId">{{ $data[0]->id }}</td>
+                    <td id="domainId">{{ $data[0]->domain_id }}</td>
                 </tr>
                 <tr>
                     <th>Name</th>
