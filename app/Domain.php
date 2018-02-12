@@ -24,10 +24,6 @@ use Illuminate\Support\Facades\Auth;
 class Domain extends Model
 {
 
-
-    protected $primaryKey = 'name';
-    public $incrementing = false;
-
     protected $fillable = [
         'name',
         'status'
@@ -41,7 +37,7 @@ class Domain extends Model
     public function favorited()
     {
         return (bool) Favorite::where('user_id', Auth::id())
-            ->where('domain_name', $this->name)
+            ->where('domain_id', $this->id)
             ->first();
     }
 }

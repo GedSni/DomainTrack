@@ -29,6 +29,6 @@ class User extends Authenticatable
 
     public function favorites()
     {
-        return $this->belongsToMany(Domain::class, 'favorites', 'user_id', 'domain_name')->withTimeStamps();
+        return $this->belongsToMany(Domain::class, 'favorites', 'user_id', 'domain_id')->withTimeStamps();
     }
 }

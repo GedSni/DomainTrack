@@ -10,6 +10,6 @@ class Favorite extends Pivot
 
     protected $fillable = [
         'user_id',
-        'domain_name'
+        'domain_id'
     ];
 }

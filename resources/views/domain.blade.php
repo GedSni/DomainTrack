@@ -26,6 +26,10 @@
             <table class='table'>
                 <tbody>
                 <tr>
+                    <th>Id</th>
+                    <td id="domainId">{{ $data[0]->id }}</td>
+                </tr>
+                <tr>
                     <th>Name</th>
                     <td><a rel='noreferrer noopener nofollow' href='http://{{ $data[0]->name }}'>{{ $data[0]->name }}</a></td>
                 </tr>

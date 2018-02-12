@@ -12,15 +12,15 @@ use App\Favorite;
 class DomainController extends Controller
 {
 
-    public function favorite($name)
+    public function favorite($id)
     {
-        Auth::user()->favorites()->attach($name);
+        Auth::user()->favorites()->attach($id);
         return back();
     }
 
-    public function unfavorite($name)
+    public function unfavorite($id)
     {
-        Auth::user()->favorites()->detach($name);
+        Auth::user()->favorites()->detach($id);
         return back();
     }
 

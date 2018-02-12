@@ -34,15 +34,15 @@
         });
         $(".heart").click(function () {
             $(this).toggleClass("filled");
-            var name = window.location.pathname.substr(1);
+            var id = $("#domainId").text();
             if ($(this).hasClass("filled")) {
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: "POST",
-                    url: "/favorite/" + name,
-                    data: {name: name},
+                    url: "/favorite/" + id,
+                    data: {id: id},
                     dataType: "JSON"
                 });
             } else {
@@ -51,8 +51,8 @@
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: "POST",
-                    url: "/unfavorite/" + name,
-                    data: {name: name},
+                    url: "/unfavorite/" + id,
+                    data: {id: id},
                     dataType: "JSON"
                 });
             }
