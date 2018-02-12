@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => '406083199843401',
         'client_secret' => 'bfba5620824b4a5968812cc2e9b05be0',
-        'redirect' => 'http://alexa.klimas.lt//login/callback',
+        'redirect' => 'http://alexa.klimas.lt/login/callback',
     ],
 
 ];
