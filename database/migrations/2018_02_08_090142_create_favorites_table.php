@@ -20,9 +20,6 @@ class CreateFavoritesTable extends Migration
             $table->index(['user_id', 'domain_id']);
             $table->timestamps();
         });
-
-        $statement = "ALTER TABLE favorites AUTO_INCREMENT = 1;";
-        DB::unprepared($statement);
     }
 
     /**

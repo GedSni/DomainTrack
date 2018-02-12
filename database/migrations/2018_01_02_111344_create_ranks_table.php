@@ -21,9 +21,6 @@ class CreateRanksTable extends Migration
                 ->onDelete('cascade')->onUpdate('cascade');
         });
 
-        $statement = "ALTER TABLE ranks AUTO_INCREMENT = 1;";
-        DB::unprepared($statement);
-
 
     }
 

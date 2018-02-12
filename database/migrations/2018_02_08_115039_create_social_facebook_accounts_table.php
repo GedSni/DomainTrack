@@ -19,9 +19,6 @@ class CreateSocialFacebookAccountsTable extends Migration
             $table->string('provider');
             $table->timestamps();
         });
-
-        $statement = "ALTER TABLE social_facebook_accounts AUTO_INCREMENT = 1;";
-        DB::unprepared($statement);
     }
 
     /**
