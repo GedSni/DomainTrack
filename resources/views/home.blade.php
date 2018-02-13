@@ -1,24 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
+    @yield('content')
     <div class='overlay'>
         <div class='section1 layout'>
-            <div class='tableCell topLeft'>
-                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                    <img id='topStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                </a>
-            </div>
-            <div class='tableCell cell'>
-                <a id='topName' rel='noreferrer noopener nofollow'></a>
-            </div>
-            <div class='tableCell cell'>
-                <p id='topRank'></p>
-            </div>
-            <div class='tableCell cell'>
-                <span id='topDiff' class='badge badge-pill'></span>
-            </div>
-            <div class='tableCell right'>
-                <button class='btn btn-outline-primary exit' href='#'>Close</button>
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <img style="float: right" id='topStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
+                    </div>
+                    <div class="col-4">
+                        <a id='topName' rel='noreferrer noopener nofollow'></a>
+                    </div>
+                    <div class="col-2">
+                        <p id='topRank'></p>
+                    </div>
+                    <div class="col-2">
+                        <span id='topDiff' class='badge badge-pill'></span>
+                    </div>
+                    <div class="col">
+                        <button class='btn btn-outline-primary exit' href='#'>Close</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class='section2'>
@@ -28,47 +31,51 @@
             </iframe>
         </div>
         <div class='section3 layout'>
-            <div class='tableCell bottomLeft'>
-                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                    <img id='bottomStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                </a>
-            </div>
-            <div class='tableCell middle'>
-                <a id='bottomName' rel='noreferrer noopener nofollow'></a>
-            </div>
-            <div class='tableCell right'>
-                <button class='btn btn-outline-primary nextRow'>Next</button>
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div>
+                        <img style="float: right" id='bottomStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
+                    </div>
+                    <div class="col-4">
+                        <a id='bottomName' rel='noreferrer noopener nofollow'></a>
+                    </div>
+                    <div class="col-6">
+                        <button class='btn btn-outline-primary nextRow'>Next</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div id='mainDiv' class='container'>
         <div>
-            <select id='tables' class='form-control'>
-                <option value='Day'>Day</option>
-                <option value='Week'>Week</option>
-                <option selected value='Month'>Month</option>
-            </select>
-            <form method='get' action='{{ action('DomainController@index') }}'>
+            <form method='get' action='{{ action('DomainController@'.$action) }}'>
                 <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
                     <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
                     Pick a date
                 </button>
             </form>
         </div>
-        <div id='tablesDiv'>
-            <div class='dayTableDiv'>
+        <div>
+            <select id='tables' class='form-control'>
+                <option value='Day'>Day</option>
+                <option value='Week'>Week</option>
+                <option selected value='Month'>Month</option>
+            </select>
+        </div>
+        <div class="row justify-content-center" id='tablesDiv'>
+            <div class='dayTableDiv col-4'>
                 <p class='tableHead'>Day</p>
                 @if (isset($dataDay[0]->diff))
                     <p class='tableHead2'>Since {{ $yesterday }}</p>
                     <div>
                         <table class='table'>
                             <thead>
-                            <tr>
-                                <th>Domain</th>
-                                <th>Rank</th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+                                <tr>
+                                    <th>Domain</th>
+                                    <th>Rank</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
                             </thead>
                             <tbody>
                             @foreach($dataDay as $data)
@@ -76,9 +83,7 @@
                                     <td class='name'>
                                         <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                                            </a>
+                                            <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                         @endif
                                     </td>
                                     <td class='rank'>{{$data->rank}}</td>
@@ -104,7 +109,7 @@
                     <p class='tableHead' >Not Available</p>
                 @endif
             </div>
-            <div class='weekTableDiv'>
+            <div class='weekTableDiv col-4'>
                 <p class='tableHead'>Week</p>
                 @if (isset($dataWeek[0]->diff))
                     <p class='tableHead2'>Since {{ $lastMonday }}</p>
@@ -124,9 +129,7 @@
                                     <td class='name'>
                                         <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                                            </a>
+                                            <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                         @endif
                                     </td>
                                     <td class='rank'>{{$data->rank}}</td>
@@ -153,7 +156,7 @@
                     <p class='tableHead' >Not Available</p>
                 @endif
             </div>
-            <div class='monthTableDiv'>
+            <div class='monthTableDiv col-4'>
                 <p class='tableHead'>Month</p>
                 @if (isset($dataMonth[0]->diff))
                     <p class='tableHead2'>Since {{ $firstMonthDay }}</p>
@@ -173,9 +176,7 @@
                                     <td class='name'>
                                         <a class='link' href='{{ action('DomainController@show', [$data->name]) }}'>{{$data->name}}</a>
                                         @if (isset($data->status) && !$data->status)
-                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                                                <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                                            </a>
+                                            <img alt='Status' class='statusImg' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                         @endif
                                     </td>
                                     <td class='rank' align='left'>{{$data->rank}}</td>

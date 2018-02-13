@@ -3,22 +3,24 @@
 @section('content')
     <div class='overlay'>
         <div class='section1 layout'>
-            <div class='tableCell topLeft'>
-                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                    <img id='topStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                </a>
-            </div>
-            <div class='tableCell cell'>
-                <a id='topName' rel='noreferrer noopener nofollow'></a>
-            </div>
-            <div class='tableCell cell'>
-                <p id='topRank'></p>
-            </div>
-            <div class='tableCell cell'>
-                <span id='topDiff' class='badge badge-pill'></span>
-            </div>
-            <div class='tableCell right'>
-                <button class='btn btn-outline-primary exit' href='#'>Close</button>
+            <div class="container">
+                <div class="row">
+                    <div>
+                        <img style="float: right" id='topStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
+                    </div>
+                    <div class="col-4">
+                        <a id='topName' rel='noreferrer noopener nofollow'></a>
+                    </div>
+                    <div class="col-2">
+                        <p id='topRank'></p>
+                    </div>
+                    <div class="col-2">
+                        <span id='topDiff' class='badge badge-pill'></span>
+                    </div>
+                    <div class="col">
+                        <button class='btn btn-outline-primary exit' href='#'>Close</button>
+                    </div>
+                </div>
             </div>
         </div>
         <div class='section2'>
@@ -28,28 +30,22 @@
             </iframe>
         </div>
         <div class='section3 layout'>
-            <div class='tableCell bottomLeft'>
-                <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                    <img id='bottomStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                </a>
-            </div>
-            <div class='tableCell middle'>
-                <a id='bottomName' rel='noreferrer noopener nofollow'></a>
-            </div>
-            <div class='tableCell right'>
-                <button class='btn btn-outline-primary nextRow'>Next</button>
+            <div class="container">
+                <div class="row justify-content-end">
+                    <div>
+                        <img style="float: right" id='bottomStatus' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
+                    </div>
+                    <div class="col-4">
+                        <a id='bottomName' rel='noreferrer noopener nofollow'></a>
+                    </div>
+                    <div class="col-6">
+                        <button class='btn btn-outline-primary nextRow'>Next</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div id='mainDiv' class='container'>
-        <div>
-            <form method='get' action='{{ action('DomainController@index') }}'>
-                <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
-                    <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
-                    Pick a date
-                </button>
-            </form>
-        </div>
         <div id='tablesDiv'>
             <div>
                 @if (isset($data[0]->diff))
@@ -70,9 +66,7 @@
                                     <td class='name'>
                                         <a class='linkDate' href='{{ action('DomainController@show', [$row->name]) }}'>{{$row->name}}</a>
                                         @if (isset($row->status) && !$row->status)
-                                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                                                <img class='statusImg' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                                            </a>
+                                            <img class='statusImg' alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                                         @endif
                                     </td>
                                     <td class='rank'>{{$row->rank}}</td>

@@ -73,14 +73,10 @@
     var row;
 
     $(document).ready(function () {
-        if (!!window.performance && window.performance.navigation.type === 2 && window.location.pathname === '/favorites') {
-            window.location.reload();
-        }
         if (window.location.hash === '#_=_') {
             history.replaceState ? history.replaceState(null, null, window.location.href.split('#')[0]) : window.location.hash = '';
         }
         tableChange($("#tables").val());
-        $("a.domainTooltip").tooltip();
         datePicker();
         $('#datePickerButton').click(function () {
             $('#datePicker').datepicker('show');
@@ -91,9 +87,6 @@
         });
         $("#tables").change(function () {
             tableChange(this.value);
-        });
-        $('#back').click(function () {
-            window.history.back();
         });
         $("button.nextRow").click(proceed);
         $("button.exit").click(function () {
@@ -125,13 +118,30 @@
                 });
             }
         });
+        checkWidth();
+        $(window).resize(function () {
+            checkWidth();
+        });
     });
+
+    function checkWidth() {
+        if ($(window).width() >= 1200 && ($(".dayTableDiv").hasClass('col-12') || $(".weekTableDiv").hasClass('col-12') || $(".monthTableDiv").hasClass('col-12'))) {
+            $(".dayTableDiv").removeClass('col-12').addClass('col-4');
+            $(".weekTableDiv").removeClass('col-12').addClass('col-4');
+            $(".monthTableDiv").removeClass('col-12').addClass('col-4');
+        } else if ($(window).width() < 1200 && ($(".dayTableDiv").hasClass('col-4') || $(".weekTableDiv").hasClass('col-4') || $(".monthTableDiv").hasClass('col-4'))) {
+
+            $(".dayTableDiv").removeClass('col-4').addClass('col-12');
+            $(".weekTableDiv").removeClass('col-4').addClass('col-12');
+            $(".monthTableDiv").removeClass('col-4').addClass('col-12');
+        }
+    }
 
     function proceed() {
         $('#loader').show();
         var nextRow = row.closest('tr').next('tr');
         var topDiff = $("#topDiff");
-        if ($(row.find('.domainTooltip')).length) {
+        if ($(row.find('.statusImg')).length) {
             $("#topStatus").css("display", "table-cell");
         } else {
             $("#topStatus").hide();
@@ -147,7 +157,7 @@
             topDiff.addClass("badge-primary").removeClass("badge-success badge-danger");
         }
         $("#bottomName").text($(nextRow.children('.name')).text()).attr("href", $(nextRow.children('.name')).text().trim());
-        if ($(nextRow.find('.domainTooltip')).length) {
+        if ($(nextRow.find('.statusImg')).length) {
             $("#bottomStatus").show();
         } else {
             $("#bottomStatus").hide();

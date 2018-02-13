@@ -34,7 +34,7 @@ th {
 // Custom styles
 #tables {
   width:auto;
-  float:right;
+  margin-top: 15px;
 }
 
 .statusImg {
@@ -47,11 +47,6 @@ th {
   border: 0;
 }
 
-.buttons {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 #mainDiv {
   margin-top: 50px;
 }
@@ -61,8 +56,6 @@ th {
   stroke: #ff396e;
   stroke-width:1.5;
   position: relative;
-  top: 10px;
-  margin-left: 10px;
   -webkit-transition: fill 0.5s; /* Safari */
   transition: fill 0.5s;
 }
@@ -110,27 +103,19 @@ th {
 
 // Mobile overlay
 #topName {
-  margin-left: 5px;
-  margin-top: 5px;
   font-size: 15px;
 }
 
 #bottomName {
   font-size: 18px;
-  margin-top: 5px;
 }
 
 #topStatus, #bottomStatus {
   display: none;
 }
 
-#topStatus {
-  margin-left: 40%;
-}
-
 #topRank {
   font-size: 15px;
-  margin-top: 20px;
 }
 
 #topDiff {
@@ -142,9 +127,22 @@ th {
   height: 100%;
 }
 
-.nextRow {
-  margin-right: 15px;
+.nextRow, .exit {
+  margin-top: 15px;
 }
+
+#bottomName {
+  margin-top: 18px;
+}
+
+#topDiff, #bottomStatus, #topStatus {
+  margin-top: 22px;
+}
+
+#topName, #topRank {
+  margin-top: 20px;
+}
+
 
 .overlay {
   display: none;
@@ -189,38 +187,6 @@ th {
   text-align: center;
 }
 
-.tableCell {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-.tableCell.cell {
-  width: 20%;
-}
-
-.tableCell.bottomLeft {
-  width: 20%;
-  text-align: center;
-}
-
-.tableCell.topLeft {
-  width: 10%;
-  text-align: center;
-}
-
-.tableCell.middle {
-  width: 60%;
-  text-align: left;
-}
-
-.tableCell.right {
-  width: 20%;
-  text-align: center;
-}
-
-.tableCell.nameCell {
-  width: 30%;
-}
 
 // Mobile overlay IFrame loading indicator
 #loader {
@@ -251,6 +217,18 @@ th {
 }
 
 // Responsive styles
+@media (max-width: 767px) {
+  #favButton {
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 768px) {
+  #favButton {
+    margin-right: 15px;
+  }
+}
+
 @media (max-width: 450px) {
   #topName {
     max-width: 100px;
@@ -301,7 +279,7 @@ th {
 
 @media (min-width: 700px) {
   #topName, #bottomName {
-    max-width: 500px;
+    max-width: 300px;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
@@ -333,29 +311,17 @@ th {
 @media (max-width:1200px) {
   #tables {
     display: block;
-    width:auto;
-    float:right;
   }
 }
 
 @media (min-width:1200px) {
   .dayTableDiv, .weekTableDiv, .monthTableDiv {
-    display: inline-table !important;
-    width:30% !important;
+    display: inline-block !important;
   }
   #tables {
     display: none;
   }
-  .dayTableDiv {
-    margin-right: 15px;
-  }
-  .weekTableDiv {
-    margin-right: 5px;
-    margin-left: 5px;
-  }
-  .monthTableDiv {
-    margin-left: 15px;
-  }
+
   .link {
     display :inline-block;
     max-width: 140px !important;

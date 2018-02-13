@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class='container buttons'>
-        <button id='back' class='btn btn-outline-primary' >Back</button>
+    <div class='container'>
         @auth
             @if (isset($data[0]))
                 @if($data->isFavorited)
@@ -18,8 +17,6 @@
                 @endif
             @endif
         @endauth
-    </div>
-    <div class='container'>
         @if (isset($data[0]))
         <div>
             <h1>Domain information</h1>
@@ -37,21 +34,15 @@
                     <th>Status</th>
                     @if (!isset($data[0]->status))
                         <td>
-                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Status is unknown'>
-                                <span class='badge badge-pill badge-warning'>N/A</span>
-                            </a>
+                            <span class='badge badge-pill badge-warning'>N/A</span>
                         </td>
                     @elseif ($data[0]->status == 1)
                         <td>
-                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain is working properly'>
-                                <span class='badge badge-pill badge-success'>✓</span>
-                            </a>
+                            <span class='badge badge-pill badge-success'>✓</span>
                         </td>
                     @elseif ($data[0]->status == 0)
                         <td>
-                            <a class='domainTooltip' data-toggle='tooltip' data-placement='right' title='Domain might not be available'>
-                                <img alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
-                            </a>
+                            <img alt='Status' height='20px' width='20px'  src={{ asset('img/exclamation.png') }}>
                         </td>
                     @endif
                 </tr>

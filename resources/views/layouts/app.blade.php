@@ -17,29 +17,26 @@
 </head>
 <body>
 <div class="content">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-        <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/">AlexaTrack</a></h4>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <a class="p-2 text-dark" href="#">Features</a>
-            <a class="p-2 text-dark" href="#">Support</a>
-        </nav>
-        @guest
-            <a class="btn btn-outline-primary" href="{{ route('redirect') }}"><span class="fab fa-facebook-square fa-lg"></span> Login with facebook </a>
-        @else
-            <div class="dropdown">
-                <button class="btn btn-outline-primary">{{ Auth::user()->name }}</button>
-                <div class="dropdown-content">
-                    <a class="btn btn-outline-primary dropdown-item" href="{{ route('favorites') }}"><span class="fa fa-heart"></span> Favorites</a>
-                    <a class="btn btn-outline-primary dropdown-item" href="#"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        <span class="fa fa-power-off"></span> Logout
-                    </a>
-                </div>
-            </div>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                {{ csrf_field() }}
-            </form>
-        @endguest
+    <div class="container">
+        <div style="text-align:center;" class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+            <h4 class="my-0 mr-md-auto font-weight-normal"><a href="/">AlexaTrack</a></h4>
+            <nav class="my-2 my-md-0 mr-md-3">
+                <a class="p-2 text-dark" href="#">Features</a>
+                <a class="p-2 text-dark" href="#">Support</a>
+            </nav>
+            @guest
+                <a class="btn btn-outline-primary" href="{{ route('redirect') }}"><span class="fab fa-facebook-square fa-lg"></span> Login with facebook </a>
+            @else
+                <a id="favButton" class="btn btn-outline-primary" href="{{ route('favorites') }}"><span class="fa fa-heart"></span> Favorites</a>
+                <a class="btn btn-outline-primary" href="#"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <span class="fa fa-power-off"></span> Logout
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                </form>
+            @endguest
+        </div>
     </div>
     @yield('content')
     <div class="container">
