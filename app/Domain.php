@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Auth;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Domain whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Domain whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Domain whereUserId($value)
  */
 class Domain extends Model
 {

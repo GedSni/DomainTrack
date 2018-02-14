@@ -3,61 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Khill\Lavacharts\Lavacharts;
 use Illuminate\Http\Request;
 use App\Domain;
-use App\Favorite;
+use Cache;
 
 class DomainController extends Controller
 {
-
-    public function favorite($id)
-    {
-        Auth::user()->favorites()->attach($id);
-        return back();
-    }
-
-    public function unfavorite($id)
-    {
-        Auth::user()->favorites()->detach($id);
-        return back();
-    }
-
-    public function favorites(Request $request)
-    {
-        $user = Auth::id();
-        if ($request->query('date') != null) {
-            $date = $request->query('date');
-            $data = $this->getDataFavorites($date, $user);
-            return view('date')
-                ->with('data', $data)
-                ->with('date', $date);
-        } else {
-            $yesterday = date("Y-m-d", strtotime("-1 day"));
-            $lastMonday = date("Y-m-d", strtotime("-1 week"));
-            $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
-            $dataDay = $this->getDataFavorites($yesterday, $user);
-            $dataWeek = $this->getDataFavorites($lastMonday, $user);
-            $dataMonth = $this->getDataFavorites($firstMonthDay, $user);
-            $action = "favorites";
-            return view('home')
-                ->with('dataDay', $dataDay)
-                ->with('dataWeek', $dataWeek)
-                ->with('dataMonth', $dataMonth)
-                ->with('yesterday', $yesterday)
-                ->with('lastMonday', $lastMonday)
-                ->with('firstMonthDay', $firstMonthDay)
-                ->with('action', $action);
-        }
-    }
-
     public function index(Request $request)
     {
         if ($request->query('date') != null) {
             $date = $request->query('date');
-            $data = $this->getData($date);
-            $data = array_slice($data, 0, 50);
+            $data = $this->fromCache($date);
             return view('date')
                 ->with('data', $data)
                 ->with('date', $date);
@@ -65,9 +22,9 @@ class DomainController extends Controller
             $yesterday = date("Y-m-d", strtotime("-1 day"));
             $lastMonday = date("Y-m-d", strtotime("-1 week"));
             $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
-            $dataDay = $this->getData($yesterday);
-            $dataWeek = $this->getData($lastMonday);
-            $dataMonth = $this->getData($firstMonthDay);
+            $dataDay = $this->fromCache($yesterday);
+            $dataWeek = $this->fromCache($lastMonday);
+            $dataMonth = $this->fromCache($firstMonthDay);
             $action = "index";
             return view('home')
                 ->with('dataDay', $dataDay)
@@ -110,12 +67,17 @@ class DomainController extends Controller
                     'direction' => -1,
                 ],
             ]);
-            $whoIs = $this->whoIsData($name);
-            if (!isset($whoIs) || $whoIs === "Not available") {
-                return view('domain')
-                    ->with('data', $data);
+            if (Cache::has($name)) {
+                $whoIs = Cache::get($name);
             } else {
-                $whoIs = $this->formatWhoIs($whoIs);
+                $whoIs = $this->whoIsData($name);
+                if (!isset($whoIs) || $whoIs === "Not available") {
+                    return view('domain')
+                        ->with('data', $data);
+                } else {
+                    $whoIs = $this->formatWhoIs($whoIs);
+                    Cache::put($name, $whoIs, 10);
+                }
             }
             return view('domain')
                 ->with('data', $data)
@@ -141,20 +103,6 @@ class DomainController extends Controller
         return $data;
     }
 
-    private function getDataFavorites($interval, $user)
-    {
-        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date,
-                                  (select r2.rank
-                                  from domains as d2, ranks as r2 
-                                  where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
-                                   - r1.rank as diff
-                                  from domains as d1, ranks as r1, favorites as f
-                                  where f.domain_id = d1.id and f.user_id = :user and d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
-                                  order by diff desc"
-            , ["interval" => $interval, "user" => $user]);
-        return $data;
-    }
-
     private function getDataIndividual($name)
     {
         $data= DB::table('domains')
@@ -164,6 +112,17 @@ class DomainController extends Controller
             ->orderBy('ranks.date', 'desc')
             ->get();
         return $data;
+    }
+
+    private function fromCache($key)
+    {
+        if (Cache::has($key)) {
+            return Cache::get($key);
+        } else {
+            $data = $this->getData($key);
+            Cache::put($key, $data, 600);
+            return $data;
+        }
     }
 
     private function formatWhoIs($whoIs)
@@ -394,7 +353,8 @@ class DomainController extends Controller
         }
     }
 
-    private function getWhoIsData($whoisserver, $domain) {
+    private function getWhoIsData($whoisserver, $domain)
+    {
         $port = 43;
         $timeout = 10;
         $fp = @fsockopen($whoisserver, $port, $errno, $errstr, $timeout) or die("Socket Error " . $errno . " - " . $errstr);fputs($fp, $domain . "\r\n");
@@ -417,6 +377,3 @@ class DomainController extends Controller
     }
 
 }
-
-
-
