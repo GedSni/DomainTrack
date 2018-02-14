@@ -25,7 +25,7 @@ class DomainController extends Controller
             $dataDay = $this->fromCache($yesterday);
             $dataWeek = $this->fromCache($lastMonday);
             $dataMonth = $this->fromCache($firstMonthDay);
-            $action = "index";
+            $action = "DomainController@index";
             return view('home')
                 ->with('dataDay', $dataDay)
                 ->with('dataWeek', $dataWeek)

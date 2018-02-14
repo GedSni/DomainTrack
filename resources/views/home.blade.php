@@ -47,7 +47,7 @@
     </div>
     <div id='mainDiv' class='container'>
         <div>
-            <form method='get' action='{{ action('DomainController@'.$action) }}'>
+            <form method='get' action='{{ action($action) }}'>
                 <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
                     <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
                     Pick a date

@@ -35,7 +35,7 @@ class UserController extends Controller
             $dataDay = $this->getDataFavorites($yesterday);
             $dataWeek = $this->getDataFavorites($lastMonday);
             $dataMonth = $this->getDataFavorites($firstMonthDay);
-            $action = "favorites";
+            $action = "UserController@favorites";
             return view('home')
                 ->with('dataDay', $dataDay)
                 ->with('dataWeek', $dataWeek)
