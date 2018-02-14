@@ -60,8 +60,8 @@ class DataUpdate extends Command
         $this->info('Processing..');
         //$fileHandle = fopen("$path/top-1m.csv", 'r');
         //$fileDate = date("Y-m-d");
-        $fileHandle = fopen("$path/2018-02-09.csv", 'r');
-        $fileDate = '2018-02-09';
+        $fileHandle = fopen("$path/2018-02-11.csv", 'r');
+        $fileDate = '2018-02-11';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";
