@@ -10255,6 +10255,7 @@ th {
 @media (max-width: 767px) {
   #favButton {
     margin-bottom: 5px;
+    margin-top: 5px;
   }
 }
 
