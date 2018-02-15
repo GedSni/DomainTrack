@@ -71,8 +71,7 @@ class DomainController extends Controller
                 $whoIs = Cache::get($name);
             } else {
                 $whoIs = $this->whoIsData($name);
-                $whoIs2 = $this->formatWhoIs($whoIs);
-                dd($whoIs, $whoIs2);
+                $whoIs = $this->formatWhoIs($whoIs);
                 return view('domain')
                     ->with('data', $data)
                     ->with('whoIs', $whoIs);
