@@ -115,20 +115,17 @@
                 <hr>
             <div>
                 <h1>WhoIs Information</h1>
-                @if (isset($keys))
-                <table class='table'>
-                    <tbody>
-                    @for($i = 0; $i < count($keys); $i++)
-                        <tr>
-                            <th>{{ $keys[$i] }}</th>
-                            <td>{{ $values[$i] }}</td>
-                        </tr>
-                    @endfor
-                    </tbody>
-                </table>
-                @else
-                    <h3>Not available</h3>
-                @endif
+                <div class="card">
+                    <ul class="list-group list-group-flush">
+                        @if (!isset($whoIs) || $whoIs !== 'Not available')
+                            @foreach($whoIs as $line)
+                                <li class="list-group-item">{{ $line }}</li>
+                            @endforeach
+                        @else
+                            <li class="list-group-item">Not available</li>
+                        @endif
+                    </ul>
+                </div>
             </div>
         @else
             <h1 align="center">Not available</h1>

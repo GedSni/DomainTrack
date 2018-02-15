@@ -71,18 +71,14 @@ class DomainController extends Controller
                 $whoIs = Cache::get($name);
             } else {
                 $whoIs = $this->whoIsData($name);
-                if (!isset($whoIs) || $whoIs === "Not available") {
-                    return view('domain')
-                        ->with('data', $data);
-                } else {
-                    $whoIs = $this->formatWhoIs($whoIs);
-                    Cache::put($name, $whoIs, 10);
-                }
+                $whoIs = $this->formatWhoIs($whoIs);
+                return view('domain')
+                    ->with('data', $data)
+                    ->with('whoIs', $whoIs);
             }
             return view('domain')
                 ->with('data', $data)
-                ->with('keys', $whoIs[0])
-                ->with('values', $whoIs[1]);
+                ->with('whoIs', $whoIs);
         }
         return view('domain')
             ->with('data', $data);
@@ -127,24 +123,42 @@ class DomainController extends Controller
 
     private function formatWhoIs($whoIs)
     {
-        $lines = array();
-        $keys = array();
-        $values = array();
-        foreach (preg_split("/((\r?\n)|(\r\n?))/", $whoIs) as $line) {
-            $result = explode(': ', $line);
-            if (isset($result[1])) {
-                array_push($keys, $result[0]);
-                array_push($values, $result[1]);
-            }
+        if ($whoIs === 'Not available') {
+            return $whoIs;
         }
-        $index = array_search('URL of the ICANN Whois Inaccuracy Complaint Form', $keys);
-        $keys=array_slice($keys,0, $index,true);
-        $values=array_slice($values,0, $index,true);
-        array_push($lines, $keys);
-        array_push($lines, $values);
+        $lines = array();
+        foreach (preg_split("/((\r?\n)|(\r\n?))/", $whoIs) as $line) {
+            array_push($lines, $line);
+        }
+        $index = $this->array_search_partial($lines, 'URL of the ICANN Whois Inaccuracy Complaint Form');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
+        $index = $this->array_search_partial($lines, 'Record maintained by');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
+        $index = $this->array_search_partial($lines, 'For more information on Whois status codes');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
+        $index = $this->array_search_partial($lines, 'This WHOIS information is provided for free by');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
         return $lines;
-}
+    }
 
+    private function array_search_partial($arr, $keyword) {
+        foreach($arr as $index => $string) {
+            if (strpos($string, $keyword) !== FALSE)
+                return $index;
+        }
+    }
 
     private function whoIsData($domain)
     {
@@ -375,5 +389,5 @@ class DomainController extends Controller
         }
         return $res;
     }
-
 }
+
