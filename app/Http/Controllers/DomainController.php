@@ -160,7 +160,11 @@ class DomainController extends Controller
             unset($lines[$index]);
             return $lines;
         }
-
+        $index = $this->array_search_partial($lines, 'NOTICE:');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
         $index = $this->array_search_partial($lines, 'Conditions of use for the whois service');
         if ($index) {
             return 'Not available';
