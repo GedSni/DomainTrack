@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Domain;
 use App\Rank;
+use Artisan;
 
 class DataUpdate extends Command
 {
@@ -40,6 +41,8 @@ class DataUpdate extends Command
      */
     public function handle()
     {
+        $this->info('Clearing cache');
+        Artisan::call('cache:clear');
         $this->info('Defining variables');
         $dropDate = date("Y-m-d", strtotime("-3 months"));
         $timePre = microtime(true);
@@ -60,8 +63,8 @@ class DataUpdate extends Command
         $this->info('Processing..');
         $fileHandle = fopen("$path/top-1m.csv", 'r');
         $fileDate = date("Y-m-d");
-        //$fileHandle = fopen("$path/2018-02-11.csv", 'r');
-        //$fileDate = '2018-02-11';
+        //$fileHandle = fopen("domains/2018-01-06.csv", 'r');
+        //$fileDate = '2018-01-06';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";

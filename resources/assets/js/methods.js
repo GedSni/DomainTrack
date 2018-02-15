@@ -25,10 +25,11 @@
             $(".overlay").hide();
             $("body").css("overflow", "visible");
         });
-        $(".heart").click(function () {
-            $(this).toggleClass("filled");
+        $(".followButton").click(function () {
             var id = $("#domainId").text();
-            if ($(this).hasClass("filled")) {
+            $(this).toggleClass("following");
+            if ($(this).hasClass("following")) {
+                $(".followButton").text('Following').removeClass('btn-outline-primary').addClass('btn-primary');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -39,6 +40,7 @@
                     dataType: "JSON"
                 });
             } else {
+                $(".followButton").text('+ Follow').removeClass('btn-primary').addClass('btn-outline-primary');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

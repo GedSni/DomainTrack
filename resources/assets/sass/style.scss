@@ -51,17 +51,13 @@ th {
   margin-top: 50px;
 }
 
-.heart {
-  fill: white;
-  stroke: #ff396e;
-  stroke-width:1.5;
-  position: relative;
-  -webkit-transition: fill 0.5s; /* Safari */
-  transition: fill 0.5s;
+.followButton {
+  transition: all 0.5s;
+  margin-bottom: 10px;
 }
 
-.heart.filled {
-  fill: #ff396e;
+.followButton:focus {
+  box-shadow:none;
 }
 
 #facebook {
@@ -186,7 +182,6 @@ th {
   width: 100%;
   text-align: center;
 }
-
 
 // Mobile overlay IFrame loading indicator
 #loader {
