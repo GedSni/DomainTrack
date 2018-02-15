@@ -155,6 +155,11 @@ class DomainController extends Controller
             $lines = array_slice($lines,0, $index);
             return $lines;
         }
+        $index = $this->array_search_partial($lines, 'Access to .IN WHOIS information is provided to assist persons');
+        if ($index) {
+            unset($lines[$index]);
+            return $lines;
+        }
 
         $index = $this->array_search_partial($lines, 'Conditions of use for the whois service');
         if ($index) {
