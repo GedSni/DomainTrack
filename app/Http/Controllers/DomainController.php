@@ -150,6 +150,12 @@ class DomainController extends Controller
             $lines = array_slice($lines,0, $index);
             return $lines;
         }
+        $index = $this->array_search_partial($lines, 'The Registry contains ONLY');
+        if ($index) {
+            $lines = array_slice($lines,0, $index);
+            return $lines;
+        }
+
         $index = $this->array_search_partial($lines, 'Conditions of use for the whois service');
         if ($index) {
             return 'Not available';
