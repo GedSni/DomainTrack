@@ -14,6 +14,9 @@
     <link rel="favicon" href="{{{ asset('img/favicon.ico') }}}">
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 <div class="content">
@@ -33,6 +36,7 @@
                 </form>
             @endguest
         </div>
+        @include('flash-message')
     </div>
     @yield('content')
     <div class="container">

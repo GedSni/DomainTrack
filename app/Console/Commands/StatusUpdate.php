@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use App\Domain;
+use DOMDocument;
 
 class StatusUpdate extends Command
 {
@@ -70,7 +71,7 @@ class StatusUpdate extends Command
             //curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYPEER, true);
             //curl_setopt($curl_arr[$i], CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl_arr[$i], CURLOPT_AUTOREFERER, true);
-            curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl_arr[$i], CURLOPT_RETURNTRANSFER, false);
             curl_setopt($curl_arr[$i], CURLOPT_VERBOSE, true);
             curl_setopt($curl_arr[$i], CURLOPT_CONNECTTIMEOUT, 20);
             curl_setopt($curl_arr[$i], CURLOPT_TIMEOUT, 20);

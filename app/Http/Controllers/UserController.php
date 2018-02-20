@@ -5,9 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Domain;
 
 class UserController extends Controller
 {
+    public function multiple(Request $request)
+    {
+        $returnObject = null;
+        $names = $request->get('multipleDomains');
+        $names = preg_split('/\n|\r/', $names, -1, PREG_SPLIT_NO_EMPTY);
+        $data = Domain::whereIn('name', $names)->get();
+        foreach ($data as $domain) {
+            if (!$domain->favorited()) {
+                Auth::user()->favorites()->attach($domain->id);
+            }
+        }
+        if (count($data) == 0) {
+            return back()->with('error', 'No domain names were found');
+        } elseif (count($names) > count($data)) {
+            return back()->with('warning', 'Some of domain names were not found');
+        } elseif (count($names) == count($data)) {
+            return back()->with('success', 'All domains were added to your favorites');
+        }
+        return back();
+    }
+
     public function favorite($id)
     {
         Auth::user()->favorites()->attach($id);

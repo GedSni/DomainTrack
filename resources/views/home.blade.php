@@ -69,11 +69,11 @@
         </div>
         @if($action === "UserController@favorites")
             <button class="btn btn-outline-primary" id="multipleFavoriteButton">Add multiple favorites</button>
-            <form id="multipleFavoritesForm" method='post' action='{{ action('DomainController@search') }}'>
+            <form id="multipleFavoritesForm" method='post' action='{{ action('UserController@multiple') }}'>
                 {{ csrf_field() }}
                 <div class="form-group" id="addFavoritesForm">
                     <label for="multipleFavorites">Specify domain names separated by newlines.</label>
-                    <textarea placeholder="Add multiple favorites" class="form-control" id="multipleFavorites" rows="3"></textarea>
+                    <textarea name="multipleDomains" placeholder="Add multiple favorites" class="form-control" id="multipleFavorites" rows="3"></textarea>
                     <small id="passwordHelpBlock" class="form-text text-muted">
                         E.g. google.com
                     </small>

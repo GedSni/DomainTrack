@@ -414,7 +414,10 @@ class DomainController extends Controller
     {
         $port = 43;
         $timeout = 10;
-        $fp = @fsockopen($whoisserver, $port, $errno, $errstr, $timeout) or die("Socket Error " . $errno . " - " . $errstr);fputs($fp, $domain . "\r\n");
+        $fp = @fsockopen($whoisserver, $port, $errno, $errstr, $timeout);
+        if (!$fp) {
+            return "";
+        }
         $out = "";
         while (!feof($fp)){
             $out .= fgets($fp);
