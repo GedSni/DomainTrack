@@ -94,7 +94,7 @@
             $("body").css("overflow", "visible");
         });
         $(".followButton").click(function () {
-            var id = $("#domainId").text();
+            var id = $(this).attr('data-id');
             $(this).toggleClass("following");
             if ($(this).hasClass("following")) {
                 $(".followButton").text('Following').removeClass('btn-outline-primary').addClass('btn-primary');
@@ -118,6 +118,16 @@
                     data: { id: id },
                     dataType: "JSON"
                 });
+            }
+        });
+        $("#multipleFavoriteButton").click(function () {
+            $(this).toggleClass("on");
+            if ($(this).hasClass("on")) {
+                $("#multipleFavoriteButton").removeClass('btn-outline-primary').addClass('btn-primary');
+                $("#multipleFavoritesForm").toggle(true);
+            } else {
+                $("#multipleFavoriteButton").removeClass('btn-primary').addClass('btn-outline-primary');
+                $("#multipleFavoritesForm").toggle(false);
             }
         });
         checkWidth();

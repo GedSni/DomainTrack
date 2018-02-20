@@ -32,9 +32,13 @@ th {
 }
 
 // Custom styles
+#datePickerButton {
+  margin-top: 10px;
+}
+
 #tables {
   width:auto;
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .statusImg {
@@ -51,12 +55,24 @@ th {
   margin-top: 50px;
 }
 
-.followButton {
+#multipleFavoriteButton {
   transition: all 0.5s;
-  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
-.followButton:focus {
+#multipleFavoritesForm {
+  display: none;
+}
+
+#multipleFavoritesSubmit {
+  margin-top:10px;
+}
+
+.followButton, #multipleFavoriteButton  {
+  transition: all 0.5s;
+}
+
+.followButton:focus, #multipleFavoriteButton:focus {
   box-shadow:none;
 }
 
@@ -164,7 +180,6 @@ th {
   top: 65px;
   position: fixed;
   background-color: #ffffff;
-  overflow:auto;
   -webkit-overflow-scrolling:touch;
 }
 
@@ -216,6 +231,14 @@ th {
   #favButton {
     margin-bottom: 5px;
     margin-top: 5px;
+  }
+
+  #loginButton {
+    margin-top: 5px;
+  }
+
+  #searchDomainForm, #addFavoritesForm {
+    width: 100%;
   }
 }
 

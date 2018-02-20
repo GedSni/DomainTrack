@@ -61,10 +61,10 @@ class DataUpdate extends Command
         $this->info('Deleting temporary files..');
         unlink($path . '/tmpfile.zip');
         $this->info('Processing..');
-        $fileHandle = fopen("$path/top-1m.csv", 'r');
-        $fileDate = date("Y-m-d");
-        //$fileHandle = fopen("domains/2018-01-06.csv", 'r');
-        //$fileDate = '2018-01-06';
+        //$fileHandle = fopen("$path/top-1m.csv", 'r');
+        //$fileDate = date("Y-m-d");
+        $fileHandle = fopen("domains/2018-02-18.csv", 'r');
+        $fileDate = '2018-02-19';
         DB::beginTransaction();
         for ($i = 0; $i < $domains; $i++) {
             echo "( " . $i . " / " . $domains . " )\r";

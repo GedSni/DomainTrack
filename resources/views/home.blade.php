@@ -46,21 +46,46 @@
         </div>
     </div>
     <div id='mainDiv' class='container'>
-        <div>
-            <form method='get' action='{{ action($action) }}'>
-                <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
-                    <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
-                    Pick a date
-                </button>
+        <div class="row justify-content-between">
+            <div class="col-md-4">
+                <form method='get' action='{{ action($action) }}'>
+                    <button type='button' class='btn btn-outline-primary' id='datePickerButton'>
+                        <input id='datePicker' name='date' type='text' onchange='this.form.submit()'/>
+                        Pick a date
+                    </button>
+                </form>
+            </div>
+            <div class="col-md-4 order-first order-md-last">
+                <form method='post' action='{{ action('DomainController@search') }}'>
+                    {{ csrf_field() }}
+                    <div class="input-group" id="searchDomainForm">
+                        <input name="name" type="text" class="form-control" placeholder="Search for domain" aria-label="Search for domain" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button type='submit' class='btn btn-outline-primary' id='searchButton'>Search</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        @if($action === "UserController@favorites")
+            <button class="btn btn-outline-primary" id="multipleFavoriteButton">Add multiple favorites</button>
+            <form id="multipleFavoritesForm" method='post' action='{{ action('DomainController@search') }}'>
+                {{ csrf_field() }}
+                <div class="form-group" id="addFavoritesForm">
+                    <label for="multipleFavorites">Specify domain names separated by newlines.</label>
+                    <textarea placeholder="Add multiple favorites" class="form-control" id="multipleFavorites" rows="3"></textarea>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        E.g. google.com
+                    </small>
+                    <button type='submit' class='btn btn-outline-primary' id='multipleFavoritesSubmit'>Add</button>
+                </div>
             </form>
-        </div>
-        <div>
-            <select id='tables' class='form-control'>
-                <option value='Day'>Day</option>
-                <option value='Week'>Week</option>
-                <option selected value='Month'>Month</option>
-            </select>
-        </div>
+        @endif
+        <select id='tables' class='form-control'>
+            <option value='Day'>Day</option>
+            <option value='Week'>Week</option>
+            <option selected value='Month'>Month</option>
+        </select>
         <div class="row justify-content-center" id='tablesDiv'>
             @if (isset($dataDay[0]->diff) && isset($dataDay[0]->diff) && isset($dataDay[0]->diff))
                 <div class='dayTableDiv col-4'>

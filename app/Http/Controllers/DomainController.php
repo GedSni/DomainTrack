@@ -46,10 +46,6 @@ class DomainController extends Controller
             $data->startDate = $data->min('date');
             $data->minRank = $data->min('rank');
             $data->maxRank = $data->max('rank');
-            $data[count($data)-1]->delta = 0;
-            for ($i = 0; $i < count($data)-1; $i++) {
-                $data[$i]->delta = $data[$i+1]->rank - $data[$i]->rank;
-            }
             $history = \Lava::DataTable();
             $history->addDateColumn('Date');
             $history->addNumberColumn('Rank');
@@ -67,11 +63,23 @@ class DomainController extends Controller
                     'direction' => -1,
                 ],
             ]);
+            if (Cache::has($name.' dns')) {
+                $dns = Cache::get($name.' dns');
+            } else {
+                if(checkdnsrr( $name,"ANY")) {
+                    $dns = dns_get_record($name, DNS_ANY);
+                    Cache::put($name.' dns', $dns, 1440);
+                } else {
+                    $dns = null;
+                }
+            }
+            $data->dns = $dns;
             if (Cache::has($name)) {
                 $whoIs = Cache::get($name);
             } else {
                 $whoIs = $this->whoIsData($name);
                 $whoIs = $this->formatWhoIs($whoIs);
+                Cache::put($name, $whoIs, 1440);
                 return view('domain')
                     ->with('data', $data)
                     ->with('whoIs', $whoIs);
@@ -82,6 +90,22 @@ class DomainController extends Controller
         }
         return view('domain')
             ->with('data', $data);
+    }
+
+    public function search(Request $request)
+    {
+        $returnObject = null;
+        $name = $request->get('name');
+        $data= DB::table('domains')
+            ->select('domains.name')
+            ->get();
+        foreach ($data as $domain) {
+            $pos = strpos($domain->name, $name);
+            if($pos !== false) {
+                return redirect()->route('domain', ['name' => $domain->name]);
+            }
+        }
+        return redirect()->route('domain', ['name' => $name]);
     }
 
     private function getData($interval)
@@ -116,7 +140,7 @@ class DomainController extends Controller
             return Cache::get($key);
         } else {
             $data = $this->getData($key);
-            Cache::put($key, $data, 600);
+            Cache::put($key, $data, 1440);
             return $data;
         }
     }
