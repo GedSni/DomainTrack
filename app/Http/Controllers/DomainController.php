@@ -94,18 +94,22 @@ class DomainController extends Controller
 
     public function search(Request $request)
     {
-        $returnObject = null;
         $name = $request->get('name');
-        $data= DB::table('domains')
-            ->select('domains.name')
-            ->get();
-        foreach ($data as $domain) {
-            $pos = strpos($domain->name, $name);
-            if($pos !== false) {
-                return redirect()->route('domain', ['name' => $domain->name]);
-            }
-        }
-        return redirect()->route('domain', ['name' => $name]);
+        $yesterday = date("Y-m-d", strtotime("-1 day"));
+        $lastMonday = date("Y-m-d", strtotime("-1 week"));
+        $firstMonthDay = date("Y-m-d", strtotime("-1 month"));
+        $dataDay = $this->getDataByName($yesterday, $name);
+        $dataWeek = $this->getDataByName($lastMonday, $name);
+        $dataMonth = $this->getDataByName($firstMonthDay, $name);
+        $action = 'DomainController@index';
+        return view('home')
+            ->with('dataDay', $dataDay)
+            ->with('dataWeek', $dataWeek)
+            ->with('dataMonth', $dataMonth)
+            ->with('yesterday', $yesterday)
+            ->with('lastMonday', $lastMonday)
+            ->with('firstMonthDay', $firstMonthDay)
+            ->with('action', $action);
     }
 
     private function getData($interval)
@@ -120,6 +124,22 @@ class DomainController extends Controller
                                   order by diff desc
                                   LIMIT 50"
             , array( 'interval' => $interval));
+        return $data;
+    }
+
+    private function getDataByName($interval, $name)
+    {
+        $name = '%'.$name.'%';
+        $data = DB::select("select d1.id, d1.name, d1.status, r1.rank, r1.date,
+                                  (select r2.rank
+                                  from domains as d2, ranks as r2 
+                                  where d2.id = r2.domain_id and d2.id = d1.id and r2.date = :interval)
+                                   - r1.rank as diff
+                                  from domains as d1, ranks as r1
+                                  where d1.name like :name and d1.id = r1.domain_id and r1.date = (select MAX(ranks.date) from ranks)
+                                  order by diff desc
+                                  LIMIT 50"
+            , array( 'interval' => $interval, 'name' => $name));
         return $data;
     }
 
@@ -201,6 +221,7 @@ class DomainController extends Controller
             if (strpos($string, $keyword) !== FALSE)
                 return $index;
         }
+        return false;
     }
 
     private function whoIsData($domain)

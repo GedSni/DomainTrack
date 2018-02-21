@@ -36,7 +36,7 @@
                 </form>
             @endguest
         </div>
-        @include('flash-message')
+        @include('layouts.flash-message')
     </div>
     @yield('content')
     <div class="container">
