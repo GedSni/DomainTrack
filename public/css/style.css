@@ -10020,6 +10020,7 @@ th {
 
 #datePickerButton {
   margin-top: 10px;
+  margin-right: 5px;
 }
 
 #tables {
@@ -10041,10 +10042,15 @@ th {
   margin-top: 50px;
 }
 
+#searchDomainForm {
+  margin-top: 10px;
+}
+
 #multipleFavoriteButton {
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
   margin-top: 10px;
+  margin-right: 5px;
 }
 
 #multipleFavoritesForm {
@@ -10275,11 +10281,6 @@ th {
 
   #loginButton {
     margin-top: 5px;
-  }
-
-  #searchDomainForm,
-  #addFavoritesForm {
-    width: 100%;
   }
 }
 

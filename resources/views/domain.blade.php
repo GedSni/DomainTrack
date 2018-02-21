@@ -106,23 +106,56 @@
                     </div>
                     <hr>
                     <h1 id="dnsInformation">DNS information</h1>
-                    <div class="card">
-                        <ul class="list-group list-group-flush">
-                            @if (isset($data->dns))
-                                @foreach($data->dns as $array)
-                                    @foreach($array as $key => $value)
-                                        @if(is_array($value))
-                                            @foreach($value as $valueItem)
-                                                <li class="list-group-item">{{ $key." : ".$valueItem }}</li>
-                                            @endforeach
-                                        @else
-                                            <li class="list-group-item">{{ $key." : ".$value }}</li>
-                                        @endif
+                        @if (isset($data->dns))
+                            <table class='table'>
+                                <thead>
+                                <tr>
+                                    <th>Host</th>
+                                    <th>Class</th>
+                                    <th>TTL</th>
+                                    <th>Type</th>
+                                    <th>Value</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($data->dns as $array)
+                                        <tr>
+                                            <td>
+                                                @if(isset($array['host']))
+                                                    {{$array['host']}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($array['class']))
+                                                    {{$array['class']}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($array['ttl']))
+                                                    {{$array['ttl']}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($array['type']))
+                                                    {{$array['type']}}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if(isset($array['target']))
+                                                    {{$array['target']}}
+                                                @elseif(isset($array['ip']))
+                                                    {{$array['ip']}}
+                                                @elseif(isset($array['mname']) && isset($array['rname']))
+                                                    {{$array['mname']}}, {{$array['rname']}}
+                                                @endif
+                                            </td>
+                                        </tr>
                                     @endforeach
-                                @endforeach
-                            @else
-                                <li class="list-group-item">Not available</li>
-                            @endif
+                                </tbody>
+                            </table>
+                        @else
+                            <h4>Not available</h4>
+                        @endif
                         </ul>
                     </div>
                 </main>
