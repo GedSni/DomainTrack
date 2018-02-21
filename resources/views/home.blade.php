@@ -45,7 +45,7 @@
             </div>
         </div>
         <div class="row justify-content-center" id='tablesDiv'>
-            @if (isset($dataDay[0]->diff) && isset($dataDay[0]->diff) && isset($dataDay[0]->diff))
+            @if (isset($dataDay[0]->diff) || isset($dataWeek[0]->diff) || isset($dataMonth[0]->diff))
                 <div class='dayTableDiv col-4'>
                     <p class='tableHead'>Day</p>
                     @if (isset($dataDay[0]->diff))
@@ -55,7 +55,7 @@
                                 <thead>
                                     <tr>
                                         <th>Domain</th>
-                                        <th>Rank</th>
+                                        <th style=" white-space: nowrap;" class="rankTh"><i id="sortIcon" class="fas fa-angle-right"></i> Rank</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -102,7 +102,7 @@
                                 <thead>
                                 <tr>
                                     <th>Domain</th>
-                                    <th>Rank</th>
+                                    <th style=" white-space: nowrap;" class="rankTh"><i id="sortIcon" class="fas fa-angle-right"></i> Rank</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -149,7 +149,7 @@
                                 <thead>
                                 <tr>
                                     <th>Domain</th>
-                                    <th>Rank</th>
+                                    <th style=" white-space: nowrap;" class="rankTh"><i id="sortIcon" class="fas fa-angle-right"></i> Rank</th>
                                     <th></th>
                                     <th></th>
                                 </tr>

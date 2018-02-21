@@ -134,6 +134,36 @@
         $(window).resize(function () {
             checkWidth();
         });
+        $('.rankTh').click(function () {
+            var table = $(this).parents('table').eq(0);
+            var icon = table.find('#sortIcon');
+            if (icon.hasClass('fa-angle-right')) {
+                icon.removeClass('fa-angle-right');
+            }
+            if (icon.hasClass('fa-angle-up')) {
+                icon.removeClass('fa-angle-up').addClass('fa-angle-down');
+            } else {
+                icon.removeClass('fa-angle-down').addClass('fa-angle-up');
+            }
+            var rows = table.find('tr:gt(0)').toArray().sort(comparer($(this).index()));
+            this.asc = !this.asc;
+            if (!this.asc) {
+                rows = rows.reverse();
+            }
+            for (var i = 0; i < rows.length; i++) {
+                table.append(rows[i]);
+            }
+        });
+        function comparer(index) {
+            return function (a, b) {
+                var valA = getCellValue(a, index),
+                    valB = getCellValue(b, index);
+                return $.isNumeric(valA) && $.isNumeric(valB) ? valA - valB : valA.localeCompare(valB);
+            };
+        }
+        function getCellValue(row, index) {
+            return $(row).children('td').eq(index).text();
+        }
     });
 
     function checkWidth() {
