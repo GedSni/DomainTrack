@@ -119,37 +119,39 @@
                                 </thead>
                                 <tbody>
                                     @foreach($data->dns as $array)
-                                        <tr>
-                                            <td>
-                                                @if(isset($array['host']))
-                                                    {{$array['host']}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($array['class']))
-                                                    {{$array['class']}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($array['ttl']))
-                                                    {{$array['ttl']}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($array['type']))
-                                                    {{$array['type']}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(isset($array['target']))
-                                                    {{$array['target']}}
-                                                @elseif(isset($array['ip']))
-                                                    {{$array['ip']}}
-                                                @elseif(isset($array['mname']) && isset($array['rname']))
-                                                    {{$array['mname']}}, {{$array['rname']}}
-                                                @endif
-                                            </td>
-                                        </tr>
+                                        @if(isset($array['mname']) || isset($array['rname']) || isset($array['target']) || isset($array['ip']))
+                                            <tr>
+                                                <td>
+                                                    @if(isset($array['host']))
+                                                        {{$array['host']}}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(isset($array['class']))
+                                                        {{$array['class']}}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(isset($array['ttl']))
+                                                        {{$array['ttl']}}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(isset($array['type']))
+                                                        {{$array['type']}}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(isset($array['target']))
+                                                        {{$array['target']}}
+                                                    @elseif(isset($array['ip']))
+                                                        {{$array['ip']}}
+                                                    @elseif(isset($array['mname']) && isset($array['rname']))
+                                                        {{$array['mname']}}, {{$array['rname']}}
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

@@ -67,13 +67,12 @@ class DomainController extends Controller
                 $dns = Cache::get($name.' dns');
             } else {
                 if(checkdnsrr( $name,"ANY")) {
-                    $dns = dns_get_record('cielo.com.br', DNS_ANY);
+                    $dns = dns_get_record($name, DNS_ANY);
                     Cache::put($name.' dns', $dns, 1440);
                 } else {
                     $dns = null;
                 }
             }
-            dd($dns);
             $data->dns = $dns;
             if (Cache::has($name)) {
                 $whoIs = Cache::get($name);
